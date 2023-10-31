@@ -1,14 +1,67 @@
 ﻿<UserControl x:Class="Musify.Views.Albums.AlbumCreateWindow"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Musify.Views.Albums"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:local="clr-namespace:Musify.Views.Albums" xmlns:local1="clr-namespace:Musify.ValidationRules"
              mc:Ignorable="d" 
-             Background="#e9e9e9"
-             d:DesignHeight="100" d:DesignWidth="300">
+        Background="#e9e9e9"
+        d:DesignHeight="250" d:DesignWidth="470">
+    <UserControl.Resources>
+        <Style x:Key="invalid" TargetType="TextBox">
+            <Setter Property="BorderBrush" Value="Red"/>
+        </Style>
+    </UserControl.Resources>
     <Grid>
-        <Label Content="Album Create" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
-        <Button Content="Go to details" Padding="5" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Center" Click="Button_Click"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="150"></ColumnDefinition>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition Width="130"></ColumnDefinition>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Content="Create new Album" HorizontalAlignment="Center" FontSize="20" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"  />
+        <Label x:Name="lblTitle" Content="Title " HorizontalAlignment="Right" Grid.Row="3"  Grid.Column="1"/>
+        <Label x:Name="lblReleaseYr" Content="Release Year " HorizontalAlignment="Right" Grid.Row="4"  Grid.Column="1"/>
+        <Label x:Name="lblImage" Content="Image " HorizontalAlignment="Right" Grid.Row="5"  Grid.Column="1"/>
+        <TextBox x:Name="txtTitle" Grid.Row="3" Grid.Column="3" Height="20">
+            <TextBox.Text>
+                <Binding Path="Title" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <local1:NotEmptyValidation ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBox x:Name="txtReleaseYr" Grid.Row="4" Grid.Column="3" Height="20">
+            <TextBox.Text>
+                <Binding Path="ReleaseYear" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <local1:NotEmptyValidation ValidatesOnTargetUpdated="True"/>
+                        <local1:NotNumberValidation ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <Button x:Name="txtCoverImg" Grid.Row="5" Grid.Column="3" Height="20" Content="Browse" Command="{Binding OnSelectImage}"></Button>
+        <Button Content="Save" Grid.Row="7" Grid.Column="3" Background="LightGreen" Command="{Binding OnSaveAlbum}" />
+        <Button Content="Back" Grid.Row="7" Grid.Column="1" Background="LightGray" />
+        <Image x:Name="imgCoverPreview" Grid.Row="3" Grid.Column="5" Grid.RowSpan="5" />
     </Grid>
 </UserControl>

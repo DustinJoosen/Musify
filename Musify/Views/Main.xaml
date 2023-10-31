@@ -5,8 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Musify.Views"
         mc:Ignorable="d"
+        Background="#e9e9e9"
         Title="Musify" Height="450" Width="800">
     <Grid>
-        <ContentControl x:Name="contentControl" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="110"></ColumnDefinition>
+            <ColumnDefinition Width="50"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <ContentControl x:Name="navControl" Grid.Column="0" />
+        <ContentControl x:Name="contentControl" Grid.Column="2" />
     </Grid>
 </Window>

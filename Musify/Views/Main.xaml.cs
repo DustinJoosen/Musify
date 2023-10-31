@@ -1,4 +1,5 @@
-﻿using Musify.Views.Albums;
+﻿using Musify.ViewModels;
+using Musify.Views.Albums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,19 +25,30 @@ namespace Musify.Views
         private AlbumCreateWindow _albumCreateWindow;
         private AlbumDetailsWindow _albumDetailsWindow;
 
-        // Delegates.
-        private delegate void WindowSender();
-
         public Main()
         {
             InitializeComponent();
+
+            // Set navbar
+            this.navControl.Content = new NavigationWindow();
+            var navigationVM = new NavigationWindowViewModel();
+
+            navigationVM.OnExitProgram += (obj, sen) => Environment.Exit(0);
+            navigationVM.OnGoToAlbums += (obj, sen) => this.SetWindow(this._albumDetailsWindow);
+            navigationVM.OnGoToSongs += (obj, sen) => this.SetWindow(this._albumCreateWindow);
+
+            navigationVM.LoadEvents();
+
+            this.navControl.DataContext = navigationVM;
 
             // Define all screen constants.
             this._albumCreateWindow = new();
             this._albumDetailsWindow = new();
 
-            // Define all events.
+            // Define all events (minus navbar).
             this._albumCreateWindow.GoToMainWindow += (sender, args) => this.SetWindow(this._albumDetailsWindow);
+            this._albumCreateWindow.DataContext = new AlbumViewModel(this._albumCreateWindow);
+
             this._albumDetailsWindow.GoToMainWindow += (sender, args) => this.SetWindow(this._albumCreateWindow);
 
             // The startup usercontrol. When made, add the dashboard here.
