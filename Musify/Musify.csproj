@@ -11,4 +11,8 @@
     <Resource Include="Lib\logo.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Lib\Uploads\" />
+  </ItemGroup>
+
 </Project>

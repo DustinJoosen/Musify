@@ -47,7 +47,7 @@ namespace Musify.Views
 
             // Define all events (minus navbar).
             this._albumCreateWindow.GoToMainWindow += (sender, args) => this.SetWindow(this._albumDetailsWindow);
-            this._albumCreateWindow.DataContext = new AlbumViewModel();
+            this._albumCreateWindow.DataContext = new AlbumViewModel(this._albumCreateWindow);
 
             this._albumDetailsWindow.GoToMainWindow += (sender, args) => this.SetWindow(this._albumCreateWindow);
 

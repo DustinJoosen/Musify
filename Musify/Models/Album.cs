@@ -1,6 +1,7 @@
 ﻿using Musify.Utility;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,13 +11,13 @@ namespace Musify.Models
 {
     public class Album : NotifyPropertyChanged
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         private string _title;
         public string Title
         {
             get => this._title;
-            set  {
+            set {
                 this._title = value;
                 RaisePropertyChanged(nameof(Title));
             }
@@ -26,7 +27,10 @@ namespace Musify.Models
         public int ReleaseYear
         {
             get => this._releaseYear;
-            set => this._releaseYear = value;
+            set {
+                this._releaseYear = value;
+                RaisePropertyChanged(nameof(ReleaseYear));
+            }
         }
 
         private string _coverImage;
