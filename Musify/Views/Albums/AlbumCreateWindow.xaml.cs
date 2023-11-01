@@ -22,8 +22,6 @@ namespace Musify.Views.Albums
     /// </summary>
     public partial class AlbumCreateWindow : UserControl
     {
-        public event EventHandler GoToMainWindow;
-
         public AlbumCreateWindow()
         {
             InitializeComponent();

@@ -20,17 +20,9 @@ namespace Musify.Views.Albums
     /// </summary>
     public partial class AlbumDetailsWindow : UserControl
     {
-        public event EventHandler GoToMainWindow;
-
         public AlbumDetailsWindow()
         {
             InitializeComponent();
         }
-        
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            this.GoToMainWindow?.Invoke(this, EventArgs.Empty);
-        }
-
     }
 }

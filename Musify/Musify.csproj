@@ -8,11 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Resource Include="Lib\logo.png" />
+    <None Remove="Lib\Uploads\268eda9dcff8402984790eb43b967dc2.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Lib\Uploads\" />
+    <Resource Include="Lib\logo.png" />
+    <Resource Include="Lib\Uploads\*" />
   </ItemGroup>
 
 </Project>
