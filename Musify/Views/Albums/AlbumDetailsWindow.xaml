@@ -6,9 +6,51 @@
              xmlns:local="clr-namespace:Musify.Views.Albums"
              mc:Ignorable="d" 
              Background="#e9e9e9"
-             d:DesignHeight="100" d:DesignWidth="300">
+             d:DesignHeight="280" d:DesignWidth="400">
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Control.Background" Value="#333"></Setter>
+            <Setter Property="Control.Foreground" Value="white"></Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
-        <Label Content="Album Details" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
-        <Button Content="Go to create" Padding="5" HorizontalAlignment="Left" Margin="12,0,0,0" VerticalAlignment="Center" Click="Button_Click"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="180"></ColumnDefinition>
+            <ColumnDefinition Width="50"></ColumnDefinition>
+            <ColumnDefinition Width="90"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Content="{Binding Title}" FontSize="25" FontWeight="Bold" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"></Label>
+        <Label Content="{Binding DetailPageUnderline}" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Margin="0,32,0,0" Grid.RowSpan="2">
+        </Label>
+        <Label Content="Songs" Grid.Row="4" Grid.Column="1" FontWeight="Bold"></Label>
+        <ListBox Grid.Row="5" Grid.Column="1">
+            <ListBoxItem>Test</ListBoxItem>
+            <ListBoxItem>Test</ListBoxItem>
+            <ListBoxItem>Test</ListBoxItem>
+            <ListBoxItem>Test</ListBoxItem>
+            <ListBoxItem>Test</ListBoxItem>
+            <ListBoxItem>Test</ListBoxItem>
+            <ListBoxItem>Test</ListBoxItem>
+            <ListBoxItem>Test</ListBoxItem>
+            <ListBoxItem>Test</ListBoxItem>
+            <ListBoxItem>Test</ListBoxItem>
+            <ListBoxItem>Test</ListBoxItem>
+            <ListBoxItem>Test</ListBoxItem>
+        </ListBox>
+        <Image Source="{Binding FullImagePath}" Grid.Row="1" VerticalAlignment="Top"  Grid.RowSpan="3" Grid.ColumnSpan="2" Grid.Column="3" />
+        <Button Content="Edit" Grid.Row="5" Grid.Column="3" Height="30" Width="80" VerticalAlignment="Bottom" />
+        <Button Content="Back" Grid.Row="5" Grid.Column="4" Height="30" Width="60" VerticalAlignment="Bottom" />
     </Grid>
 </UserControl>

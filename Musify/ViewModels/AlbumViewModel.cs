@@ -19,15 +19,47 @@ namespace Musify.ViewModels
 {
     public class AlbumViewModel : Album
     {
+        // Commands
         public ICommand OnSaveAlbum { get; set; }
         public ICommand OnSelectImage { get; set; }
-        
-        private AlbumCreateWindow _window;
+
+
+        // Full Properties
+        private AlbumCreateWindow _createWindow;
+        public AlbumCreateWindow CreateWindow
+        {
+            get => this._createWindow;
+            set => this._createWindow = value;
+        }
+
+        private Guid _id;
+        public Guid Id
+        {
+            get => this._id;
+            set => this._id = value;
+        }
+
+        public Album Album
+        {
+            set
+            {
+                this.Title = value.Title;
+                this.ReleaseYear = value.ReleaseYear;
+                this.CoverImage = value.CoverImage;
+            }
+        }
+
+        // Useful fields
         private string _selectedCoverImagePath;
 
-        public AlbumViewModel(AlbumCreateWindow window)
+
+        // Methods
+        public AlbumViewModel(Guid id = default)
         {
-            this._window = window;
+            if (id != default)
+            {
+                this.Id = id;
+            }
 
             this.Title = "Cool Title";
             this.ReleaseYear = 2020;
@@ -35,12 +67,32 @@ namespace Musify.ViewModels
 
             this.OnSaveAlbum = new RelayCommand(SaveAlbum, (obj) => true);
             this.OnSelectImage = new RelayCommand(SelectImage, (obj) => true);
+            this.RetrieveAlbum();
+        }
+
+
+        // Retrieves the album out of the json, based on the Id property.
+        public void RetrieveAlbum()
+        {
+            Task.Run(async () =>
+            {
+                var albums = await JsonHandler.GetAll<Album>();
+                if (albums == null)
+                    return;
+
+                var selected = from album in albums
+                               where album.Id.Equals(this.Id)
+                               select album;
+
+                this.Album = selected?.FirstOrDefault() ?? new();
+
+            });
         }
 
         public async void SaveAlbum(object parameter)
         {
-            if (Validation.GetHasError(this._window.txtTitle)
-                || Validation.GetHasError(this._window.txtReleaseYr))
+            if (Validation.GetHasError(this.CreateWindow.txtTitle)
+                || Validation.GetHasError(this.CreateWindow.txtReleaseYr))
                 return;
 
             // If no image browsed, use notfound.png
@@ -81,7 +133,7 @@ namespace Musify.ViewModels
             }
 
             // Display the image in the preview
-            this._window.imgCoverPreview.Source = new BitmapImage(new Uri(dialog.FileName));
+            this.CreateWindow.imgCoverPreview.Source = new BitmapImage(new Uri(dialog.FileName));
 
             // Sets filename.
             this._selectedCoverImagePath = dialog.FileName;
@@ -93,7 +145,7 @@ namespace Musify.ViewModels
             this.ReleaseYear = 0;
             this.Title = "";
             this.CoverImage = "";
-            this._window.imgCoverPreview.Source = null;
+            this.CreateWindow.imgCoverPreview.Source = null;
         }
     }
 }

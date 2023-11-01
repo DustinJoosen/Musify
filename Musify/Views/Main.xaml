@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Musify.Views"
         mc:Ignorable="d"
         Background="#e9e9e9"
-        Title="Musify" Height="450" Width="800">
+        Title="Musify" Height="380" Width="650">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="110"></ColumnDefinition>
