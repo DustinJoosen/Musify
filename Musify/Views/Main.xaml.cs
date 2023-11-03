@@ -32,8 +32,30 @@ namespace Musify.Views
         public Main()
         {
             InitializeComponent();
+            InitializeNavbar();
 
-            // Set navbar
+            // Define all screen constants and their view models.
+            this._albumCreateWindow = new();
+            this._albumDetailsWindow = new();
+            this._songCreateWindow = new();
+            this._songDetailsWindow = new();
+
+            var acvm = new AlbumCreateViewModel() { CreateWindow = this._albumCreateWindow };
+            var advm = new AlbumDetailViewModel(Guid.Parse("b40299e3-fbf7-4dcf-b595-f1f00992e87d"));
+            var scvm = new SongCreateViewModel();
+            var sdvm = new SongDetailViewModel(Guid.Parse("f3a621c5-ef61-444d-ae90-bd0d65f10984"));
+
+            this._albumCreateWindow.DataContext = acvm;
+            this._albumDetailsWindow.DataContext = advm;
+            this._songCreateWindow.DataContext = scvm;
+            this._songDetailsWindow.DataContext = sdvm;
+
+            // The startup usercontrol. When made, add the dashboard here.
+            this.SetWindow(this._albumCreateWindow);
+        }
+
+        private void InitializeNavbar()
+        {
             this.navControl.Content = new NavigationWindow();
             var navigationVM = new NavigationWindowViewModel();
 
@@ -44,29 +66,6 @@ namespace Musify.Views
             navigationVM.LoadEvents();
 
             this.navControl.DataContext = navigationVM;
-
-            // Define all screen constants.
-            this._albumCreateWindow = new();
-            this._albumDetailsWindow = new();
-            this._songCreateWindow = new();
-            this._songDetailsWindow = new();
-
-            // Define all events (minus navbar).
-            var avm = new AlbumViewModel(Guid.Parse("c90db429-b0ce-4b58-8122-41b9d6b316ce"))
-            {
-                CreateWindow = this._albumCreateWindow,
-            };
-
-            var scvm = new SongCreateViewModel();
-            var sdvm = new SongDetailViewModel(Guid.Parse("f3a621c5-ef61-444d-ae90-bd0d65f10984"));
-
-            this._albumCreateWindow.DataContext = avm;
-            this._albumDetailsWindow.DataContext = avm;
-            this._songCreateWindow.DataContext = scvm;
-            this._songDetailsWindow.DataContext = sdvm;
-
-            // The startup usercontrol. When made, add the dashboard here.
-            this.SetWindow(this._songCreateWindow);
         }
 
         public void SetWindow(UserControl? control) => 

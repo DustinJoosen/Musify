@@ -15,7 +15,6 @@ namespace Musify.Utility
 {
     public static class JsonHandler
     {
-
         // Generic json options.
         private static readonly JsonSerializerOptions _options = new()
         {
@@ -48,11 +47,11 @@ namespace Musify.Utility
         }
 
         // Saves given model.
-        public static async Task Add<T>(T model)
+        public static async Task<bool> Add<T>(T model)
         {
             // Won't save 'nothing'.
             if (model == null)
-                return;
+                return false;
 
             // Get all current models, and add the new one.
             var models = await JsonHandler.GetAll<T>();
@@ -65,11 +64,11 @@ namespace Musify.Utility
             try
             {
                 string json = JsonSerializer.Serialize(models, JsonHandler._options);
-                await JsonHandler.SaveFileContents(filepath, json);
+                return await JsonHandler.SaveFileContents(filepath, json);
             }
             catch (JsonException ex)
             {
-                return;
+                return false;
             }
         }
 

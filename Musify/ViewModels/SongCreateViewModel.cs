@@ -46,7 +46,7 @@ namespace Musify.ViewModels
             int duration = (this.DurationMinutes * 60) + this.DurationSeconds;
 
             // Add the song.
-            await JsonHandler.Add<Song>(new()
+            bool succeeded = await JsonHandler.Add<Song>(new()
             {
                 Title = this.Title,
                 Artist = this.Artist,
@@ -55,7 +55,24 @@ namespace Musify.ViewModels
                 Duration = duration
             });
 
-            MessageBox.Show($"Successfully added song ({this.Title})");
+            if (succeeded)
+            {
+                MessageBox.Show($"Successfully added album ({this.Title})");
+                this.Reset();
+            }
+            else
+            {
+                MessageBox.Show("Something went wrong. Please try again");
+            }
+        }
+
+        public void Reset()
+        {
+            this.Title = string.Empty;
+            this.Artist = string.Empty;
+            this.Genre = string.Empty;
+            this.ReleaseDate = default;
+            this.Duration = 0;
         }
     }
 }

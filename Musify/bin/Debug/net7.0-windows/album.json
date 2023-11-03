@@ -1,0 +1,37 @@
+﻿[
+  {
+    "Id": "b40299e3-fbf7-4dcf-b595-f1f00992e87d",
+    "Title": "Main album",
+    "ReleaseYear": 2021,
+    "CoverImage": "c2bfc691fae449cd92469c55a9e0819f.png",
+    "Songs": [
+      {
+        "Id": "c12f5bf3-2aec-4c39-b866-c47bc5e24d13",
+        "Title": "Running in the dungeon 1",
+        "Artist": "Tango",
+        "Genre": "Goth",
+        "ReleaseDate": "2023-11-01T00:00:00+01:00",
+        "Duration": 273,
+        "Albums": null
+      },
+      {
+        "Id": "c12f5bf3-2aec-4c39-b866-e47bc5e24d13",
+        "Title": "Running in the dungeon 2",
+        "Artist": "Tango",
+        "Genre": "Goth",
+        "ReleaseDate": "2023-11-01T00:00:00+01:00",
+        "Duration": 273,
+        "Albums": null
+      },
+      {
+        "Id": "c12f5bf3-2aec-4c39-b866-c47ccccccccc",
+        "Title": "6969",
+        "Artist": "NSP",
+        "Genre": "Goth",
+        "ReleaseDate": "2023-11-01T00:00:00+01:00",
+        "Duration": 458,
+        "Albums": null
+      }
+    ]
+  }
+]
