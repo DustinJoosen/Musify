@@ -6,25 +6,23 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace Musify.ViewModels
-{
-    public class AlbumViewModel : Album
+namespace Musify.ViewModels {
+
+    public class AlbumCreateViewModel : Album
     {
         // Commands
         public ICommand OnSaveAlbum { get; set; }
         public ICommand OnSelectImage { get; set; }
 
 
-        // Full Properties
+        // Properties
         private AlbumCreateWindow _createWindow;
         public AlbumCreateWindow CreateWindow
         {
@@ -32,61 +30,12 @@ namespace Musify.ViewModels
             set => this._createWindow = value;
         }
 
-        private Guid _id;
-        public Guid Id
-        {
-            get => this._id;
-            set => this._id = value;
-        }
-
-        public Album Album
-        {
-            set
-            {
-                this.Title = value.Title;
-                this.ReleaseYear = value.ReleaseYear;
-                this.CoverImage = value.CoverImage;
-            }
-        }
-
-        // Useful fields
         private string _selectedCoverImagePath;
 
-
-        // Methods
-        public AlbumViewModel(Guid id = default)
+        public AlbumCreateViewModel()
         {
-            if (id != default)
-            {
-                this.Id = id;
-            }
-
-            this.Title = "Cool Title";
-            this.ReleaseYear = 2020;
-            this.CoverImage = "notfound.png";
-
             this.OnSaveAlbum = new RelayCommand(SaveAlbum, (obj) => true);
             this.OnSelectImage = new RelayCommand(SelectImage, (obj) => true);
-            this.RetrieveAlbum();
-        }
-
-
-        // Retrieves the album out of the json, based on the Id property.
-        public void RetrieveAlbum()
-        {
-            Task.Run(async () =>
-            {
-                var albums = await JsonHandler.GetAll<Album>();
-                if (albums == null)
-                    return;
-
-                var selected = from album in albums
-                               where album.Id.Equals(this.Id)
-                               select album;
-
-                this.Album = selected?.FirstOrDefault() ?? new();
-
-            });
         }
 
         public async void SaveAlbum(object parameter)
@@ -110,15 +59,24 @@ namespace Musify.ViewModels
             }
 
             // Add the album.
-            await JsonHandler.Add<Album>(new()
+            bool succeeded = await JsonHandler.Add<Album>(new()
             {
                 Title = this.Title,
                 ReleaseYear = this.ReleaseYear,
-                CoverImage = this.CoverImage
+                CoverImage = this.CoverImage,
+                Songs = this.Songs
             });
 
-            MessageBox.Show($"Successfully added album ({this.Title})");
-            this.Reset();
+            if (succeeded)
+            {
+                MessageBox.Show($"Successfully added album ({this.Title})");
+                this.Reset();
+            }
+            else
+            {
+                MessageBox.Show("Something went wrong. Please try again");
+            }
+
         }
 
         public async void SelectImage(object parameter)
@@ -143,10 +101,11 @@ namespace Musify.ViewModels
         public void Reset()
         {
             this.ReleaseYear = 0;
-            this.Title = "";
-            this.CoverImage = "";
+            this.Title = string.Empty;
+            this.CoverImage = string.Empty;
+            this.Songs.Clear();
             this.CreateWindow.imgCoverPreview.Source = null;
         }
+
     }
 }
-

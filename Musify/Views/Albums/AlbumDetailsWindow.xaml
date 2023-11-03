@@ -35,20 +35,7 @@
         <Label Content="{Binding DetailPageUnderline}" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Margin="0,32,0,0" Grid.RowSpan="2">
         </Label>
         <Label Content="Songs" Grid.Row="4" Grid.Column="1" FontWeight="Bold"></Label>
-        <ListBox Grid.Row="5" Grid.Column="1">
-            <ListBoxItem>Test</ListBoxItem>
-            <ListBoxItem>Test</ListBoxItem>
-            <ListBoxItem>Test</ListBoxItem>
-            <ListBoxItem>Test</ListBoxItem>
-            <ListBoxItem>Test</ListBoxItem>
-            <ListBoxItem>Test</ListBoxItem>
-            <ListBoxItem>Test</ListBoxItem>
-            <ListBoxItem>Test</ListBoxItem>
-            <ListBoxItem>Test</ListBoxItem>
-            <ListBoxItem>Test</ListBoxItem>
-            <ListBoxItem>Test</ListBoxItem>
-            <ListBoxItem>Test</ListBoxItem>
-        </ListBox>
+        <ListBox ItemsSource="{Binding Songs}" Grid.Row="5" Grid.Column="1"></ListBox>
         <Image Source="{Binding FullImagePath}" Grid.Row="1" VerticalAlignment="Top"  Grid.RowSpan="3" Grid.ColumnSpan="2" Grid.Column="3" />
         <Button Content="Edit" Grid.Row="5" Grid.Column="3" Height="30" Width="80" VerticalAlignment="Bottom" />
         <Button Content="Back" Grid.Row="5" Grid.Column="4" Height="30" Width="60" VerticalAlignment="Bottom" />
