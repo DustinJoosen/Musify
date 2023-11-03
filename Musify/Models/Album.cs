@@ -42,13 +42,7 @@ namespace Musify.Models
             set => this._coverImage = value;
         }
 
-        /*
-         * Here start a few easy properties, that need more then 1 property.
-         * Like when you need a combination. This place is unfortunaletly the best place.
-         */
+        public List<Song> Songs { get; set; } = new();
 
-        public string Artist => "mixed";    // Rework this when the numbers and albums are linked.
-        public string FullImagePath => $"../../../Lib/Uploads/{this.CoverImage}";
-        public string DetailPageUnderline => $"{this.Artist} | {this.ReleaseYear}";
     }
 }

@@ -1,5 +1,7 @@
-﻿using Musify.ViewModels;
+﻿using Musify.Utility;
+using Musify.ViewModels;
 using Musify.Views.Albums;
+using Musify.Views.Songs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +26,7 @@ namespace Musify.Views
         // Screen constants.
         private AlbumCreateWindow _albumCreateWindow;
         private AlbumDetailsWindow _albumDetailsWindow;
+        private SongCreateWindow _songCreateWindow;
 
         public Main()
         {
@@ -34,8 +37,8 @@ namespace Musify.Views
             var navigationVM = new NavigationWindowViewModel();
 
             navigationVM.OnExitProgram += (obj, sen) => Environment.Exit(0);
-            navigationVM.OnGoToAlbums += (obj, sen) => this.SetWindow(this._albumDetailsWindow);
-            navigationVM.OnGoToSongs += (obj, sen) => this.SetWindow(this._albumCreateWindow);
+            navigationVM.OnGoToAlbums += (obj, sen) => this.SetWindow(this._albumCreateWindow);
+            navigationVM.OnGoToSongs += (obj, sen) => this.SetWindow(this._songCreateWindow);
 
             navigationVM.LoadEvents();
 
@@ -44,18 +47,22 @@ namespace Musify.Views
             // Define all screen constants.
             this._albumCreateWindow = new();
             this._albumDetailsWindow = new();
+            this._songCreateWindow = new();
 
             // Define all events (minus navbar).
-            var vm = new AlbumViewModel(Guid.Parse("68ab6f0a-a835-4bdd-b973-0670e1dc2cff"))
+            var avm = new AlbumViewModel(Guid.Parse("c90db429-b0ce-4b58-8122-41b9d6b316ce"))
             {
-                CreateWindow = this._albumCreateWindow
+                CreateWindow = this._albumCreateWindow,
             };
 
-            this._albumCreateWindow.DataContext = vm;
-            this._albumDetailsWindow.DataContext = vm;
+            var scvm = new SongCreateViewModel();
+
+            this._albumCreateWindow.DataContext = avm;
+            this._albumDetailsWindow.DataContext = avm;
+            this._songCreateWindow.DataContext = scvm;
 
             // The startup usercontrol. When made, add the dashboard here.
-            this.SetWindow(this._albumDetailsWindow);
+            this.SetWindow(this._songCreateWindow);
         }
 
         public void SetWindow(UserControl? control) => 

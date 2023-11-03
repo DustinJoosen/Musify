@@ -23,7 +23,6 @@ namespace Musify.ViewModels
         public ICommand OnSaveAlbum { get; set; }
         public ICommand OnSelectImage { get; set; }
 
-
         // Full Properties
         private AlbumCreateWindow _createWindow;
         public AlbumCreateWindow CreateWindow
@@ -39,19 +38,11 @@ namespace Musify.ViewModels
             set => this._id = value;
         }
 
-        public Album Album
-        {
-            set
-            {
-                this.Title = value.Title;
-                this.ReleaseYear = value.ReleaseYear;
-                this.CoverImage = value.CoverImage;
-            }
-        }
-
         // Useful fields
         private string _selectedCoverImagePath;
-
+        public string DetailPageUnderline => $"{this.Artist} | {this.ReleaseYear}";
+        public string FullImagePath => $"../../../Lib/Uploads/{this.CoverImage}";
+        public string Artist => this.GetArtist();
 
         // Methods
         public AlbumViewModel(Guid id = default)
@@ -64,6 +55,7 @@ namespace Musify.ViewModels
             this.Title = "Cool Title";
             this.ReleaseYear = 2020;
             this.CoverImage = "notfound.png";
+            this.Songs = new List<Song>();
 
             this.OnSaveAlbum = new RelayCommand(SaveAlbum, (obj) => true);
             this.OnSelectImage = new RelayCommand(SelectImage, (obj) => true);
@@ -76,16 +68,23 @@ namespace Musify.ViewModels
         {
             Task.Run(async () =>
             {
+                // Get all albums.
                 var albums = await JsonHandler.GetAll<Album>();
                 if (albums == null)
                     return;
 
-                var selected = from album in albums
-                               where album.Id.Equals(this.Id)
-                               select album;
+                // Select correct one.
+                var selected = from alb in albums
+                               where alb.Id.Equals(this.Id)
+                               select alb;
 
-                this.Album = selected?.FirstOrDefault() ?? new();
+                var album = selected?.FirstOrDefault() ?? new();
 
+                // Assign values to this one.
+                this.Title = album.Title;
+                this.ReleaseYear = album.ReleaseYear;
+                this.CoverImage = album.CoverImage;
+                this.Songs = album.Songs;
             });
         }
 
@@ -114,7 +113,8 @@ namespace Musify.ViewModels
             {
                 Title = this.Title,
                 ReleaseYear = this.ReleaseYear,
-                CoverImage = this.CoverImage
+                CoverImage = this.CoverImage,
+                Songs = this.Songs
             });
 
             MessageBox.Show($"Successfully added album ({this.Title})");
@@ -145,7 +145,18 @@ namespace Musify.ViewModels
             this.ReleaseYear = 0;
             this.Title = "";
             this.CoverImage = "";
+            this.Songs.Clear();
             this.CreateWindow.imgCoverPreview.Source = null;
+        }
+
+        private string GetArtist()
+        {
+            var artists = this.Songs?.Select(artist => artist.Artist).Distinct().ToList();
+
+            return (artists.Count() <= 1)
+                ? artists.First()
+                : "collaborated";
+
         }
     }
 }

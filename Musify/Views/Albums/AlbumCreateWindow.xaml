@@ -3,15 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-        xmlns:local="clr-namespace:Musify.Views.Albums" xmlns:local1="clr-namespace:Musify.ValidationRules"
-             mc:Ignorable="d" 
+        xmlns:local="clr-namespace:Musify.Views.Albums" 
+        xmlns:local1="clr-namespace:Musify.ValidationRules"
+        mc:Ignorable="d" 
         Background="#e9e9e9"
         d:DesignHeight="250" d:DesignWidth="470">
-    <UserControl.Resources>
-        <Style x:Key="invalid" TargetType="TextBox">
-            <Setter Property="BorderBrush" Value="Red"/>
-        </Style>
-    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"></ColumnDefinition>
