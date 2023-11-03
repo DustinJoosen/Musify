@@ -27,6 +27,7 @@ namespace Musify.Views
         private AlbumCreateWindow _albumCreateWindow;
         private AlbumDetailsWindow _albumDetailsWindow;
         private SongCreateWindow _songCreateWindow;
+        private SongDetailsWindow _songDetailsWindow;
 
         public Main()
         {
@@ -48,6 +49,7 @@ namespace Musify.Views
             this._albumCreateWindow = new();
             this._albumDetailsWindow = new();
             this._songCreateWindow = new();
+            this._songDetailsWindow = new();
 
             // Define all events (minus navbar).
             var avm = new AlbumViewModel(Guid.Parse("c90db429-b0ce-4b58-8122-41b9d6b316ce"))
@@ -56,10 +58,12 @@ namespace Musify.Views
             };
 
             var scvm = new SongCreateViewModel();
+            var sdvm = new SongDetailViewModel(Guid.Parse("f3a621c5-ef61-444d-ae90-bd0d65f10984"));
 
             this._albumCreateWindow.DataContext = avm;
             this._albumDetailsWindow.DataContext = avm;
             this._songCreateWindow.DataContext = scvm;
+            this._songDetailsWindow.DataContext = sdvm;
 
             // The startup usercontrol. When made, add the dashboard here.
             this.SetWindow(this._songCreateWindow);

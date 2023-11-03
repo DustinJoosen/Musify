@@ -21,13 +21,15 @@ namespace Musify.ViewModels
     {
         public ICommand OnSaveSong { get; set; }
 
+        public int DurationMinutes { get; set; }
+        public int DurationSeconds { get; set; }
+
         public SongCreateViewModel()
         {
             this.Title = "Cool Title";
             this.Artist = "NSP";
             this.Genre = "Pop";
             this.ReleaseDate = DateTime.Today;
-            this.Duration = 420;
 
             this.OnSaveSong = new RelayCommand(SaveSong, (obj) => true);
         }
@@ -40,6 +42,9 @@ namespace Musify.ViewModels
                 string.IsNullOrEmpty(this.Genre)))
                 return;
 
+            // Calculate duration (04:58 => 298)
+            int duration = (this.DurationMinutes * 60) + this.DurationSeconds;
+
             // Add the song.
             await JsonHandler.Add<Song>(new()
             {
@@ -47,7 +52,7 @@ namespace Musify.ViewModels
                 Artist = this.Artist,
                 Genre = this.Genre,
                 ReleaseDate = this.ReleaseDate,
-                Duration = this.Duration
+                Duration = duration
             });
 
             MessageBox.Show($"Successfully added song ({this.Title})");

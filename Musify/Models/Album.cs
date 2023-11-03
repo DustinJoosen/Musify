@@ -44,5 +44,10 @@ namespace Musify.Models
 
         public List<Song> Songs { get; set; } = new();
 
+        public override string ToString()
+        {
+            return this.Title;
+        }
+
     }
 }

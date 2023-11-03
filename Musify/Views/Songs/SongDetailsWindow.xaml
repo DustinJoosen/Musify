@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="Musify.Views.Songs.SongDetailsWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Musify.Views.Songs"
+             Background="#e9e9e9"
+             Width="420" Height="350">
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Control.Background" Value="#333"></Setter>
+            <Setter Property="Control.Foreground" Value="white"></Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition Width="80"></ColumnDefinition>
+            <ColumnDefinition Width="50"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Content="{Binding Title}" FontSize="25" FontWeight="Bold" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"></Label>
+        <Label FontWeight="Bold" Content="Artist: " Grid.Row="2" Grid.Column="1" />
+        <Label Content="{Binding Artist}" Grid.Row="2" Grid.Column="2" />
+        <Label FontWeight="Bold" Content="Genre: " Grid.Row="3" Grid.Column="1" />
+        <Label Content="{Binding Genre}" Grid.Row="3" Grid.Column="2" />
+        <Label FontWeight="Bold" Content="Release Date: " Grid.Row="4" Grid.Column="1" />
+        <Label Content="{Binding ReleaseDate}" Grid.Row="4" Grid.Column="2" />
+        <Label FontWeight="Bold" Content="Duration: " Grid.Row="5" Grid.Column="1" />
+        <Label Content="{Binding FormattedDuration}" Grid.Row="5" Grid.Column="2" />
+        <Button Content="Edit" Grid.Row="8" Grid.Column="4" Height="30" Width="80" VerticalAlignment="Top" Margin="1,10,89,0" />
+        <Button Content="Back" Grid.Row="8" Grid.Column="4" Height="30" Width="60" VerticalAlignment="Top" Margin="65,10,5,0" />
+        <Label FontWeight="Bold" Content="Albums: " Grid.Row="6" Grid.Column="1" />
+        <ListBox ItemsSource="{Binding Albums}" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2"></ListBox>
+    </Grid>
+</UserControl>
