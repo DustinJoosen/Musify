@@ -27,7 +27,7 @@ namespace Musify.Utility
         public static List<T> GetAll<T>()
         {
             // Determine the file name.
-            string filepath = $"{typeof(T).Name.ToLower()}.json";
+            string filepath = $"../../../Lib/Data/{typeof(T).Name.ToLower()}.json";
 
             // Get all contents of the file.
             string content = JsonHandler.GetFileContents(filepath).Result;
@@ -78,7 +78,7 @@ namespace Musify.Utility
                 return false;
 
             // Determine the file name.
-            string filepath = $"{typeof(T).Name.ToLower()}.json";
+            string filepath = $"../../../Lib/Data/{typeof(T).Name.ToLower()}.json";
 
             // Tries to convert the contents to plain text, and saves it.
             try

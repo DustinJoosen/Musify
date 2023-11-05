@@ -36,9 +36,9 @@ namespace Musify.Views
 
             // Define all screen constants
             this._albumCreateWindow = new();
-            this._albumDetailsWindow = new(Guid.Parse("750c217d-735c-477d-bcd3-b811aca15694"));
+            this._albumDetailsWindow = new(Guid.Parse("14c94e75-50b7-439c-883b-de122a840b52"));
             this._songCreateWindow = new();
-            this._songDetailsWindow = new(Guid.Parse("704c5dd3-7b29-411a-8369-bde2415be1ed"));
+            this._songDetailsWindow = new(Guid.Parse("1179e276-435d-4c26-8439-c21ae5e859c3"));
 
             // The startup usercontrol. When made, add the dashboard here.
             this.SetWindow(this._songDetailsWindow);

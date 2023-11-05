@@ -17,12 +17,32 @@ namespace Musify.ViewModels {
     {
         public ICommand GoToSongEdits { get; set; }
 
-        public ObservableCollection<Song> Songs { get; set; } = new();
+        private ObservableCollection<Song> _songs = new();
+        public ObservableCollection<Song> Songs
+        {
+            get => this._songs;
+            set
+            {
+                this._songs = value;
+                RaisePropertyChanged(nameof(Songs));
+            }
+        }
 
         // Useful props
         public string DetailPageUnderline => $"{this.Artist} | {this.ReleaseYear}";
         public string FullImagePath => $"../../../Lib/Uploads/{this.CoverImage}";
-        public string Artist => this.GetArtist();
+
+
+        private string _artist;
+        public string Artist
+        {
+            get => this._artist;
+            set
+            {
+                this._artist = value;
+                RaisePropertyChanged(nameof(DetailPageUnderline));
+            }
+        }
         
         public AlbumDetailViewModel(Guid id)
         {
@@ -33,11 +53,14 @@ namespace Musify.ViewModels {
             {
                 var albumSongsEditorWindow = new AlbumSongsEditorWindow(id);
                 albumSongsEditorWindow.Callback += (obj) => this.RetrieveSongs();
+                albumSongsEditorWindow.Callback += (obj) => this.Artist = this.GetArtist();
                 albumSongsEditorWindow.Show();
             });
 
             this.RetrieveAlbum();
             this.RetrieveSongs();
+
+            this.Artist = this.GetArtist();
         }
 
         // Retrieves the album out of the json, based on the Id property.
@@ -90,7 +113,7 @@ namespace Musify.ViewModels {
             switch (artists?.Count())
             {
                 case 0:
-                    return "collaborated";
+                    return "unknown";
                 case 1:
                     return artists?.First();
                 default:

@@ -45,6 +45,9 @@ namespace Musify.ViewModels
                         where s.Id.Equals(this.Id)
                         select s).FirstOrDefault();
 
+            if (song == null)
+                return;
+
             // Assign values to this one.
             this.Title = song.Title;
             this.Artist = song.Artist;
