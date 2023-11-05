@@ -1,0 +1,26 @@
+﻿[
+  {
+    "Id": "0ede3628-00ef-45e5-9b2f-a72a07bcb5ae",
+    "Title": "Highway to Hell",
+    "ReleaseYear": 1979,
+    "CoverImage": "7c9489bbfaa145a9a59afcd1eeba0029.png"
+  },
+  {
+    "Id": "8a1e07bc-c0eb-4d4b-80c0-23c43b69319e",
+    "Title": "Duality",
+    "ReleaseYear": 2014,
+    "CoverImage": "37aa9a6c61a849a78cf49bfd8b0faada.png"
+  },
+  {
+    "Id": "f7fe6350-a28a-4bec-b9a2-19f13c7ff93e",
+    "Title": "Player Select",
+    "ReleaseYear": 2014,
+    "CoverImage": "20338542fa654ee89a8f8a48c1fe59f8.png"
+  },
+  {
+    "Id": "14c94e75-50b7-439c-883b-de122a840b52",
+    "Title": "Evolve",
+    "ReleaseYear": 2017,
+    "CoverImage": "812e3eaf2c5c406fbdfb856b0fd2dcf0.png"
+  }
+]
