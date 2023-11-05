@@ -34,26 +34,18 @@ namespace Musify.Views
             InitializeComponent();
             InitializeNavbar();
 
-            // Define all screen constants and their view models.
+            // Define all screen constants
             this._albumCreateWindow = new();
-            this._albumDetailsWindow = new();
+            this._albumDetailsWindow = new(Guid.Parse("750c217d-735c-477d-bcd3-b811aca15694"));
             this._songCreateWindow = new();
-            this._songDetailsWindow = new();
-
-            var acvm = new AlbumCreateViewModel() { CreateWindow = this._albumCreateWindow };
-            var advm = new AlbumDetailViewModel(Guid.Parse("b40299e3-fbf7-4dcf-b595-f1f00992e87d"));
-            var scvm = new SongCreateViewModel();
-            var sdvm = new SongDetailViewModel(Guid.Parse("f3a621c5-ef61-444d-ae90-bd0d65f10984"));
-
-            this._albumCreateWindow.DataContext = acvm;
-            this._albumDetailsWindow.DataContext = advm;
-            this._songCreateWindow.DataContext = scvm;
-            this._songDetailsWindow.DataContext = sdvm;
+            this._songDetailsWindow = new(Guid.Parse("704c5dd3-7b29-411a-8369-bde2415be1ed"));
 
             // The startup usercontrol. When made, add the dashboard here.
-            this.SetWindow(this._albumCreateWindow);
+            this.SetWindow(this._songDetailsWindow);
         }
 
+
+        // Because of the linking to other windoes, navbar is initialized in Main.
         private void InitializeNavbar()
         {
             this.navControl.Content = new NavigationWindow();

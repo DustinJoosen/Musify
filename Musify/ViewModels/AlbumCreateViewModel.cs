@@ -38,7 +38,7 @@ namespace Musify.ViewModels {
             this.OnSelectImage = new RelayCommand(SelectImage, (obj) => true);
         }
 
-        public async void SaveAlbum(object parameter)
+        public void SaveAlbum(object parameter)
         {
             if (Validation.GetHasError(this.CreateWindow.txtTitle)
                 || Validation.GetHasError(this.CreateWindow.txtReleaseYr))
@@ -59,12 +59,11 @@ namespace Musify.ViewModels {
             }
 
             // Add the album.
-            bool succeeded = await JsonHandler.Add<Album>(new()
+            bool succeeded = JsonHandler.Add<Album>(new()
             {
                 Title = this.Title,
                 ReleaseYear = this.ReleaseYear,
                 CoverImage = this.CoverImage,
-                Songs = this.Songs
             });
 
             if (succeeded)
@@ -103,7 +102,6 @@ namespace Musify.ViewModels {
             this.ReleaseYear = 0;
             this.Title = string.Empty;
             this.CoverImage = string.Empty;
-            this.Songs.Clear();
             this.CreateWindow.imgCoverPreview.Source = null;
         }
 

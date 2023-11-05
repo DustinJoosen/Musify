@@ -15,16 +15,7 @@ namespace Musify.Utility
         // Adds a handful of testing data.
         public static void Populate()
         {
-            Task.Run(async () =>
-            {
-                await Populator.PopulateSongs();
-                await Populator.PopulateAlbums();
-            });
-        }
-
-        public static async Task PopulateSongs()
-        {
-            await JsonHandler.Add<Song>(new()
+            JsonHandler.Add<Song>(new()
             {
                 Title = "Back in Black",
                 Artist = "AC/DC",
@@ -33,12 +24,5 @@ namespace Musify.Utility
                 Duration = 417
             });
         }
-
-        public static async Task PopulateAlbums()
-        {
-
-        }
-
-
     }
 }

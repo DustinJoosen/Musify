@@ -1,5 +1,6 @@
 ﻿using Musify.Models;
 using Musify.Utility;
+using Musify.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,11 @@ namespace Musify.Views.Albums
         public AlbumCreateWindow()
         {
             InitializeComponent();
+
+            this.DataContext = new AlbumCreateViewModel()
+            {
+                CreateWindow = this
+            };
         }
 
     }

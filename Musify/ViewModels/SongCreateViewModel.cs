@@ -34,7 +34,7 @@ namespace Musify.ViewModels
             this.OnSaveSong = new RelayCommand(SaveSong, (obj) => true);
         }
 
-        public async void SaveSong(object parameter)
+        public void SaveSong(object parameter)
         {
             // Validation.
             if ((string.IsNullOrEmpty(this.Title) ||
@@ -46,7 +46,7 @@ namespace Musify.ViewModels
             int duration = (this.DurationMinutes * 60) + this.DurationSeconds;
 
             // Add the song.
-            bool succeeded = await JsonHandler.Add<Song>(new()
+            bool succeeded = JsonHandler.Add<Song>(new()
             {
                 Title = this.Title,
                 Artist = this.Artist,

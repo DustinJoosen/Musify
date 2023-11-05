@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Musify.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,11 @@ namespace Musify.Views.Albums
     /// </summary>
     public partial class AlbumDetailsWindow : UserControl
     {
-        public AlbumDetailsWindow()
+        public AlbumDetailsWindow(Guid id)
         {
             InitializeComponent();
+            this.DataContext = new AlbumDetailViewModel(id);
         }
+
     }
 }

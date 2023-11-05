@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Musify.Models
 {
-    public class Album : NotifyPropertyChanged
+    public class Album : NotifyPropertyChanged, IIdentifiable
     {
         public Guid Id { get; set; } = Guid.NewGuid();
 
@@ -41,8 +41,6 @@ namespace Musify.Models
             get => this._coverImage;
             set => this._coverImage = value;
         }
-
-        public List<Song> Songs { get; set; } = new();
 
         public override string ToString()
         {

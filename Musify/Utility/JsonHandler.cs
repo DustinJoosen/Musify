@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Musify.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
@@ -23,13 +24,13 @@ namespace Musify.Utility
         };
 
         // Gives you all items of given type.
-        public static async Task<List<T>> GetAll<T>()
+        public static List<T> GetAll<T>()
         {
             // Determine the file name.
             string filepath = $"{typeof(T).Name.ToLower()}.json";
 
             // Get all contents of the file.
-            string content = await JsonHandler.GetFileContents(filepath);
+            string content = JsonHandler.GetFileContents(filepath).Result;
             if (content == string.Empty)
                 return new();
 
@@ -46,16 +47,35 @@ namespace Musify.Utility
             }
         }
 
+        // Gives by specific ID.
+        public static T GetById<T>(Guid id) where T: IIdentifiable
+        {
+            var items = JsonHandler.GetAll<T>();
+
+            return (from item in items
+                       where item.Id == id
+                       select item).First();
+        }
+
         // Saves given model.
-        public static async Task<bool> Add<T>(T model)
+        public static bool Add<T>(T model)
         {
             // Won't save 'nothing'.
             if (model == null)
                 return false;
 
             // Get all current models, and add the new one.
-            var models = await JsonHandler.GetAll<T>();
+            var models = JsonHandler.GetAll<T>();
             models.Add(model);
+
+            return JsonHandler.Save(models);
+        }
+
+        // Overwrites all existing data with a lsit
+        public static bool Save<T>(List<T> models)
+        {
+            if (models == null)
+                return false;
 
             // Determine the file name.
             string filepath = $"{typeof(T).Name.ToLower()}.json";
@@ -64,7 +84,7 @@ namespace Musify.Utility
             try
             {
                 string json = JsonSerializer.Serialize(models, JsonHandler._options);
-                return await JsonHandler.SaveFileContents(filepath, json);
+                return JsonHandler.SaveFileContents(filepath, json).Result;
             }
             catch (JsonException ex)
             {
@@ -72,38 +92,43 @@ namespace Musify.Utility
             }
         }
 
-
         // Gives you all text content in the specified file.
-        private static async Task<string> GetFileContents(string filepath)
+        private static Task<string> GetFileContents(string filepath)
         {
-            // Quick check to ensure the file actually exists.
-            if (!File.Exists(filepath)) 
-                return string.Empty;
-
-            using FileStream stream = new(filepath, FileMode.Open, FileAccess.Read);
-            using (StreamReader reader = new(stream, Encoding.UTF8))
+            return Task.Run(async () =>
             {
-                return await reader.ReadToEndAsync();
-            }
+                // Quick check to ensure the file actually exists.
+                if (!File.Exists(filepath))
+                    return string.Empty;
+
+                // Open a filestream and return the data.
+                using FileStream stream = new(filepath, FileMode.Open, FileAccess.Read);
+                using (StreamReader reader = new(stream, Encoding.UTF8))
+                {
+                    return await reader.ReadToEndAsync();
+                }
+            });
         }
 
         // Saves all text content given, in the specified file.
-        // TODO: do something with the return value.
-        private static async Task<bool> SaveFileContents(string filepath, string content)
+        private static Task<bool> SaveFileContents(string filepath, string content)
         {
-            using FileStream stream = new(filepath, FileMode.Create, FileAccess.Write);
-            using (StreamWriter writer = new(stream, Encoding.UTF8))
+            return Task.Run(async () =>
             {
-                try
+                using FileStream stream = new(filepath, FileMode.Create, FileAccess.Write);
+                using (StreamWriter writer = new(stream, Encoding.UTF8))
                 {
-                    await writer.WriteAsync(content);
-                    return true;
+                    try
+                    {
+                        await writer.WriteAsync(content);
+                        return true;
+                    }
+                    catch
+                    {
+                        return false;
+                    }
                 }
-                catch
-                {
-                    return false;
-                }
-            }
+            });
         }
 
     }
