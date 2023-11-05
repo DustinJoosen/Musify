@@ -1,12 +1,11 @@
 ﻿[
   {
-    "Id": "c12f5bf3-2aec-4c39-b866-c47bc5e24d13",
+    "Id": "c11f5bf3-2aec-4c39-b866-c47bc5e24d13",
     "Title": "Running in the dungeon 1",
     "Artist": "Tango",
     "Genre": "Goth",
     "ReleaseDate": "2023-11-01T00:00:00+01:00",
-    "Duration": 273,
-    "Albums": []
+    "Duration": 273
   },
   {
     "Id": "c12f5bf3-2aec-4c39-b866-e47bc5e24d13",
@@ -14,16 +13,30 @@
     "Artist": "Tango",
     "Genre": "Goth",
     "ReleaseDate": "2023-11-01T00:00:00+01:00",
-    "Duration": 273,
-    "Albums": []
+    "Duration": 273
   },
   {
-    "Id": "c12f5bf3-2aec-4c39-b866-c47ccccccccc",
+    "Id": "c13f5bf3-2aec-4c39-b866-c47ccccccccc",
     "Title": "6969",
-    "Artist": "Tango",
+    "Artist": "NSP",
     "Genre": "Goth",
     "ReleaseDate": "2023-11-01T00:00:00+01:00",
-    "Duration": 458,
-    "Albums": []
+    "Duration": 458
+  },
+  {
+    "Id": "ea72a459-ee36-4d9b-9cc8-93d469b0976f",
+    "Title": "Running in the dungeon 3",
+    "Artist": "Tango",
+    "Genre": "Goth",
+    "ReleaseDate": "2023-11-05T00:00:00+01:00",
+    "Duration": 198
+  },
+  {
+    "Id": "704c5dd3-7b29-411a-8369-bde2415be1ed",
+    "Title": "Release the dragon",
+    "Artist": "NSP",
+    "Genre": "Pop",
+    "ReleaseDate": "2023-07-19T00:00:00",
+    "Duration": 208
   }
 ]

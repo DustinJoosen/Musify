@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Musify.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,10 @@ namespace Musify.Views.Songs
     /// </summary>
     public partial class SongDetailsWindow : UserControl
     {
-        public SongDetailsWindow()
+        public SongDetailsWindow(Guid id)
         {
             InitializeComponent();
+            this.DataContext = new SongDetailViewModel(id);
         }
     }
 }

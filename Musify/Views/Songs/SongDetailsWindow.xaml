@@ -33,7 +33,7 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="20"></RowDefinition>
         </Grid.RowDefinitions>
-        <Label Content="{Binding Title}" FontSize="25" FontWeight="Bold" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"></Label>
+        <Label Content="{Binding Title}" FontSize="25" FontWeight="Bold" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4"></Label>
         <Label FontWeight="Bold" Content="Artist: " Grid.Row="2" Grid.Column="1" />
         <Label Content="{Binding Artist}" Grid.Row="2" Grid.Column="2" />
         <Label FontWeight="Bold" Content="Genre: " Grid.Row="3" Grid.Column="1" />

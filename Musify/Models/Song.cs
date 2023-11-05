@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Musify.Models
 {
-    public class Song : NotifyPropertyChanged
+    public class Song : NotifyPropertyChanged, IIdentifiable
     {
         public Guid Id { get; set; } = Guid.NewGuid();
 
@@ -69,13 +69,9 @@ namespace Musify.Models
             }
         }
 
-        public List<Album> Albums { get; set; } = new();
-
-
         public override string ToString()
         {
-            TimeSpan time = TimeSpan.FromSeconds(this.Duration);
-            return $"{time.ToString(@"mm\:ss")} | {this.Title}";
+            return this.Title;
         }
     }
 }
