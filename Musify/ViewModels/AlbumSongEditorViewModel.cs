@@ -66,7 +66,7 @@ namespace Musify.ViewModels {
                                      select albumsong).ToList();
 
             // Save the albumsongs back again.
-            JsonHandler.Save<AlbumSong>(filteredAlbumsongs);
+            JsonHandler.SaveAll<AlbumSong>(filteredAlbumsongs);
 
             // Refresh the UI
             this.Refresh();

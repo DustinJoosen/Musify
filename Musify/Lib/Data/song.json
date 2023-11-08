@@ -350,5 +350,85 @@
     "Genre": "electronic",
     "ReleaseDate": "2017-06-23T00:00:00",
     "Duration": 233
+  },
+  {
+    "Id": "a7b1ef00-513b-41c2-a2dd-31d52aa3370f",
+    "Title": "Cancer",
+    "Artist": "Rivers of Nihil",
+    "Genre": "Death metal",
+    "ReleaseDate": "2018-03-16T00:00:00",
+    "Duration": 105
+  },
+  {
+    "Id": "5f4a240d-3cac-409a-8d96-203d11bfb266",
+    "Title": "The Silent Life",
+    "Artist": "Rivers of Nihil",
+    "Genre": "Death metal",
+    "ReleaseDate": "2018-03-16T00:00:00",
+    "Duration": 395
+  },
+  {
+    "Id": "590608ab-85a4-4079-99b7-9629be4d0493",
+    "Title": "A Home",
+    "Artist": "Rivers of Nihil",
+    "Genre": "Death metal",
+    "ReleaseDate": "2018-03-16T00:00:00",
+    "Duration": 319
+  },
+  {
+    "Id": "00dad2ad-956b-4de1-9eb3-1646e064480f",
+    "Title": "Old Nothing",
+    "Artist": "Rivers of Nihil",
+    "Genre": "Death metal",
+    "ReleaseDate": "2018-03-16T00:00:00",
+    "Duration": 284
+  },
+  {
+    "Id": "0e080631-d725-4a6d-b2a4-329b1167dbba",
+    "Title": "Subtle Change",
+    "Artist": "Rivers of Nihil",
+    "Genre": "Death metal",
+    "ReleaseDate": "2018-03-16T00:00:00",
+    "Duration": 514
+  },
+  {
+    "Id": "d38bc0cb-ec99-402b-9aff-dc185d86487a",
+    "Title": "Terrestria |||: Wither",
+    "Artist": "Rivers of Nihil",
+    "Genre": "Death metal",
+    "ReleaseDate": "2018-03-16T00:00:00",
+    "Duration": 229
+  },
+  {
+    "Id": "aaab78dc-860d-4558-9958-e43a6dd42b99",
+    "Title": "Hollow",
+    "Artist": "Rivers of Nihil",
+    "Genre": "Death metal",
+    "ReleaseDate": "2018-03-16T00:00:00",
+    "Duration": 314
+  },
+  {
+    "Id": "9c0f53fc-709c-42f1-8237-33b4f8449873",
+    "Title": "Death is Real",
+    "Artist": "Rivers of Nihil",
+    "Genre": "Death metal",
+    "ReleaseDate": "2018-03-16T00:00:00",
+    "Duration": 369
+  },
+  {
+    "Id": "63d2353b-850a-4fbd-b9bb-b6b17674329c",
+    "Title": "Where Owls Know My Name",
+    "Artist": "Rivers of Nihil",
+    "Genre": "Death metal",
+    "ReleaseDate": "2018-03-16T00:00:00",
+    "Duration": 403
+  },
+  {
+    "Id": "99d6cc10-5232-41dc-b0b1-58d2fb547940",
+    "Title": "Capricorn / Agoratopia",
+    "Artist": "Rivers of Nihil",
+    "Genre": "Death metal",
+    "ReleaseDate": "2018-03-16T00:00:00",
+    "Duration": 470
   }
 ]
