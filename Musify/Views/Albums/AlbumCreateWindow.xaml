@@ -4,7 +4,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:local="clr-namespace:Musify.Views.Albums" 
-        xmlns:local1="clr-namespace:Musify.ValidationRules"
         mc:Ignorable="d" 
         Background="#e9e9e9"
         d:DesignHeight="250" d:DesignWidth="470">
@@ -32,29 +31,12 @@
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="20"></RowDefinition>
         </Grid.RowDefinitions>
-        <Label Content="Create new Album" HorizontalAlignment="Center" FontSize="20" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"  />
+        <Label Content="Create new Album" HorizontalAlignment="Right" FontSize="20" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"  />
         <Label x:Name="lblTitle" Content="Title " HorizontalAlignment="Right" Grid.Row="3"  Grid.Column="1"/>
         <Label x:Name="lblReleaseYr" Content="Release Year " HorizontalAlignment="Right" Grid.Row="4"  Grid.Column="1"/>
         <Label x:Name="lblImage" Content="Image " HorizontalAlignment="Right" Grid.Row="5"  Grid.Column="1"/>
-        <TextBox x:Name="txtTitle" Grid.Row="3" Grid.Column="3" Height="20">
-            <TextBox.Text>
-                <Binding Path="Title" UpdateSourceTrigger="PropertyChanged">
-                    <Binding.ValidationRules>
-                        <local1:NotEmptyValidation ValidatesOnTargetUpdated="True"/>
-                    </Binding.ValidationRules>
-                </Binding>
-            </TextBox.Text>
-        </TextBox>
-        <TextBox x:Name="txtReleaseYr" Grid.Row="4" Grid.Column="3" Height="20">
-            <TextBox.Text>
-                <Binding Path="ReleaseYear" UpdateSourceTrigger="PropertyChanged">
-                    <Binding.ValidationRules>
-                        <local1:NotEmptyValidation ValidatesOnTargetUpdated="True"/>
-                        <local1:NotNumberValidation ValidatesOnTargetUpdated="True"/>
-                    </Binding.ValidationRules>
-                </Binding>
-            </TextBox.Text>
-        </TextBox>
+        <TextBox x:Name="txtTitle" Text="{Binding Title}"  Grid.Row="3" Grid.Column="3" Height="20" />
+        <TextBox x:Name="txtReleaseYr" Text="{Binding ReleaseYear}" Grid.Row="4" Grid.Column="3" Height="20" />
         <Button x:Name="txtCoverImg" Grid.Row="5" Grid.Column="3" Height="20" Content="Browse" Command="{Binding OnSelectImage}"></Button>
         <Button Content="Save" Grid.Row="7" Grid.Column="3" Background="LightGreen" Command="{Binding OnSaveAlbum}" />
         <Button Content="Back" Grid.Row="7" Grid.Column="1" Background="LightGray" />

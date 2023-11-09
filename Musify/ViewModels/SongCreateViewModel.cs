@@ -4,6 +4,7 @@ using Musify.Utility;
 using Musify.Views.Albums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -17,31 +18,34 @@ using System.Windows.Media.Imaging;
 
 namespace Musify.ViewModels
 {
-    public class SongCreateViewModel : Song
+    public class SongCreateViewModel : Song, IDataErrorInfo
     {
         public ICommand OnSaveSong { get; set; }
 
-        public int DurationMinutes { get; set; }
-        public int DurationSeconds { get; set; }
+        // Ensure numbers remain positive.  
+        private int _durationMinutes = 0;
+        public int DurationMinutes
+        {
+            get => this._durationMinutes;
+            set => this._durationMinutes = Math.Abs(value);
+        }
+
+        // Ensure numbers remain positive.
+        private int _durationSeconds = 0;
+        public int DurationSeconds
+        {
+            get => this._durationSeconds;
+            set => this._durationSeconds = Math.Abs(value);
+        }
 
         public SongCreateViewModel()
         {
-            this.Title = "Cool Title";
-            this.Artist = "NSP";
-            this.Genre = "Pop";
-            this.ReleaseDate = DateTime.Today;
-
+            this.ReleaseDate = DateTime.Today.AddDays(-1);
             this.OnSaveSong = new RelayCommand(SaveSong, (obj) => true);
         }
 
         public void SaveSong(object parameter)
         {
-            // Validation.
-            if ((string.IsNullOrEmpty(this.Title) ||
-                string.IsNullOrEmpty(this.Artist) ||
-                string.IsNullOrEmpty(this.Genre)))
-                return;
-
             // Calculate duration (04:58 => 298)
             int duration = (this.DurationMinutes * 60) + this.DurationSeconds;
 
@@ -71,9 +75,35 @@ namespace Musify.ViewModels
             this.Title = string.Empty;
             this.Artist = string.Empty;
             this.Genre = string.Empty;
-            this.ReleaseDate = default;
+            this.ReleaseDate = DateTime.Today;
             this.Duration = 0;
         }
+
+        #region DataValidation
+        public string this[string columnName]
+        {
+            get
+            {
+                if (columnName == nameof(Title) && string.IsNullOrEmpty(Title))
+                    return "Please enter a Title";
+
+                if (columnName == nameof(Artist) && string.IsNullOrEmpty(Artist))
+                    return "Please enter an Artist";
+
+                if (columnName == nameof(Genre) && string.IsNullOrEmpty(Genre))
+                    return "Please enter a Genre";
+
+                if (columnName == nameof(ReleaseDate) && ReleaseDate.Date > DateTime.Today)
+                    return "Release date can't be in the future";
+
+                return string.Empty;
+            }
+        }
+
+        public string Error => string.Empty;
+        #endregion
+
+
     }
 }
 

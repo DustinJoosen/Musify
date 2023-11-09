@@ -1,6 +1,7 @@
 ﻿using Musify.Utility;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -46,7 +47,6 @@ namespace Musify.Models
             }
         }
 
-
         private DateTime _releaseDate;
         public DateTime ReleaseDate
         {
@@ -68,6 +68,7 @@ namespace Musify.Models
                 RaisePropertyChanged(nameof(Duration));
             }
         }
+
 
         public override string ToString()
         {
