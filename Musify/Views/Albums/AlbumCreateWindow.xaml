@@ -35,11 +35,26 @@
         <Label x:Name="lblTitle" Content="Title " HorizontalAlignment="Right" Grid.Row="3"  Grid.Column="1"/>
         <Label x:Name="lblReleaseYr" Content="Release Year " HorizontalAlignment="Right" Grid.Row="4"  Grid.Column="1"/>
         <Label x:Name="lblImage" Content="Image " HorizontalAlignment="Right" Grid.Row="5"  Grid.Column="1"/>
-        <TextBox x:Name="txtTitle" Text="{Binding Title}"  Grid.Row="3" Grid.Column="3" Height="20" />
-        <TextBox x:Name="txtReleaseYr" Text="{Binding ReleaseYear}" Grid.Row="4" Grid.Column="3" Height="20" />
+        <TextBox x:Name="txtTitle" Text="{Binding Title, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Row="3" Grid.Column="3" Height="20" />
+        <TextBox x:Name="txtReleaseYr" Text="{Binding ReleaseYear, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Row="4" Grid.Column="3" Height="20" />
         <Button x:Name="txtCoverImg" Grid.Row="5" Grid.Column="3" Height="20" Content="Browse" Command="{Binding OnSelectImage}"></Button>
-        <Button Content="Save" Grid.Row="7" Grid.Column="3" Background="LightGreen" Command="{Binding OnSaveAlbum}" />
+        <Button Content="Save" Grid.Row="7" Grid.Column="3" Background="LightGreen" Command="{Binding OnSaveAlbum}">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="IsEnabled" Value="false" />
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=txtTitle, Path=(Validation.HasError)}" Value="false" />
+                                <Condition Binding="{Binding ElementName=txtReleaseYr, Path=(Validation.HasError)}" Value="false" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="IsEnabled" Value="true" />
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
         <Button Content="Back" Grid.Row="7" Grid.Column="1" Background="LightGray" />
-        <Image x:Name="imgCoverPreview" Grid.Row="3" Grid.Column="5" Grid.RowSpan="5" />
+        <Image x:Name="imgCoverPreview" Source="{Binding ImgCoverPreview}" Grid.Row="3" Grid.Column="5" Grid.RowSpan="5" />
     </Grid>
 </UserControl>

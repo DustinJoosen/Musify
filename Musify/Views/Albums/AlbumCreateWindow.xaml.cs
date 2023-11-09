@@ -29,7 +29,6 @@ namespace Musify.Views.Albums
 
             this.DataContext = new AlbumCreateViewModel()
             {
-                CreateWindow = this
             };
         }
 

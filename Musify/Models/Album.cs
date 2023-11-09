@@ -30,7 +30,7 @@ namespace Musify.Models
             get => this._releaseYear;
             set
             {
-                this._releaseYear = value;
+                this._releaseYear = Math.Abs(value);
                 RaisePropertyChanged(nameof(ReleaseYear));
             }
         }

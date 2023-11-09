@@ -4,6 +4,7 @@ using Musify.Utility;
 using Musify.Views.Albums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,7 @@ using System.Windows.Media.Imaging;
 
 namespace Musify.ViewModels {
 
-    public class AlbumCreateViewModel : Album
+    public class AlbumCreateViewModel : Album, IDataErrorInfo
     {
         // Commands
         public ICommand OnSaveAlbum { get; set; }
@@ -23,29 +24,29 @@ namespace Musify.ViewModels {
 
 
         // Properties
-        private AlbumCreateWindow _createWindow;
-        public AlbumCreateWindow CreateWindow
+        private string _imgCoverPreview;
+        public string ImgCoverPreview
         {
-            get => this._createWindow;
-            set => this._createWindow = value;
+            get => this._imgCoverPreview;
+            set
+            {
+                this._imgCoverPreview = value;
+                RaisePropertyChanged(nameof(ImgCoverPreview));
+            }
         }
-
-        private string _selectedCoverImagePath;
 
         public AlbumCreateViewModel()
         {
+            this.ReleaseYear = 1900;
+
             this.OnSaveAlbum = new RelayCommand(SaveAlbum, (obj) => true);
             this.OnSelectImage = new RelayCommand(SelectImage, (obj) => true);
         }
 
         public void SaveAlbum(object parameter)
         {
-            if (Validation.GetHasError(this.CreateWindow.txtTitle)
-                || Validation.GetHasError(this.CreateWindow.txtReleaseYr))
-                return;
-
             // If no image browsed, use notfound.png
-            if (string.IsNullOrEmpty(this._selectedCoverImagePath))
+            if (string.IsNullOrEmpty(this.ImgCoverPreview))
             {
                 this.CoverImage = "notfound.png";
             }
@@ -55,7 +56,7 @@ namespace Musify.ViewModels {
                 this.CoverImage = Guid.NewGuid().ToString().Replace("-", "") + ".png";
 
                 // Copies the file down to the local placing.
-                File.Copy(this._selectedCoverImagePath, $"../../../Lib/Uploads/{this.CoverImage}");
+                File.Copy(this.ImgCoverPreview, $"../../../Lib/Uploads/{this.CoverImage}");
             }
 
             // Add the album.
@@ -90,10 +91,9 @@ namespace Musify.ViewModels {
             }
 
             // Display the image in the preview
-            this.CreateWindow.imgCoverPreview.Source = new BitmapImage(new Uri(dialog.FileName));
+            this.ImgCoverPreview = dialog.FileName;
 
             // Sets filename.
-            this._selectedCoverImagePath = dialog.FileName;
             this.CoverImage = dialog.FileName;
         }
 
@@ -102,8 +102,27 @@ namespace Musify.ViewModels {
             this.ReleaseYear = 0;
             this.Title = string.Empty;
             this.CoverImage = string.Empty;
-            this.CreateWindow.imgCoverPreview.Source = null;
+            this.ImgCoverPreview = string.Empty;
         }
+
+        #region DataValidation
+        public string this[string columnName]
+        {
+            get
+            {
+                if (columnName == nameof(Title) && string.IsNullOrEmpty(Title))
+                    return "Please enter a Title";
+
+                if (columnName == nameof(ReleaseYear) && ReleaseYear > DateTime.Today.Year)
+                    return "Release date can't be in the future";
+
+                return string.Empty;
+            }
+        }
+
+        public string Error => string.Empty;
+
+        #endregion
 
     }
 }
