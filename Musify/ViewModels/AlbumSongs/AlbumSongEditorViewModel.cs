@@ -1,5 +1,6 @@
 ﻿using Musify.Models;
 using Musify.Utility;
+using Musify.Views.Confirmation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -59,17 +60,21 @@ namespace Musify.ViewModels {
         {
             Guid songId = (Guid)parameter;
 
-            // Get the albumsongs WITHOUT the selected combo.
-            var albumssongs = JsonHandler.GetAll<AlbumSong>();
-            var filteredAlbumsongs = (from albumsong in albumssongs
-                                     where albumsong.songId != songId || albumsong.albumId != this.Id
-                                     select albumsong).ToList();
+            new RemoveSongFromAlbumConfirmationWindow(songId, (obj) =>
+            {
+                // Get the albumsongs WITHOUT the selected combo.
+                var albumssongs = JsonHandler.GetAll<AlbumSong>();
+                var filteredAlbumsongs = (from albumsong in albumssongs
+                                          where albumsong.songId != songId || albumsong.albumId != this.Id
+                                          select albumsong).ToList();
 
-            // Save the albumsongs back again.
-            JsonHandler.SaveAll<AlbumSong>(filteredAlbumsongs);
+                // Save the albumsongs back again.
+                JsonHandler.SaveAll<AlbumSong>(filteredAlbumsongs);
 
-            // Refresh the UI
-            this.Refresh();
+                // Refresh the UI
+                this.Refresh();
+
+            }).Show();
         }
 
         public void Refresh()
@@ -95,6 +100,7 @@ namespace Musify.ViewModels {
                 .Where(song => !songsInAlbum.Any(s => s.Id == song.Id))
                 .ToList();
 
+            // Add all songs to the combobox.
             foreach (var song in songsNotInAlbum)
             {
                 this.UnusedSongs.Add(song);

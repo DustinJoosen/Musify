@@ -11,8 +11,8 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Musify.ViewModels {
-
+namespace Musify.ViewModels 
+{
     public class AlbumDetailViewModel : Album
     {
         public ICommand GoToSongEdits { get; set; }
