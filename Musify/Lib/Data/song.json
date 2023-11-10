@@ -430,5 +430,13 @@
     "Genre": "Death metal",
     "ReleaseDate": "2018-03-16T00:00:00",
     "Duration": 470
+  },
+  {
+    "Id": "9d404f15-acf5-4a89-990e-69e270b8c1e7",
+    "Title": "Joey Joe",
+    "Artist": "Test",
+    "Genre": "Rock",
+    "ReleaseDate": "2023-11-10T00:00:00+01:00",
+    "Duration": 120
   }
 ]

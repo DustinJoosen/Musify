@@ -26,8 +26,10 @@ namespace Musify.Views
         // Screen constants.
         private AlbumCreateWindow _albumCreateWindow;
         private AlbumDetailsWindow _albumDetailsWindow;
+        private AlbumUpdateWindow _albumUpdateWindow;
         private SongCreateWindow _songCreateWindow;
         private SongDetailsWindow _songDetailsWindow;
+        private SongUpdateWindow _songUpdateWindow;
 
         public Main()
         {
@@ -37,11 +39,13 @@ namespace Musify.Views
             // Define all screen constants
             this._albumCreateWindow = new();
             this._albumDetailsWindow = new(Guid.Parse("14c94e75-50b7-439c-883b-de122a840b52"));
+            this._albumUpdateWindow = new(Guid.Parse("14c94e75-50b7-439c-883b-de122a840b52"));
             this._songCreateWindow = new();
             this._songDetailsWindow = new(Guid.Parse("1179e276-435d-4c26-8439-c21ae5e859c3"));
+            this._songUpdateWindow = new(Guid.Parse("1179e276-435d-4c26-8439-c21ae5e859c3"));
 
             // The startup usercontrol. When made, add the dashboard here.
-            this.SetWindow(this._albumCreateWindow);
+            this.SetWindow(this._songUpdateWindow);
         }
 
 

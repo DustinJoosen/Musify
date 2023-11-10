@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Resource Include="Lib\logo.png" />
+    <Resource Include="Lib\Logo.png" />
     <Resource Include="Lib\Uploads\*" />
   </ItemGroup>
 

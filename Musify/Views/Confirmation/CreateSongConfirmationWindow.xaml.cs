@@ -13,21 +13,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Musify.Views.Albums
+namespace Musify.Views.Confirmation
 {
     /// <summary>
-    /// Interaction logic for AlbumCreateWindow.xaml
+    /// Interaction logic for CreateSongConfirmationWindow.xaml
     /// </summary>
-    public partial class AlbumCreateWindow : UserControl
+    public partial class CreateSongConfirmationWindow : Window
     {
-        public AlbumCreateWindow()
+        public CreateSongConfirmationWindow(Song song, Action<object> onCreate)
         {
             InitializeComponent();
-            this.DataContext = new AlbumCreateViewModel();
+            this.DataContext = new CreateSongConfirmationViewModel(song, onCreate, (obj) => this.Close());
         }
-
     }
 }

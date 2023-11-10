@@ -1,6 +1,5 @@
-﻿using Musify.Models;
-using Musify.Utility;
-using Musify.ViewModels;
+﻿using Musify.ViewModels;
+using Musify.ViewModels.Songs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,18 +15,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Musify.Views.Albums
+namespace Musify.Views.Songs
 {
     /// <summary>
-    /// Interaction logic for AlbumCreateWindow.xaml
+    /// Interaction logic for SongUpdate.xaml
     /// </summary>
-    public partial class AlbumCreateWindow : UserControl
+    public partial class SongUpdateWindow : UserControl
     {
-        public AlbumCreateWindow()
+        public SongUpdateWindow(Guid id)
         {
             InitializeComponent();
-            this.DataContext = new AlbumCreateViewModel();
+            this.DataContext = new SongUpdateViewModel(id);
         }
-
     }
 }

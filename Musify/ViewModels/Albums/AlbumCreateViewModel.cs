@@ -2,6 +2,7 @@
 using Musify.Models;
 using Musify.Utility;
 using Musify.Views.Albums;
+using Musify.Views.Confirmation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
