@@ -1,6 +1,4 @@
-﻿using Musify.Models;
-using Musify.Utility;
-using Musify.ViewModels;
+﻿using Musify.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,21 +11,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Musify.Views.Albums
+namespace Musify.Views.Confirmation
 {
     /// <summary>
-    /// Interaction logic for AlbumCreateWindow.xaml
+    /// Interaction logic for RemoveSongFromAlbumConfirmationWindow.xaml
     /// </summary>
-    public partial class AlbumCreateWindow : UserControl
+    public partial class RemoveSongFromAlbumConfirmationWindow : Window
     {
-        public AlbumCreateWindow()
+
+        public RemoveSongFromAlbumConfirmationWindow(Guid id, Action<object> onDeleteConfirmation)
         {
             InitializeComponent();
-            this.DataContext = new AlbumCreateViewModel();
+            this.DataContext = new RemoveSongFromAlbumConfirmationViewModel(id, onDeleteConfirmation, (obj) => this.Close());
         }
-
     }
 }

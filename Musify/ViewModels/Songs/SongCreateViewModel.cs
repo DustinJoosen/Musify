@@ -2,6 +2,7 @@
 using Musify.Models;
 using Musify.Utility;
 using Musify.Views.Albums;
+using Musify.Views.Confirmation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -49,25 +50,30 @@ namespace Musify.ViewModels
             // Calculate duration (04:58 => 298)
             int duration = (this.DurationMinutes * 60) + this.DurationSeconds;
 
-            // Add the song.
-            bool succeeded = JsonHandler.Add<Song>(new()
+            Song song = new()
             {
                 Title = this.Title,
                 Artist = this.Artist,
                 Genre = this.Genre,
                 ReleaseDate = this.ReleaseDate,
                 Duration = duration
-            });
+            };
 
-            if (succeeded)
+            new CreateSongConfirmationWindow(song, (obj) =>
             {
-                MessageBox.Show($"Successfully added album ({this.Title})");
-                this.Reset();
-            }
-            else
-            {
-                MessageBox.Show("Something went wrong. Please try again");
-            }
+                // Add the song.
+                bool succeeded = JsonHandler.Add<Song>(song);
+
+                if (succeeded)
+                {
+                    MessageBox.Show($"Successfully added album ({this.Title})");
+                    this.Reset();
+                }
+                else
+                {
+                    MessageBox.Show("Something went wrong. Please try again");
+                }
+            }).Show();
         }
 
         public void Reset()
