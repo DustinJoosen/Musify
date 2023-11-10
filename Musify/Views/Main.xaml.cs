@@ -41,7 +41,7 @@ namespace Musify.Views
             this._songDetailsWindow = new(Guid.Parse("1179e276-435d-4c26-8439-c21ae5e859c3"));
 
             // The startup usercontrol. When made, add the dashboard here.
-            this.SetWindow(this._songDetailsWindow);
+            this.SetWindow(this._albumCreateWindow);
         }
 
 

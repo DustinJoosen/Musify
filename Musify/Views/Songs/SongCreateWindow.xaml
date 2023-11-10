@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Musify.Views.Songs" 
-             xmlns:local1="clr-namespace:Musify.ValidationRules"
              mc:Ignorable="d" 
              Background="#e9e9e9"
              d:DesignHeight="310" d:DesignWidth="470">
@@ -34,43 +33,36 @@
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="20"></RowDefinition>
         </Grid.RowDefinitions>
-        <Label Content="Create new Song" HorizontalAlignment="Center" FontSize="20" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"  />
+        <Label Content="Create new Song" HorizontalAlignment="Right" FontSize="20" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"  />
         <Label Content="Title " HorizontalAlignment="Right" Grid.Row="3"  Grid.Column="1"/>
         <Label Content="Artist" HorizontalAlignment="Right" Grid.Row="4"  Grid.Column="1"/>
         <Label Content="Genre" HorizontalAlignment="Right" Grid.Row="5"  Grid.Column="1"/>
         <Label Content="Release Date" HorizontalAlignment="Right" Grid.Row="6"  Grid.Column="1"/>
         <Label Content="Duration" HorizontalAlignment="Right" Grid.Row="7"  Grid.Column="1"/>
-        <TextBox x:Name="txtTitle" Grid.Row="3" Grid.Column="3" Height="20">
-            <TextBox.Text>
-                <Binding Path="Title" UpdateSourceTrigger="PropertyChanged">
-                    <Binding.ValidationRules>
-                        <local1:NotEmptyValidation ValidatesOnTargetUpdated="True"/>
-                    </Binding.ValidationRules>
-                </Binding>
-            </TextBox.Text>
-        </TextBox>
-        <TextBox x:Name="txtArtist" Grid.Row="4" Grid.Column="3" Height="20">
-            <TextBox.Text>
-                <Binding Path="Artist" UpdateSourceTrigger="PropertyChanged">
-                    <Binding.ValidationRules>
-                        <local1:NotEmptyValidation ValidatesOnTargetUpdated="True"/>
-                    </Binding.ValidationRules>
-                </Binding>
-            </TextBox.Text>
-        </TextBox>
-        <TextBox x:Name="txtGenre" Grid.Row="5" Grid.Column="3" Height="20">
-            <TextBox.Text>
-                <Binding Path="Genre" UpdateSourceTrigger="PropertyChanged">
-                    <Binding.ValidationRules>
-                        <local1:NotEmptyValidation ValidatesOnTargetUpdated="True"/>
-                    </Binding.ValidationRules>
-                </Binding>
-            </TextBox.Text>
-        </TextBox>
-        <DatePicker SelectedDate="{Binding ReleaseDate}" Grid.Row="6" Grid.Column="3" Height="80" />
-        <TextBox Text="{Binding DurationMinutes}" x:Name="txtDurationMin" Grid.Row="7" Grid.Column="3" Height="20" Width="20" Margin="0,0,130,0"/>
-        <TextBox Text="{Binding DurationSeconds}" x:Name="txtDurationSec" Grid.Row="7" Grid.Column="3" Height="20" Width="20" Margin="0,0,70,0"/>
-        <Button Content="Save" Grid.Row="9" Grid.Column="3" Background="LightGreen" Command="{Binding OnSaveSong}" />
+        <TextBox x:Name="txtTitle" Text="{Binding Title, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Row="3" Grid.Column="3" Height="20" />
+        <TextBox x:Name="txtArtist" Text="{Binding Artist, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Row="4" Grid.Column="3" Height="20" />
+        <TextBox x:Name="txtGenre" Text="{Binding Genre, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Row="5" Grid.Column="3" Height="20" />
+        <DatePicker x:Name="dpReleaseDate" SelectedDate="{Binding ReleaseDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Row="6" Grid.Column="3" Height="25" />
+        <TextBox Text="{Binding DurationMinutes, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" x:Name="txtDurationMin" Grid.Row="7" Grid.Column="3" Height="20" Width="20" Margin="0,0,130,0"/>
+        <TextBox Text="{Binding DurationSeconds, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" x:Name="txtDurationSec" Grid.Row="7" Grid.Column="3" Height="20" Width="20" Margin="0,0,70,0"/>
+        <Button Content="Save" Grid.Row="9" Grid.Column="3" Background="LightGreen" Command="{Binding OnSaveSong}">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="IsEnabled" Value="false" />
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=txtTitle, Path=(Validation.HasError)}" Value="false" />
+                                <Condition Binding="{Binding ElementName=txtArtist, Path=(Validation.HasError)}" Value="false" />
+                                <Condition Binding="{Binding ElementName=txtGenre, Path=(Validation.HasError)}" Value="false" />
+                                <Condition Binding="{Binding ElementName=dpReleaseDate, Path=(Validation.HasError)}" Value="false" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="IsEnabled" Value="true" />
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
         <Button Content="Back" Grid.Row="9" Grid.Column="1" Background="LightGray" />
         <Label Grid.Column="3" Content=":" HorizontalAlignment="Left" Grid.Row="7" VerticalAlignment="Center" Margin="18,0,0,0"/>
     </Grid>
