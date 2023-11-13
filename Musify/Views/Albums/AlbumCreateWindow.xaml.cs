@@ -23,10 +23,10 @@ namespace Musify.Views.Albums
     /// </summary>
     public partial class AlbumCreateWindow : UserControl
     {
-        public AlbumCreateWindow()
+        public AlbumCreateWindow(Action<object> goBack)
         {
             InitializeComponent();
-            this.DataContext = new AlbumCreateViewModel();
+            this.DataContext = new AlbumCreateViewModel(goBack);
         }
 
     }

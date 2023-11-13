@@ -24,6 +24,7 @@ namespace Musify.Views
     public partial class Main : Window
     {
         // Screen constants.
+        private AlbumSearchWindow _albumSearchWindow;
         private AlbumCreateWindow _albumCreateWindow;
         private AlbumDetailsWindow _albumDetailsWindow;
         private SongCreateWindow _songCreateWindow;
@@ -35,13 +36,30 @@ namespace Musify.Views
             InitializeNavbar();
 
             // Define all screen constants
-            this._albumCreateWindow = new();
-            this._albumDetailsWindow = new(Guid.Parse("14c94e75-50b7-439c-883b-de122a840b52"));
+            Action<object> goBack = (obj) =>
+            {
+                this._albumSearchWindow.Refresh();
+                this.SetWindow(this._albumSearchWindow);
+            };
+
+            this._albumSearchWindow = new(
+                goToCreate: (obj) =>
+                {
+                    this._albumCreateWindow = new(goBack);
+                    this.SetWindow(this._albumCreateWindow);
+                },
+                goToDetails: (obj) =>
+                {
+                    this._albumDetailsWindow = new(Guid.Parse(obj.ToString()), goBack);
+                    this.SetWindow(this._albumDetailsWindow);
+                });
+            
+            // Song windows
             this._songCreateWindow = new();
             this._songDetailsWindow = new(Guid.Parse("1179e276-435d-4c26-8439-c21ae5e859c3"));
 
             // The startup usercontrol. When made, add the dashboard here.
-            this.SetWindow(this._albumCreateWindow);
+            this.SetWindow(this._albumSearchWindow);
         }
 
 
@@ -52,7 +70,7 @@ namespace Musify.Views
             var navigationVM = new NavigationWindowViewModel();
 
             navigationVM.OnExitProgram += (obj, sen) => Environment.Exit(0);
-            navigationVM.OnGoToAlbums += (obj, sen) => this.SetWindow(this._albumCreateWindow);
+            navigationVM.OnGoToAlbums += (obj, sen) => this.SetWindow(this._albumSearchWindow);
             navigationVM.OnGoToSongs += (obj, sen) => this.SetWindow(this._songCreateWindow);
 
             navigationVM.LoadEvents();
@@ -60,7 +78,7 @@ namespace Musify.Views
             this.navControl.DataContext = navigationVM;
         }
 
-        public void SetWindow(UserControl? control) => 
+        public void SetWindow(UserControl? control) =>
             this.contentControl.Content = control;
     }
 }

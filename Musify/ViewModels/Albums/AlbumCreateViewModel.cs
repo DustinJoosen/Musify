@@ -22,6 +22,7 @@ namespace Musify.ViewModels {
         // Commands
         public ICommand OnSaveAlbum { get; set; }
         public ICommand OnSelectImage { get; set; }
+        public ICommand OnGoBack { get; set; }
 
 
         // Properties
@@ -36,12 +37,13 @@ namespace Musify.ViewModels {
             }
         }
 
-        public AlbumCreateViewModel()
+        public AlbumCreateViewModel(Action<object> goBack)
         {
             this.ReleaseYear = 1900;
 
-            this.OnSaveAlbum = new RelayCommand(SaveAlbum, (obj) => true);
-            this.OnSelectImage = new RelayCommand(SelectImage, (obj) => true);
+            this.OnSaveAlbum = new RelayCommand(SaveAlbum);
+            this.OnSelectImage = new RelayCommand(SelectImage);
+            this.OnGoBack = new RelayCommand(goBack);
         }
 
         public void SaveAlbum(object parameter)
@@ -71,7 +73,7 @@ namespace Musify.ViewModels {
             if (succeeded)
             {
                 MessageBox.Show($"Successfully added album ({this.Title})");
-                this.Reset();
+                this.OnGoBack.Execute(null);
             }
             else
             {
@@ -96,14 +98,6 @@ namespace Musify.ViewModels {
 
             // Sets filename.
             this.CoverImage = dialog.FileName;
-        }
-
-        public void Reset()
-        {
-            this.ReleaseYear = 0;
-            this.Title = string.Empty;
-            this.CoverImage = string.Empty;
-            this.ImgCoverPreview = string.Empty;
         }
 
         #region DataValidation

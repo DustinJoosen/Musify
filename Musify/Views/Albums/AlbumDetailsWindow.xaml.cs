@@ -21,10 +21,10 @@ namespace Musify.Views.Albums
     /// </summary>
     public partial class AlbumDetailsWindow : UserControl
     {
-        public AlbumDetailsWindow(Guid id)
+        public AlbumDetailsWindow(Guid id, Action<object> goBack)
         {
             InitializeComponent();
-            this.DataContext = new AlbumDetailViewModel(id);
+            this.DataContext = new AlbumDetailViewModel(id, goBack);
         }
 
     }

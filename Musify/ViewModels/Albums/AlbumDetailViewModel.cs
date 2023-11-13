@@ -16,6 +16,7 @@ namespace Musify.ViewModels
     public class AlbumDetailViewModel : Album
     {
         public ICommand GoToSongEdits { get; set; }
+        public ICommand GoBack { get; set; }
 
         private ObservableCollection<Song> _songs = new();
         public ObservableCollection<Song> Songs
@@ -44,7 +45,7 @@ namespace Musify.ViewModels
             }
         }
         
-        public AlbumDetailViewModel(Guid id)
+        public AlbumDetailViewModel(Guid id, Action<object> goBack)
         {
             this.Id = id;
 
@@ -56,6 +57,8 @@ namespace Musify.ViewModels
                 albumSongsEditorWindow.Callback += (obj) => this.Artist = this.GetArtist();
                 albumSongsEditorWindow.Show();
             });
+
+            this.GoBack = new RelayCommand(goBack);
 
             this.RetrieveAlbum();
             this.RetrieveSongs();
