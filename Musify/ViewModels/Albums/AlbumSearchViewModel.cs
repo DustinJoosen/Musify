@@ -1,5 +1,6 @@
 ﻿using Musify.Models;
 using Musify.Utility;
+using Musify.Views.Albums;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,7 +22,6 @@ namespace Musify.ViewModels.Albums
     {
         None,
         Title,
-        [Display (Name="Really Nice")]
         TitleDescended,
         ReleaseYear,
         ReleaseYearDescended
@@ -36,6 +36,8 @@ namespace Musify.ViewModels.Albums
         public ICommand OnCreate { get; set; }
         public ICommand OnDetails { get; set; }
         public ICommand OnSort { get; set; }
+        public ICommand OpenFilterWindow { get; set; }
+        public ICommand OnRefresh { get; set; }
 
         // Pagination Commands
         public ICommand OnPaginationNext { get; set; }
@@ -106,6 +108,8 @@ namespace Musify.ViewModels.Albums
             }
         }
 
+        private AlbumSearchFilterWindow _filterWindow;
+
         // Pagination fields
         private Paginator<Album> _paginator;
         public string CurrentPage => (1 + this._paginator.GetCurrentPage()).ToString();
@@ -121,17 +125,26 @@ namespace Musify.ViewModels.Albums
             this.OnEditBtn = new RelayCommand(action);
             this.OnDeleteBtn = new RelayCommand(action);
 
-            this.OnSort = new RelayCommand((obj) => Refresh());
+            Action<object> refresh = (obj) => Refresh();
+            this.OnRefresh = new RelayCommand(refresh);
+            this.OnSort = new RelayCommand(refresh);
 
             this.OnPaginationNext = new RelayCommand((obj) => { this._paginator?.AddCurrentPage(1); });
             this.OnPaginationPrev = new RelayCommand((obj) => { this._paginator?.AddCurrentPage(-1); });
             this.OnPaginationStart = new RelayCommand((obj) => { this._paginator?.SetCurrentPage(0); });
             this.OnPaginationEnd = new RelayCommand((obj) => { this._paginator?.SetCurrentPage(this._paginator.GetMaxAmountOfPages() - 1);});
 
+            
+            this.OpenFilterWindow = new RelayCommand((obj) =>
+            {
+                this._filterWindow = new AlbumSearchFilterWindow(Refresh);
+                this._filterWindow.Show();
+            });
+
             this.SortingCategoryItems = Enum.GetValues<AlbumSortCriteria>();
             this.SortingCategorySelected = AlbumSortCriteria.None;
 
-            this._paginator = new(JsonHandler.GetAll<Album>(), Refresh, itemsPerPage: PageSize.Five);
+            this._paginator = new(JsonHandler.GetAll<Album>(), Refresh, itemsPerPage: PageSize.Three);
             this.Refresh();
         }
 
@@ -148,7 +161,10 @@ namespace Musify.ViewModels.Albums
 
             // Sorting
             this.ApplySorting(ref albums);
-            
+
+            // Filtering
+            this._filterWindow?.ApplyFilters(ref albums);
+
             // Assign the searched, ordered, filtered albums to the paginator.
             this._paginator.Items = albums;
             
