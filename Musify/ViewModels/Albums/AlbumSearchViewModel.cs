@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,15 +17,25 @@ using System.Windows.Media.Imaging;
 
 namespace Musify.ViewModels.Albums
 {
+    public enum AlbumSortCriteria
+    {
+        None,
+        Title,
+        [Display (Name="Really Nice")]
+        TitleDescended,
+        ReleaseYear,
+        ReleaseYearDescended
+    }
+
     public class AlbumSearchViewModel : Album
     {
         // Commands
-        public ICommand OnSearch { get; set; }
         public ICommand OnDetailBtn { get; set; }
         public ICommand OnEditBtn { get; set; }
         public ICommand OnDeleteBtn { get; set; }
         public ICommand OnCreate { get; set; }
         public ICommand OnDetails { get; set; }
+        public ICommand OnSort { get; set; }
 
         // Pagination Commands
         public ICommand OnPaginationNext { get; set; }
@@ -54,8 +65,44 @@ namespace Musify.ViewModels.Albums
             {
                 this._albums = value;
                 RaisePropertyChanged(nameof(Albums));
-             
+
                 this._albumsView = CollectionViewSource.GetDefaultView(value);
+            }
+        }
+
+        private string _searchText = string.Empty;
+        public string SearchText
+        {
+            get => this._searchText;
+            set
+            {
+                this._searchText = value;
+                RaisePropertyChanged(nameof(SearchText));
+             
+                // Search criteria applied. Refresh the contents.
+                this.Refresh();
+            }
+        }
+
+        private IEnumerable<AlbumSortCriteria> _sortCategoryItems;
+        public IEnumerable<AlbumSortCriteria> SortingCategoryItems
+        {
+            get => this._sortCategoryItems;
+            set
+            {
+                this._sortCategoryItems = value;
+                RaisePropertyChanged(nameof(SortingCategoryItems));
+            }
+        }
+
+        private AlbumSortCriteria _sortingCategorySelected;
+        public AlbumSortCriteria SortingCategorySelected
+        {
+            get => this._sortingCategorySelected;
+            set
+            {
+                this._sortingCategorySelected = value;
+                RaisePropertyChanged(nameof(SortingCategorySelected));
             }
         }
 
@@ -74,32 +121,48 @@ namespace Musify.ViewModels.Albums
             this.OnEditBtn = new RelayCommand(action);
             this.OnDeleteBtn = new RelayCommand(action);
 
-            this.OnSearch = new RelayCommand((obj) => { this.Albums.RemoveAt(0); });
+            this.OnSort = new RelayCommand((obj) => Refresh());
 
             this.OnPaginationNext = new RelayCommand((obj) => { this._paginator?.AddCurrentPage(1); });
             this.OnPaginationPrev = new RelayCommand((obj) => { this._paginator?.AddCurrentPage(-1); });
             this.OnPaginationStart = new RelayCommand((obj) => { this._paginator?.SetCurrentPage(0); });
             this.OnPaginationEnd = new RelayCommand((obj) => { this._paginator?.SetCurrentPage(this._paginator.GetMaxAmountOfPages() - 1);});
 
-            var albums = JsonHandler.GetAll<Album>();
-            this._paginator = new(albums, Refresh, itemsPerPage: 4);
+            this.SortingCategoryItems = Enum.GetValues<AlbumSortCriteria>();
+            this.SortingCategorySelected = AlbumSortCriteria.None;
 
+            this._paginator = new(JsonHandler.GetAll<Album>(), Refresh, itemsPerPage: PageSize.Five);
             this.Refresh();
-
         }
 
         public void Refresh()
         {
-            // Refresh the paginator data
+            // Retrieve a new part of all albums
+            var albums = JsonHandler.GetAll<Album>();
 
+            // Apply search criteria, if it exists.
+            if (!string.IsNullOrEmpty(this.SearchText))
+            {
+                albums = albums.Where(album => album.Title.ToLower().Contains(this.SearchText.ToLower())).ToList();
+            }
 
-            // Get the specified objects.
+            // Sorting
+            this.ApplySorting(ref albums);
+            
+            // Assign the searched, ordered, filtered albums to the paginator.
+            this._paginator.Items = albums;
+            
+            // Get the paginazied items to display.
             var items = this._paginator?.GetItems().Select(album => new
             {
-                CoverImage = new BitmapImage(new Uri($"../../Lib/Uploads/{album.CoverImage}", UriKind.RelativeOrAbsolute)),
+                Image = new Image()
+                {
+                    Width = 40,
+                    Height = 40,
+                    Source = this.LoadImage(album.CoverImage)
+                },
                 Title = album.Title,
                 ReleaseYear = album.ReleaseYear,
-                Image = album.CoverImage,
                 DetailBtn = new Button()
                 {
                     Content = "Details",
@@ -125,12 +188,56 @@ namespace Musify.ViewModels.Albums
 
             this.Albums = new(items);
 
+            // Make sure 'search' won't leave you at page 4/1.
+            if (this._paginator.GetCurrentPage() > this._paginator.GetMaxAmountOfPages())
+                this._paginator.SetCurrentPage(0, false);
+
             // Raise property change event on all pagination fields
             RaisePropertyChanged(nameof(MaxPages));
             RaisePropertyChanged(nameof(CurrentPage));
             RaisePropertyChanged(nameof(PaginationCanGoLeft));
             RaisePropertyChanged(nameof(PaginationCanGoRight));
             RaisePropertyChanged(nameof(AlbumsView));
+        }
+
+        public void ApplySorting(ref List<Album> albums)
+        {
+            if (this.SortingCategorySelected == AlbumSortCriteria.None)
+            {
+                // Default sorting.
+                albums = albums
+                    .OrderBy(album => album.Title)
+                    .ThenByDescending(album => album.ReleaseYear)
+                    .ToList();
+
+                return;
+            }
+
+            switch (this.SortingCategorySelected)
+            {
+                case AlbumSortCriteria.Title:
+                    albums = albums.OrderBy(album => album.Title).ToList();
+                    break;
+                case AlbumSortCriteria.TitleDescended:
+                    albums = albums.OrderByDescending(album => album.Title).ToList();
+                    break;
+                case AlbumSortCriteria.ReleaseYear:
+                    albums = albums.OrderBy(album => album.ReleaseYear).ToList();
+                    break;
+                case AlbumSortCriteria.ReleaseYearDescended:
+                    albums = albums.OrderByDescending(album => album.ReleaseYear).ToList();
+                    break;
+            }
+        }
+
+        public BitmapImage LoadImage(string fileName)
+        {
+            BitmapImage bitmap = new();
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri($"../../Lib/Uploads/{fileName}", UriKind.RelativeOrAbsolute);
+            bitmap.EndInit();
+
+            return bitmap;
         }
     }
 

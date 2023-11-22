@@ -4,10 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Musify.Views"
+        xmlns:utility="clr-namespace:Musify.Utility"
         mc:Ignorable="d"
         Icon="../../Lib/icon.png"
         Background="#e9e9e9"
         Title="Musify" Height="380" Width="650">
+    <Window.Resources>
+        <utility:ImageConverter x:Key="ImageConverter" />
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="110"></ColumnDefinition>
