@@ -20,7 +20,7 @@ namespace Musify.Utility
         private static readonly JsonSerializerOptions _options = new()
         {
             WriteIndented = true,
-            ReferenceHandler = ReferenceHandler.IgnoreCycles
+            ReferenceHandler = ReferenceHandler.IgnoreCycles,
         };
 
         /// <summary>

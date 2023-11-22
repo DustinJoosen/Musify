@@ -9,7 +9,12 @@
 
   <ItemGroup>
     <Resource Include="Lib\logo.png" />
+    <Resource Include="Lib\icon.png" />
     <Resource Include="Lib\Uploads\*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DesignDataWithDesignTimeCreatableTypes Include="Lib\Uploads\20338542fa654ee89a8f8a48c1fe59f8.png" />
   </ItemGroup>
 
 </Project>

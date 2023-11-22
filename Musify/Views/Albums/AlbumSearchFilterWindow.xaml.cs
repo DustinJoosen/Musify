@@ -1,6 +1,5 @@
 ﻿using Musify.Models;
-using Musify.Utility;
-using Musify.ViewModels;
+using Musify.ViewModels.Albums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,21 +12,28 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Musify.Views.Albums
 {
     /// <summary>
-    /// Interaction logic for AlbumCreateWindow.xaml
+    /// Interaction logic for AlbumSearchFilterWindow.xaml
     /// </summary>
-    public partial class AlbumCreateWindow : UserControl
+    public partial class AlbumSearchFilterWindow : Window
     {
-        public AlbumCreateWindow(Action<object> goBack)
+        private AlbumSearchFilterViewModel _vm;
+
+        public AlbumSearchFilterWindow(Action callback)
         {
             InitializeComponent();
-            this.DataContext = new AlbumCreateViewModel(goBack);
+
+            this._vm = new AlbumSearchFilterViewModel(callback);
+            this.DataContext = _vm;
         }
 
+        public void ApplyFilters(ref List<Album> albums)
+        {
+            this._vm.ApplyFilters(ref albums);
+        }
     }
 }
