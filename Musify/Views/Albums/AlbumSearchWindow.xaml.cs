@@ -23,11 +23,13 @@ namespace Musify.Views.Albums
     {
         private Action<object> _goToCreate;
         private Action<object> _goToDetails;
+        private Action<object> _goToEdit;
 
-        public AlbumSearchWindow(Action<object> goToCreate, Action<object> goToDetails)
+        public AlbumSearchWindow(Action<object> goToCreate, Action<object> goToDetails, Action<object> goToEdit)
         {
             this._goToCreate = goToCreate;
             this._goToDetails = goToDetails;
+            this._goToEdit = goToEdit;
 
             InitializeComponent();
             this.Refresh();
@@ -35,7 +37,7 @@ namespace Musify.Views.Albums
 
         public void Refresh()
         {
-            this.DataContext = new AlbumSearchViewModel(this._goToCreate, this._goToDetails);
+            this.DataContext = new AlbumSearchViewModel(this._goToCreate, this._goToDetails, this._goToEdit);
         }
     }
 }

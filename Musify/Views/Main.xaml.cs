@@ -27,8 +27,10 @@ namespace Musify.Views
         private AlbumSearchWindow _albumSearchWindow;
         private AlbumCreateWindow _albumCreateWindow;
         private AlbumDetailsWindow _albumDetailsWindow;
+        private AlbumUpdateWindow _albumUpdateWindow;
         private SongCreateWindow _songCreateWindow;
         private SongDetailsWindow _songDetailsWindow;
+        private SongUpdateWindow _songUpdateWindow;
 
         public Main()
         {
@@ -42,6 +44,7 @@ namespace Musify.Views
                 this.SetWindow(this._albumSearchWindow);
             };
 
+            // Album windows.
             this._albumSearchWindow = new(
                 goToCreate: (obj) =>
                 {
@@ -52,11 +55,17 @@ namespace Musify.Views
                 {
                     this._albumDetailsWindow = new(Guid.Parse(obj.ToString()), goBack);
                     this.SetWindow(this._albumDetailsWindow);
+                },
+                goToEdit: (obj) =>
+                {
+                    this._albumUpdateWindow = new(Guid.Parse(obj.ToString()), goBack);
+                    this.SetWindow(this._albumUpdateWindow);
                 });
             
             // Song windows
             this._songCreateWindow = new();
             this._songDetailsWindow = new(Guid.Parse("1179e276-435d-4c26-8439-c21ae5e859c3"));
+            this._songUpdateWindow = new(Guid.Parse("1179e276-435d-4c26-8439-c21ae5e859c3"));
 
             // The startup usercontrol. When made, add the dashboard here.
             this.SetWindow(this._albumSearchWindow);
