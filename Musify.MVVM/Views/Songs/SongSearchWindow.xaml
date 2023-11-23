@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="Musify.MVVM.Views.Songs.SongSearchWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Musify.MVVM.Views.Songs"
+             xmlns:paginator="clr-namespace:Musify.MVVM.Utility"
+             mc:Ignorable="d" 
+             Background="#eee"
+             d:DesignHeight="350" d:DesignWidth="540">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="30" />
+            <ColumnDefinition Width="30" />
+            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="10" />
+        </Grid.ColumnDefinitions>
+        <Label Content="Search songs" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" FontSize="20" />
+        <Button Content="Create" Grid.Row="1" Grid.Column="8" Width="50" Height="20" Command="{Binding OnCreate}" />
+        <Button Content="Refresh" Grid.Row="4" Grid.Column="8" Width="50" Height="20" Command="{Binding OnRefresh}" />
+        <Label Content="Search" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" />
+        <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="2" Height="20" Grid.ColumnSpan="2" />
+        <ComboBox Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="110" Height="20" ItemsSource="{Binding SortingCategoryItems}" SelectedItem="{Binding SortingCategorySelected}"></ComboBox>
+        <Button Content="Sort" Grid.Row="2" Grid.Column="6" HorizontalAlignment="Right" Height="20" Width="30" Command="{Binding OnSort}"></Button>
+        <Button Content="Open Filters" Grid.Row="2" Grid.Column="8" Height="20" Width="80" HorizontalAlignment="Left" Command="{Binding OpenFilterWindow}"></Button>
+        <DataGrid x:Name="dgSongs" ItemsSource="{Binding SongsView}" AutoGenerateColumns="False" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" CanUserAddRows="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Title" Width="*" Binding="{Binding Title}" />
+                <DataGridTextColumn Header="Artist" Width="120" Binding="{Binding Artist}" />
+                <DataGridTemplateColumn Header="Details" Width="60">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ContentControl Content="{Binding DetailBtn}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Edit" Width="60">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ContentControl Content="{Binding EditBtn}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Delete" Width="60">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ContentControl Content="{Binding DeleteBtn}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <!-- Pagination -->
+        <Button Content="&lt;&lt;" Grid.Row="4" Grid.Column="2" Height="20" Width="22" HorizontalAlignment="Left" Command="{Binding OnPaginationStart}" IsEnabled="{Binding PaginationCanGoLeft}" />
+        <Button Content="&lt;" Grid.Row="4" Grid.Column="2" Height="20" Width="22" HorizontalAlignment="Right" Command="{Binding OnPaginationPrev}" IsEnabled="{Binding PaginationCanGoLeft}" />
+        <Label x:Name="lblCurrent" Content="{Binding CurrentPage}" Grid.Row="4" Grid.Column="3" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
+        <Label x:Name="lblMax" Content="{Binding MaxPages}" Grid.Row="4" Grid.Column="4" VerticalAlignment="Center"/>
+        <Button Content="&gt;" Grid.Row="4" Grid.Column="5" Height="20" Width="22" HorizontalAlignment="Left"  Command="{Binding OnPaginationNext}" IsEnabled="{Binding PaginationCanGoRight}" />
+        <Button Content="&gt;&gt;" Grid.Row="4" Grid.Column="5" Height="20" Width="22" HorizontalAlignment="Right" Command="{Binding OnPaginationEnd}" IsEnabled="{Binding PaginationCanGoRight}" />
+    </Grid>
+</UserControl>

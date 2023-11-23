@@ -42,8 +42,8 @@
         <Label Content="{Binding ReleaseDate}" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3" />
         <Label FontWeight="Bold" Content="Duration: " Grid.Row="5" Grid.Column="1" />
         <Label Content="{Binding FormattedDuration}" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="3" />
-        <Button Content="Edit" Grid.Row="8" Grid.Column="4" Height="30" Width="80" VerticalAlignment="Top" Margin="1,10,89,0" />
-        <Button Content="Back" Grid.Row="8" Grid.Column="4" Height="30" Width="60" VerticalAlignment="Top" Margin="65,10,5,0" />
+        <Button Content="Edit" Grid.Row="8" Grid.Column="4" Height="30" Width="80" VerticalAlignment="Top" Margin="1,10,89,0" Command="{Binding OnEdit}" CommandParameter="{Binding Id}" />
+        <Button Content="Back" Grid.Row="8" Grid.Column="4" Height="30" Width="60" VerticalAlignment="Top" Margin="65,10,5,0" Command="{Binding OnBack}" />
         <Label FontWeight="Bold" Content="Albums: " Grid.Row="6" Grid.Column="1" />
         <ListBox ItemsSource="{Binding Albums}" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2"></ListBox>
     </Grid>

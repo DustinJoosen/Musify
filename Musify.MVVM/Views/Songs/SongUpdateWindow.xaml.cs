@@ -22,10 +22,10 @@ namespace Musify.MVVM.Views.Songs
     /// </summary>
     public partial class SongUpdateWindow : UserControl
     {
-        public SongUpdateWindow(Guid id)
+        public SongUpdateWindow(Guid id, Action<object> goBackToSongs)
         {
             InitializeComponent();
-            this.DataContext = new SongUpdateViewModel(id);
+            this.DataContext = new SongUpdateViewModel(id, goBackToSongs);
         }
     }
 }

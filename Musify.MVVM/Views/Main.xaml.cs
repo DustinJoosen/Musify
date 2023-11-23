@@ -28,6 +28,8 @@ namespace Musify.MVVM.Views
         private AlbumCreateWindow _albumCreateWindow;
         private AlbumDetailsWindow _albumDetailsWindow;
         private AlbumUpdateWindow _albumUpdateWindow;
+
+        private SongSearchWindow _songSearchWindow;
         private SongCreateWindow _songCreateWindow;
         private SongDetailsWindow _songDetailsWindow;
         private SongUpdateWindow _songUpdateWindow;
@@ -37,38 +39,64 @@ namespace Musify.MVVM.Views
             InitializeComponent();
             InitializeNavbar();
 
-            // Define all screen constants
-            Action<object> goBack = (obj) =>
+            // Actions to go back to the search windows
+            Action<object> goBackToAlbums = (obj) =>
             {
                 this._albumSearchWindow.Refresh();
                 this.SetWindow(this._albumSearchWindow);
+            };
+
+            Action<object> goBackToSongs = (obj) =>
+            {
+                this._songSearchWindow.Refresh();
+                this.SetWindow(this._songSearchWindow);
             };
 
             // Album windows.
             this._albumSearchWindow = new(
                 goToCreate: (obj) =>
                 {
-                    this._albumCreateWindow = new(goBack);
+                    this._albumCreateWindow = new(goBackToAlbums);
                     this.SetWindow(this._albumCreateWindow);
                 },
                 goToDetails: (obj) =>
                 {
-                    this._albumDetailsWindow = new(Guid.Parse(obj.ToString()), goBack);
+                    this._albumDetailsWindow = new(Guid.Parse(obj.ToString()), goBackToAlbums);
                     this.SetWindow(this._albumDetailsWindow);
                 },
                 goToEdit: (obj) =>
                 {
-                    this._albumUpdateWindow = new(Guid.Parse(obj.ToString()), goBack);
+                    this._albumUpdateWindow = new(Guid.Parse(obj.ToString()), goBackToAlbums);
                     this.SetWindow(this._albumUpdateWindow);
                 });
-            
+
             // Song windows
-            this._songCreateWindow = new();
-            this._songDetailsWindow = new(Guid.Parse("1179e276-435d-4c26-8439-c21ae5e859c3"));
-            this._songUpdateWindow = new(Guid.Parse("1179e276-435d-4c26-8439-c21ae5e859c3"));
+            this._songSearchWindow = new(
+                goToCreate: (obj) =>
+                {
+                    this._songCreateWindow = new(goBackToSongs);
+                    this.SetWindow(this._songCreateWindow);
+                },
+                goToDetails: (obj) =>
+                {
+                    this._songDetailsWindow = new(Guid.Parse(obj.ToString()),
+                        backToSearch: goBackToSongs,
+                        goToEdit: (obj2) =>
+                        {
+                            this._songUpdateWindow = new(Guid.Parse(obj2.ToString()), goBackToSongs);
+                            this.SetWindow(this._songUpdateWindow);
+                        });
+                    this.SetWindow(this._songDetailsWindow);
+                },
+                goToEdit: (obj) =>
+                {
+                    this._songUpdateWindow = new(Guid.Parse(obj.ToString()), goBackToSongs);
+                    this.SetWindow(this._songUpdateWindow);
+                });
+
 
             // The startup usercontrol. When made, add the dashboard here.
-            this.SetWindow(this._albumSearchWindow);
+            this.SetWindow(this._songSearchWindow);
         }
 
 
@@ -80,7 +108,7 @@ namespace Musify.MVVM.Views
 
             navigationVM.OnExitProgram += (obj, sen) => Environment.Exit(0);
             navigationVM.OnGoToAlbums += (obj, sen) => this.SetWindow(this._albumSearchWindow);
-            navigationVM.OnGoToSongs += (obj, sen) => this.SetWindow(this._songCreateWindow);
+            navigationVM.OnGoToSongs += (obj, sen) => this.SetWindow(this._songSearchWindow);
 
             navigationVM.LoadEvents();
 
