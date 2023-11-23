@@ -72,7 +72,7 @@ namespace Musify.Views
         }
 
 
-        // Because of the linking to other windoes, navbar is initialized in Main.
+        // Because of the linking to other windows, navbar is initialized in Main.
         private void InitializeNavbar()
         {
             this.navControl.Content = new NavigationWindow();
