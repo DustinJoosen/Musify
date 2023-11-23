@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <DesignDataWithDesignTimeCreatableTypes Include="Lib\Uploads\20338542fa654ee89a8f8a48c1fe59f8.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Lib\icon.png" />
+    <Resource Include="Lib\logo.png" />
+    <Resource Include="Lib\Uploads\*" />
+  </ItemGroup>
+
+</Project>

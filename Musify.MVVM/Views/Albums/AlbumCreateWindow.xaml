@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="Musify.MVVM.Views.Albums.AlbumCreateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:local="clr-namespace:Musify.MVVM.Views.Albums" 
+        mc:Ignorable="d" 
+        Background="#e9e9e9"
+        d:DesignHeight="250" d:DesignWidth="470">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="150"></ColumnDefinition>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition Width="130"></ColumnDefinition>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Content="Create new Album" HorizontalAlignment="Right" FontSize="20" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"  />
+        <Label x:Name="lblTitle" Content="Title " HorizontalAlignment="Right" Grid.Row="3"  Grid.Column="1"/>
+        <Label x:Name="lblReleaseYr" Content="Release Year " HorizontalAlignment="Right" Grid.Row="4"  Grid.Column="1"/>
+        <Label x:Name="lblImage" Content="Image " HorizontalAlignment="Right" Grid.Row="5"  Grid.Column="1"/>
+        <TextBox x:Name="txtTitle" Text="{Binding Title, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Row="3" Grid.Column="3" Height="20" />
+        <TextBox x:Name="txtReleaseYr" Text="{Binding ReleaseYear, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Grid.Row="4" Grid.Column="3" Height="20" />
+        <Button x:Name="txtCoverImg" Grid.Row="5" Grid.Column="3" Height="20" Content="Browse" Command="{Binding OnSelectImage}"></Button>
+        <Button Content="Save" Grid.Row="7" Grid.Column="3" Background="LightGreen" Command="{Binding OnSaveAlbum}">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="IsEnabled" Value="false" />
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=txtTitle, Path=(Validation.HasError)}" Value="false" />
+                                <Condition Binding="{Binding ElementName=txtReleaseYr, Path=(Validation.HasError)}" Value="false" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="IsEnabled" Value="true" />
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button Content="Back" Grid.Row="7" Grid.Column="1" Background="LightGray" Command="{Binding OnGoBack}" />
+        <Image x:Name="imgCoverPreview" Source="{Binding ImgCoverPreview}" Grid.Row="3" Grid.Column="5" Grid.RowSpan="5" />
+    </Grid>
+</UserControl>
