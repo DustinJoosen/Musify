@@ -3,6 +3,7 @@ using Musify.Models;
 using Musify.Utility;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ using System.Windows.Input;
 
 namespace Musify.ViewModels.Albums
 {
-    internal class AlbumUpdateViewModel : Album
+    internal class AlbumUpdateViewModel : Album, IDataErrorInfo
     {
         public ICommand OnUpdateAlbum { get; set; }
         public ICommand OnSelectImage { get; set; }
@@ -113,5 +114,26 @@ namespace Musify.ViewModels.Albums
                 MessageBox.Show("Update was not succesful, please try again");
             }
         }
+
+
+        #region DataValidation
+        public string this[string columnName]
+        {
+            get
+            {
+                if (columnName == nameof(Title) && string.IsNullOrEmpty(Title))
+                    return "Please enter a Title";
+
+                if (columnName == nameof(ReleaseYear) && ReleaseYear > DateTime.Today.Year)
+                    return "Release date can't be in the future";
+
+                return string.Empty;
+            }
+        }
+
+        public string Error => string.Empty;
+
+        #endregion
+
     }
 }
