@@ -9,7 +9,7 @@
              d:DesignHeight="280" d:DesignWidth="400">
     <UserControl.Resources>
         <Style TargetType="Button">
-            <Setter Property="Control.Background" Value="#333"></Setter>
+            <Setter Property="Control.Background" Value="#5390d6"></Setter>
             <Setter Property="Control.Foreground" Value="white"></Setter>
         </Style>
     </UserControl.Resources>
@@ -39,6 +39,6 @@
         <ListBox ItemsSource="{Binding Songs}" Grid.Row="5" Grid.Column="1"></ListBox>
         <Image Source="{Binding FullImagePath}" Grid.Row="1" VerticalAlignment="Top"  Grid.RowSpan="3" Grid.ColumnSpan="2" Grid.Column="3" />
         <Button Content="Edit" Grid.Row="5" Grid.Column="3" Height="30" Width="80" VerticalAlignment="Bottom" />
-        <Button Content="Back" Grid.Row="5" Grid.Column="4" Height="30" Width="60" VerticalAlignment="Bottom" Command="{Binding GoBack}" />
+        <Button Content="Back" Grid.Row="5" Grid.Column="4" Height="30" Width="60" VerticalAlignment="Bottom" Background="Tomato" Command="{Binding GoBack}" />
     </Grid>
 </UserControl>

@@ -54,7 +54,7 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Button Content="Back" Grid.Row="7" Grid.Column="1" Background="LightGray" Command="{Binding OnGoBack}" />
+        <Button Content="Back" Grid.Row="7" Grid.Column="1" Background="Tomato" Foreground="White" Command="{Binding OnBack}" />
         <Image x:Name="imgCoverPreview" Source="{Binding ImgCoverPreview}" Grid.Row="3" Grid.Column="5" Grid.RowSpan="5" />
     </Grid>
 </UserControl>

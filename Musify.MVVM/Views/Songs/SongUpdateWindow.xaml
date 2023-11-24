@@ -63,7 +63,7 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Button Content="Cancel" Grid.Row="9" Grid.Column="1" Background="LightGray" Command="{Binding OnCancel}" />
+        <Button Content="Cancel" Grid.Row="9" Grid.Column="1" Background="Tomato" Foreground="White" Command="{Binding OnCancel}" />
         <Label Grid.Column="3" Content=":" HorizontalAlignment="Left" Grid.Row="7" VerticalAlignment="Center" Margin="18,0,0,0"/>
     </Grid>
 </UserControl>
