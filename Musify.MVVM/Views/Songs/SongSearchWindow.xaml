@@ -5,9 +5,24 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Musify.MVVM.Views.Songs"
              xmlns:paginator="clr-namespace:Musify.MVVM.Utility"
+             xmlns:root="clr-namespace:Musify.MVVM.Views"
              mc:Ignorable="d" 
              Background="#eee"
              d:DesignHeight="350" d:DesignWidth="540">
+    <UserControl.Resources>
+        <Style x:Key="BluePaddedButton" TargetType="Button">
+            <Setter Property="Background" Value="#5390d6" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Padding" Value="3" />
+            <Setter Property="Width" Value="60" />
+            <Setter Property="Height" Value="25" />
+        </Style>
+        <Style x:Key="Combobox" TargetType="ComboBox">
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Height" Value="25" />
+            <Setter Property="Background" Value="#5390d6" />
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="10"/>
@@ -29,13 +44,13 @@
             <ColumnDefinition Width="10" />
         </Grid.ColumnDefinitions>
         <Label Content="Search songs" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" FontSize="20" />
-        <Button Content="Create" Grid.Row="1" Grid.Column="8" Width="50" Height="20" Command="{Binding OnCreate}" />
-        <Button Content="Refresh" Grid.Row="4" Grid.Column="8" Width="50" Height="20" Command="{Binding OnRefresh}" />
+        <Button Content="Create" Grid.Row="1" Grid.Column="8" HorizontalAlignment="Center" Command="{Binding OnCreate}" Style="{StaticResource BluePaddedButton}" />
+        <Button Content="Open Filters" Grid.Row="2" Grid.Column="8" Width="80" HorizontalAlignment="Center" Command="{Binding OpenFilterWindow}" Style="{StaticResource BluePaddedButton}"></Button>
+        <Button Content="Refresh" Grid.Row="4" Grid.Column="8" Command="{Binding OnRefresh}" Style="{StaticResource BluePaddedButton}" />
         <Label Content="Search" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" />
         <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="2" Height="20" Grid.ColumnSpan="2" />
-        <ComboBox Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="110" Height="20" ItemsSource="{Binding SortingCategoryItems}" SelectedItem="{Binding SortingCategorySelected}"></ComboBox>
-        <Button Content="Sort" Grid.Row="2" Grid.Column="6" HorizontalAlignment="Right" Height="20" Width="30" Command="{Binding OnSort}"></Button>
-        <Button Content="Open Filters" Grid.Row="2" Grid.Column="8" Height="20" Width="80" HorizontalAlignment="Left" Command="{Binding OpenFilterWindow}"></Button>
+        <ComboBox Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="2" HorizontalAlignment="Left" ItemsSource="{Binding SortingCategoryItems}" SelectedItem="{Binding SortingCategorySelected}" Style="{StaticResource Combobox}"></ComboBox>
+        <Button Content="Sort" Grid.Row="2" Grid.Column="6" HorizontalAlignment="Right" Width="40" Command="{Binding OnSort}" Style="{StaticResource BluePaddedButton}"></Button>
         <DataGrid x:Name="dgSongs" ItemsSource="{Binding SongsView}" AutoGenerateColumns="False" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" CanUserAddRows="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Title" Width="*" Binding="{Binding Title}" />
@@ -64,11 +79,6 @@
             </DataGrid.Columns>
         </DataGrid>
         <!-- Pagination -->
-        <Button Content="&lt;&lt;" Grid.Row="4" Grid.Column="2" Height="20" Width="22" HorizontalAlignment="Left" Command="{Binding OnPaginationStart}" IsEnabled="{Binding PaginationCanGoLeft}" />
-        <Button Content="&lt;" Grid.Row="4" Grid.Column="2" Height="20" Width="22" HorizontalAlignment="Right" Command="{Binding OnPaginationPrev}" IsEnabled="{Binding PaginationCanGoLeft}" />
-        <Label x:Name="lblCurrent" Content="{Binding CurrentPage}" Grid.Row="4" Grid.Column="3" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
-        <Label x:Name="lblMax" Content="{Binding MaxPages}" Grid.Row="4" Grid.Column="4" VerticalAlignment="Center"/>
-        <Button Content="&gt;" Grid.Row="4" Grid.Column="5" Height="20" Width="22" HorizontalAlignment="Left"  Command="{Binding OnPaginationNext}" IsEnabled="{Binding PaginationCanGoRight}" />
-        <Button Content="&gt;&gt;" Grid.Row="4" Grid.Column="5" Height="20" Width="22" HorizontalAlignment="Right" Command="{Binding OnPaginationEnd}" IsEnabled="{Binding PaginationCanGoRight}" />
+        <root:PaginationControl Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="4" />
     </Grid>
 </UserControl>

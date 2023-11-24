@@ -28,11 +28,12 @@ namespace Musify.MVVM.Views.Songs
 
         public SongSearchWindow(Action<object> goToCreate, Action<object> goToDetails, Action<object> goToEdit)
         {
+            InitializeComponent();
+
             this._goToCreate = goToCreate;
             this._goToDetails = goToDetails;
             this._goToEdit = goToEdit;
 
-            InitializeComponent();
             this.Refresh();
         }
 

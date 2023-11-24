@@ -9,13 +9,21 @@
         Icon="../../Lib/icon.png"
         Background="#e9e9e9"
         Title="Musify" Height="380" Width="650">
+    <Window.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="Background" Value="White" />
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="110"></ColumnDefinition>
-            <ColumnDefinition Width="50"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <ContentControl x:Name="navControl" Grid.Column="0" />
-        <ContentControl x:Name="contentControl" Grid.Column="2" />
+        <Border BorderBrush="Black" BorderThickness="2 2 0 2" Grid.Column="0">
+            <ContentControl x:Name="navControl" />
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="2" Grid.Column="1">
+            <ContentControl x:Name="contentControl" />
+        </Border>
     </Grid>
 </Window>

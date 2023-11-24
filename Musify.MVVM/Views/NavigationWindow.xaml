@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Musify.MVVM.Views"
              xmlns:VM="clr-namespace:Musify.MVVM.ViewModels"
              mc:Ignorable="d" 
-             Background="#333"
+             Background="#5390d6"
              d:DesignHeight="450" d:DesignWidth="110">
     <UserControl.Resources>
         <Style TargetType="Image">
@@ -14,9 +14,12 @@
             <Setter Property="Control.BorderBrush" Value="White" />
         </Style>
         <Style TargetType="Button">
-            <Setter Property="Control.Background" Value="#444" />
+            <Setter Property="Control.Background" Value="#5390d6" />
             <Setter Property="Control.Foreground" Value="White" />
             <Setter Property="Control.BorderBrush" Value="White" />
+        </Style>
+        <Style TargetType="Grid">
+            <Setter Property="Background" Value="#5390d6" />
         </Style>
     </UserControl.Resources>
     <Grid>
@@ -38,7 +41,9 @@
             <RowDefinition Height="40"></RowDefinition>
             <RowDefinition Height="10"></RowDefinition>
         </Grid.RowDefinitions>
-        <Image Source="../Lib/logo.png" Grid.Row="1" Grid.Column="1" Width="94" Height="94" />
+        <Border BorderThickness="2" BorderBrush="White" Grid.Row="1" Grid.Column="1">
+            <Image Source="../Lib/logo.png" Width="94" Height="94" />
+        </Border>
         <Button Content="Dashboard" Grid.Row="3" Grid.Column="1" />
         <Button Content="Albums" Grid.Row="5" Grid.Column="1" Command="{Binding GoToAlbums}"/>
         <Button Content="Songs" Grid.Row="7" Grid.Column="1" Command="{Binding GoToSongs}" />

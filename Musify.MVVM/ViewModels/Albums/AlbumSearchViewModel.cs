@@ -110,8 +110,7 @@ namespace Musify.MVVM.ViewModels.Albums
         // Pagination fields
 
         private Paginator<Album> _paginator;
-        public string CurrentPage => (1 + this._paginator.GetCurrentPage()).ToString();
-        public string MaxPages => $"/{this._paginator.GetMaxAmountOfPages()}";
+        public string CurrentMaxPage => $"{1 + this._paginator.GetCurrentPage()} / {this._paginator.GetMaxAmountOfPages()}";
 
         // Methods
         public AlbumSearchViewModel(Action<object> goToCreate, Action<object> goToDetails, Action<object> goToEdit)
@@ -206,8 +205,7 @@ namespace Musify.MVVM.ViewModels.Albums
                 this._paginator.SetCurrentPage(0, false);
 
             // Raise property change event on all pagination fields
-            RaisePropertyChanged(nameof(MaxPages));
-            RaisePropertyChanged(nameof(CurrentPage));
+            RaisePropertyChanged(nameof(CurrentMaxPage));
             RaisePropertyChanged(nameof(PaginationCanGoLeft));
             RaisePropertyChanged(nameof(PaginationCanGoRight));
             RaisePropertyChanged(nameof(AlbumsView));
