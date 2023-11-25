@@ -14,6 +14,7 @@ namespace Musify.MVVM.ViewModels.Songs
     public class SongDeleteViewModel : NotifyPropertyChanged
     {
         public ICommand OnDelete { get; set; }
+        public ICommand OnBack { get; set; }
 
         private Action<object> _goBackToSongs;
 
@@ -57,6 +58,7 @@ namespace Musify.MVVM.ViewModels.Songs
             this._goBackToSongs = goBackToSongs;
 
             this.OnDelete = new RelayCommand(DeleteSong);
+            this.OnBack = new RelayCommand(goBackToSongs);
 
             this.Refresh();
         }
