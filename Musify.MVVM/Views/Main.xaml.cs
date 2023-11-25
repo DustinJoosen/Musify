@@ -28,11 +28,13 @@ namespace Musify.MVVM.Views
         private AlbumCreateWindow _albumCreateWindow;
         private AlbumDetailsWindow _albumDetailsWindow;
         private AlbumUpdateWindow _albumUpdateWindow;
+        private AlbumDeleteWindow _albumDeleteWindow;
 
         private SongSearchWindow _songSearchWindow;
         private SongCreateWindow _songCreateWindow;
         private SongDetailsWindow _songDetailsWindow;
         private SongUpdateWindow _songUpdateWindow;
+        private SongDeleteWindow _songDeleteWindow;
 
         public Main()
         {
@@ -68,6 +70,11 @@ namespace Musify.MVVM.Views
                 {
                     this._albumUpdateWindow = new(Guid.Parse(obj.ToString()), goBackToAlbums);
                     this.SetWindow(this._albumUpdateWindow);
+                },
+                goToDelete: (obj) =>
+                {
+                    this._albumDeleteWindow = new(Guid.Parse(obj.ToString()), goBackToAlbums);
+                    this.SetWindow(this._albumDeleteWindow);
                 });
 
             // Song windows
@@ -92,6 +99,11 @@ namespace Musify.MVVM.Views
                 {
                     this._songUpdateWindow = new(Guid.Parse(obj.ToString()), goBackToSongs);
                     this.SetWindow(this._songUpdateWindow);
+                },
+                goToDelete: (obj) =>
+                {
+                    this._songDeleteWindow = new(Guid.Parse(obj.ToString()), goBackToSongs);
+                    this.SetWindow(this._songDeleteWindow);
                 });
 
 

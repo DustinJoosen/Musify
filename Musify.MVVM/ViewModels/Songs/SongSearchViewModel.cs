@@ -115,12 +115,13 @@ namespace Musify.MVVM.ViewModels.Songs
         public bool PaginationCanGoLeft => this._paginator.CanDecreasePage();
         public bool PaginationCanGoRight => this._paginator.CanIncreasePage();
 
-        public SongSearchViewModel(Action<object> goToCreate, Action<object> goToDetails, Action<object> goToEdit)
+        public SongSearchViewModel(Action<object> goToCreate, Action<object> goToDetails, 
+            Action<object> goToEdit, Action<object> goToDelete)
         {
             this.OnCreate = new RelayCommand(goToCreate);
             this.OnDetailBtn = new RelayCommand(goToDetails);
             this.OnEditBtn = new RelayCommand(goToEdit);
-            this.OnDeleteBtn = new RelayCommand((obj) => MessageBox.Show("Delete functionality not implemented yet"));
+            this.OnDeleteBtn = new RelayCommand(goToDelete);
 
             Action<object> refresh = (obj) => Refresh();
             this.OnRefresh = new RelayCommand(refresh);

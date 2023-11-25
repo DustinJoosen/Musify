@@ -24,12 +24,15 @@ namespace Musify.MVVM.Views.Albums
         private Action<object> _goToCreate;
         private Action<object> _goToDetails;
         private Action<object> _goToEdit;
+        private Action<object> _goToDelete;
 
-        public AlbumSearchWindow(Action<object> goToCreate, Action<object> goToDetails, Action<object> goToEdit)
+        public AlbumSearchWindow(Action<object> goToCreate, Action<object> goToDetails, 
+            Action<object> goToEdit, Action<object> goToDelete)
         {
             this._goToCreate = goToCreate;
             this._goToDetails = goToDetails;
             this._goToEdit = goToEdit;
+            this._goToDelete = goToDelete;
 
             InitializeComponent();
             this.Refresh();
@@ -37,7 +40,7 @@ namespace Musify.MVVM.Views.Albums
 
         public void Refresh()
         {
-            this.DataContext = new AlbumSearchViewModel(this._goToCreate, this._goToDetails, this._goToEdit);
+            this.DataContext = new AlbumSearchViewModel(this._goToCreate, this._goToDetails, this._goToEdit, this._goToDelete);
         }
     }
 }

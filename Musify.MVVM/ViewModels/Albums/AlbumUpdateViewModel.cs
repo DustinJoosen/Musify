@@ -81,8 +81,11 @@ namespace Musify.MVVM.ViewModels.Albums
             {
                 try
                 {
-                    // Delete original
-                    File.Delete($"../../../Lib/Uploads/{this._originalCoverImagePath}");
+                    if (this._originalCoverImagePath != "notfound.png")
+                    {
+                        // Delete original
+                        File.Delete($"../../../Lib/Uploads/{this._originalCoverImagePath}");
+                    }
 
                     // Copies the file down to the local place.
                     this.CoverImage = Guid.NewGuid().ToString().Replace("-", "") + ".png";

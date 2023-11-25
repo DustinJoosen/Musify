@@ -1,4 +1,4 @@
-﻿using Musify.MVVM.ViewModels;
+﻿using Musify.MVVM.ViewModels.Songs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,14 +17,14 @@ using System.Windows.Shapes;
 namespace Musify.MVVM.Views.Songs
 {
     /// <summary>
-    /// Interaction logic for SongDetailsWindow.xaml
+    /// Interaction logic for SongDeleteWindow.xaml
     /// </summary>
-    public partial class SongDetailsWindow : UserControl
+    public partial class SongDeleteWindow : UserControl
     {
-        public SongDetailsWindow(Guid songId, Action<object> backToSearch, Action<object> goToEdit)
+        public SongDeleteWindow(Guid songId, Action<object> goBackToSongs)
         {
             InitializeComponent();
-            this.DataContext = new SongDetailViewModel(songId, backToSearch, goToEdit);
+            this.DataContext = new SongDeleteViewModel(songId, goBackToSongs);
         }
     }
 }
