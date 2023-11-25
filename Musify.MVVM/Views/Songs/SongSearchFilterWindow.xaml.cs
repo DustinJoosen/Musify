@@ -1,4 +1,5 @@
-﻿using Musify.MVVM.ViewModels;
+﻿using Musify.MVVM.Models;
+using Musify.MVVM.ViewModels.Albums;
 using Musify.MVVM.ViewModels.Songs;
 using System;
 using System.Collections.Generic;
@@ -12,20 +13,29 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Musify.MVVM.Views.Songs
 {
     /// <summary>
-    /// Interaction logic for SongUpdate.xaml
+    /// Interaction logic for SongSearchFilterWindow.xaml
     /// </summary>
-    public partial class SongUpdateWindow : UserControl
+    public partial class SongSearchFilterWindow : Window
     {
-        public SongUpdateWindow(Guid id, Action<object> goBackToSongs)
+        private SongSearchFilterViewModel _vm;
+
+        public SongSearchFilterWindow(Action callback)
         {
             InitializeComponent();
-            this.DataContext = new SongUpdateViewModel(id, goBackToSongs);
+
+            this._vm = new SongSearchFilterViewModel(callback);
+            this.DataContext = _vm;
+
+        }
+
+        public void ApplyFilters(ref List<Song> songs)
+        {
+            this._vm.ApplyFilters(ref songs);
         }
     }
 }

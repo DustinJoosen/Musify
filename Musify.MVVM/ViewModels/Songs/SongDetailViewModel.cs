@@ -14,6 +14,8 @@ namespace Musify.MVVM.ViewModels
 {
     public class SongDetailViewModel : Song
     {
+        public ICommand OnBack { get; set; }
+        public ICommand OnEdit { get; set; }
 
         public ObservableCollection<Album> Albums { get; set; } = new();
 
@@ -26,9 +28,13 @@ namespace Musify.MVVM.ViewModels
             }
         }
 
-        public SongDetailViewModel(Guid id)
+        public SongDetailViewModel(Guid id, Action<object> backToSearch, Action<object> goToEdit)
         {
             this.Id = id;
+
+            this.OnBack = new RelayCommand(backToSearch);
+            this.OnEdit = new RelayCommand(goToEdit);
+
             this.RetrieveSong();
             this.RetrieveAlbums();
         }

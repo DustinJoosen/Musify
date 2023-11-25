@@ -1,6 +1,4 @@
-﻿using Musify.MVVM.ViewModels;
-using Musify.MVVM.ViewModels.Songs;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,17 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Musify.MVVM.Views.Songs
+namespace Musify.MVVM.Views
 {
     /// <summary>
-    /// Interaction logic for SongUpdate.xaml
+    /// Interaction logic for PaginationControl.xaml
     /// </summary>
-    public partial class SongUpdateWindow : UserControl
+    public partial class PaginationControl : UserControl
     {
-        public SongUpdateWindow(Guid id, Action<object> goBackToSongs)
+        public PaginationControl()
         {
             InitializeComponent();
-            this.DataContext = new SongUpdateViewModel(id, goBackToSongs);
         }
     }
 }

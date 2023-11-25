@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Musify.MVVM.Views.Confirmation"
         mc:Ignorable="d"
-        Icon="../../Lib/logo.png"
+        Icon="../../../Lib/logo.png"
         Title="Create Song Confirmation" Height="280" Width="420">
     <Grid>
         <Grid>

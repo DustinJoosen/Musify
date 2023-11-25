@@ -22,6 +22,9 @@ namespace Musify.MVVM.ViewModels
     public class SongCreateViewModel : Song, IDataErrorInfo
     {
         public ICommand OnSaveSong { get; set; }
+        public ICommand OnBack { get; set; }
+
+        private Action<object> _backToSearch;
 
         // Ensure numbers remain positive.  
         private int _durationMinutes = 0;
@@ -39,10 +42,14 @@ namespace Musify.MVVM.ViewModels
             set => this._durationSeconds = Math.Abs(value);
         }
 
-        public SongCreateViewModel()
+        public SongCreateViewModel(Action<object> backToSearch)
         {
             this.ReleaseDate = DateTime.Today.AddDays(-1);
+
+            this._backToSearch = backToSearch;
+
             this.OnSaveSong = new RelayCommand(SaveSong, (obj) => true);
+            this.OnBack = new RelayCommand(this._backToSearch);
         }
 
         public void SaveSong(object parameter)
@@ -59,7 +66,7 @@ namespace Musify.MVVM.ViewModels
                 Duration = duration
             };
 
-            new CreateSongConfirmationWindow(song, (obj) =>
+            new CreateSongConfirmationWindow(song, onCreate: (obj) =>
             {
                 // Add the song.
                 bool succeeded = JsonHandler.Add<Song>(song);
@@ -68,6 +75,7 @@ namespace Musify.MVVM.ViewModels
                 {
                     MessageBox.Show($"Successfully added album ({this.Title})");
                     this.Reset();
+                    this._backToSearch.Invoke(obj);
                 }
                 else
                 {
