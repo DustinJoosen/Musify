@@ -27,7 +27,7 @@
             <RowDefinition Height="30" />
         </Grid.RowDefinitions>
         <Label Content="{Binding AlbumName}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" FontSize="24" />
-        <ComboBox x:Name="cbSongs" ItemsSource="{Binding UnusedSongs}" Grid.Row="3" Grid.Column="1" SelectedIndex="0" />
+        <ComboBox x:Name="cbSongs" ItemsSource="{Binding UnusedSongs}" Grid.Row="3" Grid.Column="1" SelectedItem="{Binding ComboboxSelectedSong}" />
         <Button Content="Add" Grid.Row="3" Grid.Column="3" Command="{Binding OnAddSong}" CommandParameter="{Binding SelectedItem, ElementName=cbSongs}" />
         <DataGrid x:Name="dgItems" ItemsSource="{Binding UsedSongs}" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
             <DataGrid.Columns>

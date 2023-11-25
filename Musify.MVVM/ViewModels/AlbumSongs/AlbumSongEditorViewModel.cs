@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace Musify.MVVM.ViewModels {
 
-    public class AlbumSongEditorViewModel : AlbumSong
+    public class AlbumSongEditorViewModel : NotifyPropertyChanged
     {
         private Guid Id;
 
@@ -22,6 +22,17 @@ namespace Musify.MVVM.ViewModels {
 
         public ObservableCollection<Song> UsedSongs { get; set; } = new();
         public ObservableCollection<Song> UnusedSongs { get; set; } = new();
+
+        private Song _comboboxSelectedSong;
+        public Song ComboboxSelectedSong
+        {
+            get => this._comboboxSelectedSong;
+            set
+            {
+                this._comboboxSelectedSong = value;
+                RaisePropertyChanged(nameof(ComboboxSelectedSong));
+            }
+        }
 
         public Album Album { get; set; }
         public string AlbumName => Album.Title;
@@ -105,6 +116,13 @@ namespace Musify.MVVM.ViewModels {
             {
                 this.UnusedSongs.Add(song);
             }
+
+            // Set first item in combobox
+            if (this.UnusedSongs.Any())
+            {
+                this.ComboboxSelectedSong = this.UnusedSongs?.First();
+            }
+            
         }
 
     }
