@@ -25,21 +25,24 @@ namespace Musify.MVVM.Views.Songs
         private Action<object> _goToCreate;
         private Action<object> _goToDetails;
         private Action<object> _goToEdit;
+        private Action<object> _goToDelete;
 
-        public SongSearchWindow(Action<object> goToCreate, Action<object> goToDetails, Action<object> goToEdit)
+        public SongSearchWindow(Action<object> goToCreate, Action<object> goToDetails, 
+            Action<object> goToEdit, Action<object> goToDelete)
         {
             InitializeComponent();
 
             this._goToCreate = goToCreate;
             this._goToDetails = goToDetails;
             this._goToEdit = goToEdit;
+            this._goToDelete = goToDelete;
 
             this.Refresh();
         }
 
         public void Refresh()
         {
-            this.DataContext = new SongSearchViewModel(this._goToCreate, this._goToDetails, this._goToEdit);
+            this.DataContext = new SongSearchViewModel(this._goToCreate, this._goToDetails, this._goToEdit, this._goToDelete);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Musify.MVVM.Utility
         Five=5,
         Ten=10,
         Twenty=20,
-        Fifty=50
+        Fifty=50,
     };
 
     public class Paginator<T>

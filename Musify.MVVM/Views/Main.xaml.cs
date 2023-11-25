@@ -33,6 +33,7 @@ namespace Musify.MVVM.Views
         private SongCreateWindow _songCreateWindow;
         private SongDetailsWindow _songDetailsWindow;
         private SongUpdateWindow _songUpdateWindow;
+        private SongDeleteWindow _songDeleteWindow;
 
         public Main()
         {
@@ -92,11 +93,16 @@ namespace Musify.MVVM.Views
                 {
                     this._songUpdateWindow = new(Guid.Parse(obj.ToString()), goBackToSongs);
                     this.SetWindow(this._songUpdateWindow);
+                },
+                goToDelete: (obj) =>
+                {
+                    this._songDeleteWindow = new(Guid.Parse(obj.ToString()), goBackToSongs);
+                    this.SetWindow(this._songDeleteWindow);
                 });
 
 
             // The startup usercontrol. When made, add the dashboard here.
-            this.SetWindow(this._albumSearchWindow);
+            this.SetWindow(this._songSearchWindow);
         }
 
 
