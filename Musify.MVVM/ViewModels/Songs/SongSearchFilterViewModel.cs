@@ -62,7 +62,6 @@ namespace Musify.MVVM.ViewModels.Songs
             }
         }
 
-
         public Action Callback { get; set; }
 
         public SongSearchFilterViewModel(Action callback)
