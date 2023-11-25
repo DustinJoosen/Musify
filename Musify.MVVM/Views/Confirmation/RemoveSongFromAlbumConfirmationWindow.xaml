@@ -29,7 +29,7 @@
         <Label Content="Are you sure you want to remove this song from the album?" FontSize="14" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6" />
         <Label Content="{Binding Song}" FontSize="12" Grid.Row="3" Grid.Column="1" VerticalAlignment="Top" />
         <Label Content="{Binding SongUnderline}" FontSize="12" Grid.Row="3" Grid.Column="1" VerticalAlignment="Bottom" />
-        <Button Content="Cancel" Grid.Row="5" Grid.Column="2" Height="30" VerticalAlignment="Top" Command="{Binding CloseWindow}" />
+        <Button Content="Back" Grid.Row="5" Grid.Column="2" Height="30" VerticalAlignment="Top" Command="{Binding CloseWindow}" />
         <Button Content="Delete" Grid.Row="5" Grid.Column="4" Height="30" VerticalAlignment="Top" Background="Tomato" Foreground="White" Command="{Binding DeleteSongFromAlbum}"/>
     </Grid>
 </Window>

@@ -42,7 +42,7 @@
             <Label Content="{Binding Genre}" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="4" />
             <Label Content="{Binding ReleaseDate}" Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="4"/>
             <Label Content="{Binding FormattedDuration}" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="4" />
-            <Button Content="Cancel" Grid.Row="8" Grid.Column="3" Height="30" VerticalAlignment="Top" Command="{Binding CloseWindow}" />
+            <Button Content="Back" Grid.Row="8" Grid.Column="3" Height="30" VerticalAlignment="Top" Command="{Binding CloseWindow}" />
             <Button Content="Create" Grid.Row="8" Grid.Column="5" Height="30" VerticalAlignment="Top" Background="Lightgreen" Foreground="White" Command="{Binding CreateSong}"/>
         </Grid>
     </Grid>

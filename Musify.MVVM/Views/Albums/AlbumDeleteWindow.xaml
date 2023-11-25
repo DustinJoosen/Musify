@@ -47,5 +47,6 @@
                 </Style>
             </Button.Style>
         </Button>
+        <Button Grid.Row="6" Grid.Column="2" Width="100" Background="#5390d6" Foreground="White" Content="Back" Command="{Binding OnBack}" />
     </Grid>
 </UserControl>
