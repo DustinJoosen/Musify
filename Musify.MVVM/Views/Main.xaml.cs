@@ -96,7 +96,7 @@ namespace Musify.MVVM.Views
 
 
             // The startup usercontrol. When made, add the dashboard here.
-            this.SetWindow(this._songSearchWindow);
+            this.SetWindow(this._albumSearchWindow);
         }
 
 

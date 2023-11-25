@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Musify.MVVM.Views.AlbumSongs"
         mc:Ignorable="d"
-        Icon="../../Lib/logo.png"
+        Icon="../../Lib/Icon.png"
         Title="AlbumSongsEditorWindow" Height="430" Width="400">
     <Grid>
         <Grid.ColumnDefinitions>

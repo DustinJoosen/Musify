@@ -2,6 +2,7 @@
 using Musify.MVVM.Utility;
 using Musify.MVVM.ViewModels.Albums;
 using Musify.MVVM.Views.Albums;
+using Musify.MVVM.Views.Songs;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -106,7 +107,7 @@ namespace Musify.MVVM.ViewModels.Songs
         }
 
         // TODO: song filter.
-        private AlbumSearchFilterWindow _filterWindow;
+        private SongSearchFilterWindow _filterWindow;
 
         // Pagination fields
         private Paginator<Song> _paginator;
@@ -132,7 +133,8 @@ namespace Musify.MVVM.ViewModels.Songs
 
             this.OpenFilterWindow = new RelayCommand((obj) =>
             {
-                this._filterWindow = new AlbumSearchFilterWindow(Refresh);
+                this._filterWindow?.Close();
+                this._filterWindow = new SongSearchFilterWindow(Refresh);
                 this._filterWindow.Show();
             });
 
@@ -158,10 +160,14 @@ namespace Musify.MVVM.ViewModels.Songs
             this.ApplySorting(ref songs);
 
             // Filtering
-            // TODO
+            this._filterWindow?.ApplyFilters(ref songs);
 
             // Assign the searched, ordered, filtered songs to the paginator.
             this._paginator.Items = songs;
+
+            // Make sure 'search' won't leave you at page 4/1.
+            if (this._paginator.GetCurrentPage() > this._paginator.GetMaxAmountOfPages())
+                this._paginator.SetCurrentPage(0, false);
 
             // Get the (paginized) itms to display in the datagrid.
             var items = this._paginator?.GetItems().Select(song => new
@@ -193,10 +199,6 @@ namespace Musify.MVVM.ViewModels.Songs
 
             // Assigns items to datagrid.
             this.Songs = new(items);
-
-            // Make sure 'search' won't leave you at page 4/1.
-            if (this._paginator.GetCurrentPage() > this._paginator.GetMaxAmountOfPages())
-                this._paginator.SetCurrentPage(0, false);
 
             // Raise property change event on all pagination fields
             RaisePropertyChanged(nameof(CurrentMaxPage));

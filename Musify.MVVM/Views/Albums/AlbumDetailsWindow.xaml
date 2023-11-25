@@ -38,7 +38,6 @@
         <Button Content="Add / Remove Songs" Grid.Row="4" Grid.Column="1" Height="25" Width="120" VerticalAlignment="Center" Command="{Binding GoToSongEdits }" HorizontalAlignment="RIght"/>
         <ListBox ItemsSource="{Binding Songs}" Grid.Row="5" Grid.Column="1"></ListBox>
         <Image Source="{Binding FullImagePath}" Grid.Row="1" VerticalAlignment="Top"  Grid.RowSpan="3" Grid.ColumnSpan="2" Grid.Column="3" />
-        <Button Content="Edit" Grid.Row="5" Grid.Column="3" Height="30" Width="80" VerticalAlignment="Bottom" />
         <Button Content="Back" Grid.Row="5" Grid.Column="4" Height="30" Width="60" VerticalAlignment="Bottom" Background="Tomato" Command="{Binding GoBack}" />
     </Grid>
 </UserControl>

@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Musify.MVVM.Views.Confirmation"
         mc:Ignorable="d"
+        Icon="../../../Lib/Icon.png"
         Title="Remove song from album Confirmation" Height="200" Width="420">
     <Grid>
         <Grid.RowDefinitions>

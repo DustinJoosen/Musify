@@ -133,6 +133,7 @@ namespace Musify.MVVM.ViewModels.Albums
 
             this.OpenFilterWindow = new RelayCommand((obj) =>
             {
+                this._filterWindow?.Close();
                 this._filterWindow = new AlbumSearchFilterWindow(Refresh);
                 this._filterWindow.Show();
             });

@@ -2,6 +2,7 @@
 using Musify.MVVM.Utility;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ using System.Windows.Input;
 
 namespace Musify.MVVM.ViewModels.Songs
 {
-    public class SongUpdateViewModel : Song
+    public class SongUpdateViewModel : Song, IDataErrorInfo
     {
         public ICommand OnUpdateSong { get; set; }
         public ICommand OnCancel { get; set; }
@@ -82,5 +83,26 @@ namespace Musify.MVVM.ViewModels.Songs
                 MessageBox.Show("Update was not succesful, please try again");
             }
         }
+
+        #region DataValidation
+        public string this[string columnName]
+        {
+            get
+            {
+                if (columnName == nameof(Title) && string.IsNullOrWhiteSpace(Title))
+                    return "Please enter a Title";
+                if (columnName == nameof(Artist) && string.IsNullOrWhiteSpace(Artist))
+                    return "Please enter a Artist";
+                if (columnName == nameof(Genre) && string.IsNullOrWhiteSpace(Genre))
+                    return "Please enter a Genre";
+
+                return string.Empty;
+            }
+        }
+
+        public string Error => string.Empty;
+
+        #endregion
+
     }
 }

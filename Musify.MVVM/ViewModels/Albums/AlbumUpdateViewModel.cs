@@ -121,9 +121,8 @@ namespace Musify.MVVM.ViewModels.Albums
         {
             get
             {
-                if (columnName == nameof(Title) && string.IsNullOrEmpty(Title))
+                if (columnName == nameof(Title) && string.IsNullOrWhiteSpace(Title))
                     return "Please enter a Title";
-
                 if (columnName == nameof(ReleaseYear) && ReleaseYear > DateTime.Today.Year)
                     return "Release date can't be in the future";
 
