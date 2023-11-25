@@ -1,5 +1,6 @@
 ﻿using Musify.MVVM.Models;
 using Musify.MVVM.Utility;
+using Musify.MVVM.Views.Confirmation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -47,6 +48,7 @@ namespace Musify.MVVM.ViewModels.Songs
             this.OnCancel = new RelayCommand(goBackToSongs);
 
             var song = JsonHandler.GetById<Song>(id);
+            this.Id = song.Id;
             this.Title = song.Title;
             this.Artist = song.Artist;
             this.Genre = song.Genre;
@@ -62,7 +64,7 @@ namespace Musify.MVVM.ViewModels.Songs
             // Calculate duration (04:58 => 298)
             int duration = (this.DurationMinutes * 60) + this.DurationSeconds;
 
-            Boolean Success = JsonHandler.Update<Song>(_id, new Song()
+            var newSong = new Song()
             {
                 Id = this._id,
                 Title = this.Title,
@@ -70,16 +72,26 @@ namespace Musify.MVVM.ViewModels.Songs
                 Genre = this.Genre,
                 ReleaseDate = this.ReleaseDate,
                 Duration = duration,
-            });
-        
-            if(Success)
+            };
+
+            var confirmation = new UpdateSongConfirmationWindow(newSong.Id, newSong, onUpdate: ProcessUpdateSong);
+            confirmation.Show();        
+        }
+
+        public void ProcessUpdateSong(object obj)
+        {
+            if (!(obj is Song song))
+            {
+                return;
+            }
+
+            bool success = JsonHandler.Update<Song>(this.Id, song);
+            if (success)
             {
                 MessageBox.Show("Succesfully updated the song");
                 this._goBackToSongs?.Invoke(obj);
-            } 
-            
+            }
             else
-            
             {
                 MessageBox.Show("Update was not succesful, please try again");
             }
