@@ -113,14 +113,13 @@ namespace Musify.MVVM.ViewModels.Albums
         public string CurrentMaxPage => $"{1 + this._paginator.GetCurrentPage()} / {this._paginator.GetMaxAmountOfPages()}";
 
         // Methods
-        public AlbumSearchViewModel(Action<object> goToCreate, Action<object> goToDetails, Action<object> goToEdit)
+        public AlbumSearchViewModel(Action<object> goToCreate, Action<object> goToDetails, 
+            Action<object> goToEdit, Action<object> goToDelete)
         {
-            Action<object> action = (obj) => MessageBox.Show(obj.ToString());
-
             this.OnCreate = new RelayCommand(goToCreate);
             this.OnDetailBtn = new RelayCommand(goToDetails);
             this.OnEditBtn = new RelayCommand(goToEdit);
-            this.OnDeleteBtn = new RelayCommand(action);
+            this.OnDeleteBtn = new RelayCommand(goToDelete);
 
             Action<object> refresh = (obj) => Refresh();
             this.OnRefresh = new RelayCommand(refresh);

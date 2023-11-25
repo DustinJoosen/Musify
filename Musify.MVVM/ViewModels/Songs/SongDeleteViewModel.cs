@@ -36,7 +36,7 @@ namespace Musify.MVVM.ViewModels.Songs
             set
             {
                 this._albums = value;
-                RaisePropertyChanged(nameof(Album));
+                RaisePropertyChanged(nameof(Songs));
             }
         }
 
@@ -96,7 +96,7 @@ namespace Musify.MVVM.ViewModels.Songs
 
             succeeded = succeeded && JsonHandler.SaveAll<AlbumSong>(filteredAlbumSongs);
 
-            // Let user know, and if succeeded send them
+            // Let user know, and if succeeded send them back.
             if (!succeeded)
             {
                 MessageBox.Show("Something went wrong. Please try again.");
