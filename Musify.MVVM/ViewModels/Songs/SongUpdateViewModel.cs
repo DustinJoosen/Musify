@@ -108,6 +108,8 @@ namespace Musify.MVVM.ViewModels.Songs
                     return "Please enter a Artist";
                 if (columnName == nameof(Genre) && string.IsNullOrWhiteSpace(Genre))
                     return "Please enter a Genre";
+                if (columnName == nameof(DurationSeconds) && DurationSeconds >= 60)
+                    return "Seconds can't be more then 60";
 
                 return string.Empty;
             }
