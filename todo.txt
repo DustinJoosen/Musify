@@ -1,0 +1,15 @@
+required fixes:
+
+-song edit confirmation
+-doublecheck ObservableCollection
+-microsoft coding standards
+
+
+maybe need to be fixed? (ask)
+
+-search based on other fields
+-select songs to delete from album on album deletion
+-double check if english is okay
+-viewmodels voor main and pagination
+
+

@@ -106,7 +106,6 @@ namespace Musify.MVVM.ViewModels.Songs
             }
         }
 
-        // TODO: song filter.
         private SongSearchFilterWindow _filterWindow;
 
         // Pagination fields

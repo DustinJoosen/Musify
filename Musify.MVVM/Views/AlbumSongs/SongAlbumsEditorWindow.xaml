@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Musify.MVVM.Views.AlbumSongs"
         mc:Ignorable="d"
         Icon="../../Lib/Icon.png"
-        Title="Songs Album Editor" Height="430" Width="400">
+        Title="Songs Albums Editor" Height="430" Width="400">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30" />

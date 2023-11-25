@@ -11,6 +11,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20" />
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="200" />
             <ColumnDefinition Width="20" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -24,8 +25,8 @@
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
         <Label Grid.Row="1" Grid.Column="1" Content="{Binding Headline}" FontSize="20" />
-        <Label Grid.Row="2" Grid.Column="1" Content="Deleting this song will remove it from the following albums: " FontSize="15" Visibility="{Binding ListBoxVisible}" />
-        <ListBox ItemsSource="{Binding Albums}" Grid.Row="3" Grid.Column="1" Visibility="{Binding ListBoxVisible}"></ListBox>
+        <Label Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Content="Deleting this song will remove it from the following albums: " FontSize="15" Visibility="{Binding ListBoxVisible}" />
+        <ListBox ItemsSource="{Binding Albums}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Visibility="{Binding ListBoxVisible}"></ListBox>
         <Grid Grid.Row="5" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="30" />
@@ -49,5 +50,6 @@
                 </Style>
             </Button.Style>
         </Button>
+        <Button Grid.Row="6" Grid.Column="2" Width="100" Background="#5390d6" Foreground="White" Content="Back" Command="{Binding OnBack}" />
     </Grid>
 </UserControl>
