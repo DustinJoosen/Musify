@@ -12,9 +12,11 @@ namespace Musify.MVVM.ViewModels
 
     public class RemoveSongFromAlbumConfirmationViewModel
     {
+        // Commands.
         public ICommand DeleteSongFromAlbum { get; set; }
         public ICommand CloseWindow { get; set; }
 
+        // Properties.
         private Song _song = new();
         public Song Song
         {
@@ -22,12 +24,11 @@ namespace Musify.MVVM.ViewModels
             set => this._song = value;
         }
 
-        public string SongUnderline
-        {
-            get => this.Song.Artist + " | " + this.Song.ReleaseDate.ToString("dd/MM/yyyy");
-        }
+        // Express-properties.
+        public string SongUnderline => this.Song.Artist + " | " + this.Song.ReleaseDate.ToString("dd/MM/yyyy");
 
-        public RemoveSongFromAlbumConfirmationViewModel(Guid songId, Action<object> onDeleteConfirmation, Action<object> onCloseWindow)
+        public RemoveSongFromAlbumConfirmationViewModel(Guid songId, Action<object> onDeleteConfirmation, 
+            Action<object> onCloseWindow)
         {
             this.Song = JsonHandler.GetById<Song>(songId);
             

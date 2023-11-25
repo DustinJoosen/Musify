@@ -14,15 +14,15 @@ namespace Musify.MVVM.ViewModels {
 
     public class AlbumSongEditorViewModel : NotifyPropertyChanged
     {
+        // Fields.
         private Guid Id;
 
+        // Commands.
         public ICommand OnAddSong { get; set; }
         public ICommand OnDeleteSong { get; set; }
         public ICommand OnClose { get; set; }
 
-        public ObservableCollection<Song> UsedSongs { get; set; } = new();
-        public ObservableCollection<Song> UnusedSongs { get; set; } = new();
-
+        // Properties.
         private Song _comboboxSelectedSong;
         public Song ComboboxSelectedSong
         {
@@ -34,7 +34,12 @@ namespace Musify.MVVM.ViewModels {
             }
         }
 
+        public ObservableCollection<Song> UsedSongs { get; set; } = new();
+        public ObservableCollection<Song> UnusedSongs { get; set; } = new();
+
         public Album Album { get; set; }
+
+        // Express-properties. 
         public string AlbumName => Album.Title;
 
         public AlbumSongEditorViewModel(Guid albumId, Action<object> callback)

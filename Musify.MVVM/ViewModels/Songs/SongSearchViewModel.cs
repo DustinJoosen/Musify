@@ -30,7 +30,11 @@ namespace Musify.MVVM.ViewModels.Songs
 
     public class SongSearchViewModel : Song
     {
-        // Commands
+        // Fields.
+        private Paginator<Song> _paginator;
+        private SongSearchFilterWindow _filterWindow;
+
+        // Commands.
         public ICommand OnDetailBtn { get; set; }
         public ICommand OnEditBtn { get; set; }
         public ICommand OnDeleteBtn { get; set; }
@@ -39,13 +43,13 @@ namespace Musify.MVVM.ViewModels.Songs
         public ICommand OpenFilterWindow { get; set; }
         public ICommand OnRefresh { get; set; }
 
-        // Pagination Commands
+        // Pagination Commands.
         public ICommand OnPaginationNext { get; set; }
         public ICommand OnPaginationPrev { get; set; }
         public ICommand OnPaginationStart { get; set; }
         public ICommand OnPaginationEnd { get; set; }
 
-        // Properties
+        // Properties.
         private ICollectionView _songsView;
         public ICollectionView SongsView
         {
@@ -106,10 +110,7 @@ namespace Musify.MVVM.ViewModels.Songs
             }
         }
 
-        private SongSearchFilterWindow _filterWindow;
-
-        // Pagination fields
-        private Paginator<Song> _paginator;
+        // Express-properties.
         public string CurrentMaxPage => $"{1 + this._paginator.GetCurrentPage()} / {this._paginator.GetMaxAmountOfPages()}";
         public bool PaginationCanGoLeft => this._paginator.CanDecreasePage();
         public bool PaginationCanGoRight => this._paginator.CanIncreasePage();

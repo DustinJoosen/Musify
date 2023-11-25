@@ -13,11 +13,17 @@ namespace Musify.MVVM.ViewModels.Songs
 {
     public class SongDeleteViewModel : NotifyPropertyChanged
     {
+        // Fields.
+        private readonly Guid _songId;
+
+        // Commands.
         public ICommand OnDelete { get; set; }
         public ICommand OnBack { get; set; }
 
+        // Delegate options.
         private Action<object> _goBackToSongs;
 
+        // Properties.
         private Song _song;
         public Song Song
         {
@@ -48,9 +54,8 @@ namespace Musify.MVVM.ViewModels.Songs
             set => this._listBoxVisible = value;
         }
 
+        // Express-properties
         public string Headline => $"Delete song [{this.Song?.Title}]";
-
-        private readonly Guid _songId;
 
         public SongDeleteViewModel(Guid songId, Action<object> goBackToSongs)
         {

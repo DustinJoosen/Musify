@@ -12,9 +12,11 @@ namespace Musify.MVVM.ViewModels
 
     public class RemoveAlbumFromSongConfirmationViewModel
     {
+        // Commands.
         public ICommand DeleteAlbumFromSong { get; set; }
         public ICommand CloseWindow { get; set; }
 
+        // Properties.
         private Album _album = new();
         public Album Album
         {

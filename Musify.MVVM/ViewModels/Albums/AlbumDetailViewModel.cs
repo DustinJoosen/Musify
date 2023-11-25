@@ -15,9 +15,11 @@ namespace Musify.MVVM.ViewModels
 {
     public class AlbumDetailViewModel : Album
     {
+        // Commands.
         public ICommand GoToSongEdits { get; set; }
         public ICommand GoBack { get; set; }
 
+        // Properties.
         private ObservableCollection<Song> _songs = new();
         public ObservableCollection<Song> Songs
         {
@@ -28,12 +30,7 @@ namespace Musify.MVVM.ViewModels
                 RaisePropertyChanged(nameof(Songs));
             }
         }
-
-        // Useful props
-        public string DetailPageUnderline => $"{this.Artist} | {this.ReleaseYear}";
-        public string FullImagePath => $"../../../Lib/Uploads/{this.CoverImage}";
-
-
+        
         private string _artist;
         public string Artist
         {
@@ -44,7 +41,11 @@ namespace Musify.MVVM.ViewModels
                 RaisePropertyChanged(nameof(DetailPageUnderline));
             }
         }
-        
+
+        // Express-properties
+        public string DetailPageUnderline => $"{this.Artist} | {this.ReleaseYear}";
+        public string FullImagePath => $"../../../Lib/Uploads/{this.CoverImage}";
+
         public AlbumDetailViewModel(Guid id, Action<object> goBack)
         {
             this.Id = id;
@@ -123,6 +124,5 @@ namespace Musify.MVVM.ViewModels
                     return "collablorated";
             }
         }
-
     }
 }

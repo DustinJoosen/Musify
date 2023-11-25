@@ -12,9 +12,11 @@ namespace Musify.MVVM.ViewModels
 
     public class CreateSongConfirmationViewModel : Song
     {
+        // Commands.
         public ICommand CreateSong { get; set; }
         public ICommand CloseWindow { get; set; }
 
+        // Properties.
         public string FormattedDuration
         {
             get

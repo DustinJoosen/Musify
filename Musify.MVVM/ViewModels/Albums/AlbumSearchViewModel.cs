@@ -27,7 +27,11 @@ namespace Musify.MVVM.ViewModels.Albums
 
     public class AlbumSearchViewModel : Album
     {
-        // Commands
+        // Fields.
+        private AlbumSearchFilterWindow _filterWindow;
+        private Paginator<Album> _paginator;
+
+        // Commands.
         public ICommand OnDetailBtn { get; set; }
         public ICommand OnEditBtn { get; set; }
         public ICommand OnDeleteBtn { get; set; }
@@ -36,13 +40,11 @@ namespace Musify.MVVM.ViewModels.Albums
         public ICommand OpenFilterWindow { get; set; }
         public ICommand OnRefresh { get; set; }
 
-        // Pagination Commands
+        // Pagination Commands.
         public ICommand OnPaginationNext { get; set; }
         public ICommand OnPaginationPrev { get; set; }
         public ICommand OnPaginationStart { get; set; }
         public ICommand OnPaginationEnd { get; set; }
-        public bool PaginationCanGoLeft => this._paginator.CanDecreasePage();
-        public bool PaginationCanGoRight => this._paginator.CanIncreasePage();
 
         // Properties
         private ICollectionView _albumsView;
@@ -105,14 +107,11 @@ namespace Musify.MVVM.ViewModels.Albums
             }
         }
 
-
-        private AlbumSearchFilterWindow _filterWindow;
-        // Pagination fields
-
-        private Paginator<Album> _paginator;
+        // Express-properties
+        public bool PaginationCanGoLeft => this._paginator.CanDecreasePage();
+        public bool PaginationCanGoRight => this._paginator.CanIncreasePage();
         public string CurrentMaxPage => $"{1 + this._paginator.GetCurrentPage()} / {this._paginator.GetMaxAmountOfPages()}";
 
-        // Methods
         public AlbumSearchViewModel(Action<object> goToCreate, Action<object> goToDetails, 
             Action<object> goToEdit, Action<object> goToDelete)
         {

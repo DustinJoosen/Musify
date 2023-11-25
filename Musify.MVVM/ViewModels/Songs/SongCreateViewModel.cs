@@ -21,25 +21,26 @@ namespace Musify.MVVM.ViewModels
 {
     public class SongCreateViewModel : Song, IDataErrorInfo
     {
+        // Commands.
         public ICommand OnSaveSong { get; set; }
         public ICommand OnBack { get; set; }
-
+        
+        // Delegate actions.
         private Action<object> _backToSearch;
 
-        // Ensure numbers remain positive.  
+        // Properties.
         private int _durationMinutes = 0;
         public int DurationMinutes
         {
             get => this._durationMinutes;
-            set => this._durationMinutes = Math.Abs(value);
+            set => this._durationMinutes = Math.Abs(value);     // Ensure numbers remain positive.  
         }
 
-        // Ensure numbers remain positive.
         private int _durationSeconds = 0;
         public int DurationSeconds
         {
             get => this._durationSeconds;
-            set => this._durationSeconds = Math.Abs(value);
+            set => this._durationSeconds = Math.Abs(value);     // Ensure numbers remain positive.  
         }
 
         public SongCreateViewModel(Action<object> backToSearch)
@@ -74,7 +75,6 @@ namespace Musify.MVVM.ViewModels
                 if (succeeded)
                 {
                     MessageBox.Show($"Successfully added album ({this.Title})");
-                    this.Reset();
                     this._backToSearch.Invoke(obj);
                 }
                 else
@@ -83,16 +83,7 @@ namespace Musify.MVVM.ViewModels
                 }
             }).Show();
         }
-
-        public void Reset()
-        {
-            this.Title = string.Empty;
-            this.Artist = string.Empty;
-            this.Genre = string.Empty;
-            this.ReleaseDate = DateTime.Today;
-            this.Duration = 0;
-        }
-
+    
         #region DataValidation
         public string this[string columnName]
         {
@@ -116,8 +107,6 @@ namespace Musify.MVVM.ViewModels
 
         public string Error => string.Empty;
         #endregion
-
-
     }
 }
 

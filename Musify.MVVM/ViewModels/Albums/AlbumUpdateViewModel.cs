@@ -13,13 +13,21 @@ using System.Windows.Input;
 
 namespace Musify.MVVM.ViewModels.Albums
 {
-    internal class AlbumUpdateViewModel : Album, IDataErrorInfo
+    public class AlbumUpdateViewModel : Album, IDataErrorInfo
     {
+        // Fields.
+        private Guid _id;
+        private readonly string _originalCoverImagePath;
+
+        // Command.
         public ICommand OnUpdateAlbum { get; set; }
         public ICommand OnSelectImage { get; set; }
         public ICommand OnCancel { get; set; }
 
-        // Properties
+        // Delegate actions.
+        private Action<object> _goBack;
+
+        // Properties.
         private string _imgCoverPreview;
         public string ImgCoverPreview
         {
@@ -30,12 +38,6 @@ namespace Musify.MVVM.ViewModels.Albums
                 RaisePropertyChanged(nameof(ImgCoverPreview));
             }
         }
-
-        private readonly string _originalCoverImagePath;
-
-        private Guid _id;
-
-        private Action<object> _goBack;
 
         public AlbumUpdateViewModel(Guid id, Action<object> goBack)
         {

@@ -10,6 +10,7 @@ namespace Musify.MVVM.ViewModels
 {
     public class NavigationWindowViewModel : NotifyPropertyChanged
     {
+        // Commands.
         public ICommand GoToAlbums { get; set; }
         public ICommand GoToSongs { get; set; }
         public ICommand ExitProgram { get; set; }

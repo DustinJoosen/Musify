@@ -13,29 +13,30 @@ namespace Musify.MVVM.ViewModels.Songs
 {
     public class SongUpdateViewModel : Song, IDataErrorInfo
     {
+        // Fields.
+        private Guid _id;
+
+        // Commands.
         public ICommand OnUpdateSong { get; set; }
         public ICommand OnCancel { get; set; }
 
-        // Ensure numbers remain positive.  
+        // Delegate actions.
+        private Action<object> _goBackToSongs;
+
+        // Properties.
         private int _durationMinutes = 0;
         public int DurationMinutes
         {
             get => this._durationMinutes;
-            set => this._durationMinutes = Math.Abs(value);
+            set => this._durationMinutes = Math.Abs(value); // Ensure numbers remain positive.
         }
 
-        // Ensure numbers remain positive.
         private int _durationSeconds = 0;
         public int DurationSeconds
         {
             get => this._durationSeconds;
-            set => this._durationSeconds = Math.Abs(value);
+            set => this._durationSeconds = Math.Abs(value);  // Ensure numbers remain positive.
         }
-
-
-        private Action<object> _goBackToSongs;
-
-        private Guid _id;
 
         public SongUpdateViewModel(Guid id, Action<object> goBackToSongs) 
         {

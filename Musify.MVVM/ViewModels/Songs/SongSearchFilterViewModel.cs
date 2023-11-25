@@ -13,7 +13,10 @@ namespace Musify.MVVM.ViewModels.Songs
 {
     public class SongSearchFilterViewModel : NotifyPropertyChanged
     {
+        // Delegate actions.
+        public Action Callback { get; set; }
 
+        // Properties.
         private ObservableCollection<string> _artists;
         public ObservableCollection<string> Artists
         {
@@ -61,8 +64,6 @@ namespace Musify.MVVM.ViewModels.Songs
                 this.Callback?.Invoke();
             }
         }
-
-        public Action Callback { get; set; }
 
         public SongSearchFilterViewModel(Action callback)
         {
