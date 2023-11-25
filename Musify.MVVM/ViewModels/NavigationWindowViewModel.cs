@@ -10,23 +10,16 @@ namespace Musify.MVVM.ViewModels
 {
     public class NavigationWindowViewModel : NotifyPropertyChanged
     {
-        public event EventHandler OnGoToAlbums;
-        public event EventHandler OnGoToSongs;
-        public event EventHandler OnExitProgram;
-
-        public ICommand GoToDashboard { get; set; }
         public ICommand GoToAlbums { get; set; }
         public ICommand GoToSongs { get; set; }
         public ICommand ExitProgram { get; set; }
 
-        public void LoadEvents()
+        public NavigationWindowViewModel(Action<object> onGoToAlbums, Action<object> onGoToSongs)
         {
-            this.GoToAlbums = this.GetCommandFromEvent(this.OnGoToAlbums);
-            this.GoToSongs = this.GetCommandFromEvent(this.OnGoToSongs);
-            this.ExitProgram = this.GetCommandFromEvent(this.OnExitProgram);
-        }
+            this.GoToAlbums = new RelayCommand(onGoToAlbums);
+            this.GoToSongs = new RelayCommand(onGoToSongs);
 
-        public RelayCommand GetCommandFromEvent(EventHandler? evnt) =>
-            new RelayCommand((obj) => evnt(this, EventArgs.Empty));
+            this.ExitProgram = new RelayCommand((obj) => Environment.Exit(0));
+        }
     }
 }

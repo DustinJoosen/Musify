@@ -96,21 +96,16 @@ namespace Musify.MVVM.Views
 
 
             // The startup usercontrol. When made, add the dashboard here.
-            this.SetWindow(this._albumSearchWindow);
+            this.SetWindow(this._songSearchWindow);
         }
 
-
-        // Because of the linking to other windows, navbar is initialized in Main.
         private void InitializeNavbar()
         {
             this.navControl.Content = new NavigationWindow();
-            var navigationVM = new NavigationWindowViewModel();
-
-            navigationVM.OnExitProgram += (obj, sen) => Environment.Exit(0);
-            navigationVM.OnGoToAlbums += (obj, sen) => this.SetWindow(this._albumSearchWindow);
-            navigationVM.OnGoToSongs += (obj, sen) => this.SetWindow(this._songSearchWindow);
-
-            navigationVM.LoadEvents();
+        
+            var navigationVM = new NavigationWindowViewModel(
+                onGoToAlbums: (obj) => this.SetWindow(this._albumSearchWindow),
+                onGoToSongs: (obj) => this.SetWindow(this._songSearchWindow));
 
             this.navControl.DataContext = navigationVM;
         }

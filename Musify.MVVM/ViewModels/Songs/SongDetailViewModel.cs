@@ -1,5 +1,6 @@
 ﻿using Musify.MVVM.Models;
 using Musify.MVVM.Utility;
+using Musify.MVVM.Views.AlbumSongs;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,6 +17,7 @@ namespace Musify.MVVM.ViewModels
     {
         public ICommand OnBack { get; set; }
         public ICommand OnEdit { get; set; }
+        public ICommand GoToAlbumsEdit { get; set; }
 
         public ObservableCollection<Album> Albums { get; set; } = new();
 
@@ -34,6 +36,14 @@ namespace Musify.MVVM.ViewModels
 
             this.OnBack = new RelayCommand(backToSearch);
             this.OnEdit = new RelayCommand(goToEdit);
+
+            // Show the screen when activating the command.
+            this.GoToAlbumsEdit = new RelayCommand((obj) =>
+            {
+                var editor = new SongAlbumsEditorWindow(id);
+                editor.Callback += (obj) => this.RetrieveAlbums();
+                editor.Show();
+            });
 
             this.RetrieveSong();
             this.RetrieveAlbums();
@@ -73,6 +83,9 @@ namespace Musify.MVVM.ViewModels
             var albumIds = from albumsong in albumsongs
                            where albumsong.songId.Equals(this.Id)
                            select albumsong.albumId;
+
+            // Remove current albums
+            this.Albums.Clear();
 
             // Add all albums
             foreach (Guid albumId in albumIds)
