@@ -15,10 +15,12 @@ namespace Musify.MVVM.ViewModels
 {
     public class SongDetailViewModel : Song
     {
+        // Commands.
         public ICommand OnBack { get; set; }
         public ICommand OnEdit { get; set; }
         public ICommand GoToAlbumsEdit { get; set; }
 
+        // Properties.
         public ObservableCollection<Album> Albums { get; set; } = new();
 
         public string FormattedDuration

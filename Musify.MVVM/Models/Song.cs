@@ -69,7 +69,6 @@ namespace Musify.MVVM.Models
             }
         }
 
-
         public override string ToString()
         {
             return this.Title;

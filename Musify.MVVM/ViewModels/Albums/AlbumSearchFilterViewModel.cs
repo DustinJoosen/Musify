@@ -13,9 +13,10 @@ namespace Musify.MVVM.ViewModels.Albums
 {
     public class AlbumSearchFilterViewModel : Album, IDataErrorInfo
     {
-
+        // Delegate actions.
         public Action Callback { get; set; }
 
+        // Properties.
         private static int _minSize = 1900;
         public int MinSize
         {
@@ -41,7 +42,6 @@ namespace Musify.MVVM.ViewModels.Albums
                 this.Callback?.Invoke();
             }
         }
-
 
         public AlbumSearchFilterViewModel(Action callback)
         {
@@ -71,8 +71,5 @@ namespace Musify.MVVM.ViewModels.Albums
 
         public string Error => string.Empty;
         #endregion
-
-
-
     }
 }

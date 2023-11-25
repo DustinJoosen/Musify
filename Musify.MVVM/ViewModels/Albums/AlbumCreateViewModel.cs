@@ -20,13 +20,12 @@ namespace Musify.MVVM.ViewModels
 
     public class AlbumCreateViewModel : Album, IDataErrorInfo
     {
-        // Commands
+        // Commands.
         public ICommand OnSaveAlbum { get; set; }
         public ICommand OnSelectImage { get; set; }
         public ICommand OnGoBack { get; set; }
 
-
-        // Properties
+        // Properties.
         private string _imgCoverPreview;
         public string ImgCoverPreview
         {
@@ -82,7 +81,7 @@ namespace Musify.MVVM.ViewModels
             }
 
         }
-
+        
         public async void SelectImage(object parameter)
         {
             OpenFileDialog dialog = new();

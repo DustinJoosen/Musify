@@ -14,11 +14,19 @@ namespace Musify.MVVM.ViewModels.Songs
 {
     public class AlbumDeleteViewModel : NotifyPropertyChanged
     {
+        // Fields.
+        private readonly Guid _albumId;
+        public string ImageSource => $"../../../Lib/Uploads/{Album.CoverImage}";
+        public string Headline => $"Delete album [{this.Album?.Title}]";
+
+        // Commands.
         public ICommand OnDelete { get; set; }
         public ICommand OnBack { get; set; }
 
+        // Delegate actions.
         private Action<object> _goBackToAlbums;
-
+        
+        // Properties.
         private Album _album;
         public Album Album
         {
@@ -42,18 +50,12 @@ namespace Musify.MVVM.ViewModels.Songs
             }
         }
 
-        public string ImageSource => $"../../../Lib/Uploads/{Album.CoverImage}";
-
         private Visibility _listBoxVisible;
         public Visibility ListBoxVisible
         {
             get => this._listBoxVisible;
             set => this._listBoxVisible = value;
         }
-
-        public string Headline => $"Delete album [{this.Album?.Title}]";
-
-        private readonly Guid _albumId;
 
         public AlbumDeleteViewModel(Guid albumId, Action<object> goBackToAlbums)
         {

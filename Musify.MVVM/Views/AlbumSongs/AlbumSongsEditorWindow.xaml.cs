@@ -32,7 +32,6 @@ namespace Musify.MVVM.Views.AlbumSongs
             });
         }
 
-        // TODO: Ask a teacher why it isn't working.
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (!(sender is Button btn))
