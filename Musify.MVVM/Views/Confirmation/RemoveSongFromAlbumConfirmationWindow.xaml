@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Musify.MVVM.Views.Confirmation"
         mc:Ignorable="d"
         Icon="../../../Lib/Icon.png"
-        Title="Remove song from album Confirmation" Height="200" Width="420">
+        Title="Remove song from album confirmation" Height="200" Width="420">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="5"/>
