@@ -1,12 +1,6 @@
-required fixes:
-
--song edit confirmation
--doublecheck ObservableCollection
--microsoft coding standards
-
+last fix: make sure all validation is actually disabling the button. even datepickers and durations
 
 maybe need to be fixed? (ask)
-
 -search based on other fields
 -select songs to delete from album on album deletion
 -double check if english is okay

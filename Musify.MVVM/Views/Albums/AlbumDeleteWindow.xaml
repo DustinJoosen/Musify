@@ -24,7 +24,7 @@
             <RowDefinition Height="30" />
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
-        <Label Grid.Row="1" Grid.Column="1" Content="{Binding Headline}" FontSize="20" />
+        <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"  Content="{Binding Headline}" FontSize="20" />
         <Label Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Content="Deleting this album will remove the following songs from it: " FontSize="15" Visibility="{Binding ListBoxVisible}" />
         <ListBox ItemsSource="{Binding Songs}" Grid.Row="3" Grid.Column="1" Visibility="{Binding ListBoxVisible}"></ListBox>
         <Image Source="{Binding ImageSource}" Grid.Row="3" Grid.Column="2" Width="140" Height="140" />

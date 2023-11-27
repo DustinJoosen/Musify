@@ -56,6 +56,8 @@
                                 <Condition Binding="{Binding ElementName=txtArtist, Path=(Validation.HasError)}" Value="false" />
                                 <Condition Binding="{Binding ElementName=txtGenre, Path=(Validation.HasError)}" Value="false" />
                                 <Condition Binding="{Binding ElementName=dpReleaseDate, Path=(Validation.HasError)}" Value="false" />
+                                <Condition Binding="{Binding ElementName=txtDurationMin, Path=(Validation.HasError)}" Value="false" />
+                                <Condition Binding="{Binding ElementName=txtDurationSec, Path=(Validation.HasError)}" Value="false" />
                             </MultiDataTrigger.Conditions>
                             <Setter Property="IsEnabled" Value="true" />
                         </MultiDataTrigger>

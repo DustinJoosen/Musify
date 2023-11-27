@@ -91,16 +91,16 @@ namespace Musify.MVVM.ViewModels
             {
                 if (columnName == nameof(Title) && string.IsNullOrEmpty(Title))
                     return "Please enter a Title";
-
                 if (columnName == nameof(Artist) && string.IsNullOrEmpty(Artist))
                     return "Please enter an Artist";
-
                 if (columnName == nameof(Genre) && string.IsNullOrEmpty(Genre))
                     return "Please enter a Genre";
-
                 if (columnName == nameof(ReleaseDate) && ReleaseDate.Date > DateTime.Today)
                     return "Release date can't be in the future";
-
+                if (columnName == nameof(DurationSeconds) && DurationSeconds >= 60)
+                    return "Seconds can't be more then 60";
+                if (columnName == nameof(DurationMinutes) && DurationMinutes >= 60)
+                    return "Minutes can't be more then 60";
                 return string.Empty;
             }
         }
