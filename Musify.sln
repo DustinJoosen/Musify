@@ -5,6 +5,8 @@ VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Musify.MVVM", "Musify.MVVM\Musify.MVVM.csproj", "{D65D1B17-2455-4636-9D3E-CF40D2988189}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Musify.MVC", "Musify.MVC\Musify.MVC.csproj", "{1C6D9917-B9AD-428E-A40A-F795BAD94434}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D65D1B17-2455-4636-9D3E-CF40D2988189}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D65D1B17-2455-4636-9D3E-CF40D2988189}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D65D1B17-2455-4636-9D3E-CF40D2988189}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C6D9917-B9AD-428E-A40A-F795BAD94434}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C6D9917-B9AD-428E-A40A-F795BAD94434}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C6D9917-B9AD-428E-A40A-F795BAD94434}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C6D9917-B9AD-428E-A40A-F795BAD94434}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
