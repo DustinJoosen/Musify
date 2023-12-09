@@ -1,9 +1,5 @@
-last fix: make sure all validation is actually disabling the button. even datepickers and durations
-
 maybe need to be fixed? (ask)
 -search based on other fields
 -select songs to delete from album on album deletion
 -double check if english is okay
--viewmodels voor main and pagination
-
-
+-need to make documentation????
