@@ -1,0 +1,20 @@
+﻿@model AuthDto
+<div class="login-block">
+    <h2>Login</h2>
+    <form asp-action="Login" method="post">
+        <div class="account-input-field">
+            <label asp-for="Username" class="control-label"></label>
+            <input type="text" asp-for="Username" placeholder="username" required  />
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+        <div class="account-input-field">
+            <label asp-for="Password"></label>
+            <input type="password" asp-for="Password" placeholder="•••••••••••" required />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <button id="login-btn">Login</button><br/>
+        <button id="go-to-login">
+            <a asp-controller="Auth" asp-action="Register">I don't have an account</a>
+        </button>
+    </form>
+</div>
