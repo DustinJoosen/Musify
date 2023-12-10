@@ -1,0 +1,26 @@
+﻿@model Musify.MVC.Models.Artist
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div id="artist-detail-page">
+    <h1 class="my-4">@Model.Name</h1>
+    <div class="row col-12">
+        <dl class="col-6">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Genre)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Genre)
+            </dd>
+            <div class="mt-5">
+                @await Component.InvokeAsync("SongList", new { songs = Model.Songs.ToList() })
+            </div>
+            <button class="btn btn-light mt-3">Back</button>
+        </dl>
+        <div class="col-4">
+            <img class="artist-detail-image" src="/uploads//artists/@Model.ArtistImage" width="500" />
+        </div>
+    </div>
+</div>

@@ -13,5 +13,7 @@ namespace Musify.MVC.Models
         public string? Genre { get; set; }
 
         public string ArtistImage { get; set; } = "notfound.png";
+
+        public virtual ICollection<Song> Songs { get; set; }
     }
 }
