@@ -23,5 +23,19 @@ namespace Musify.MVC.Controllers
 
             return View(artist);
         }
+
+        public async Task<IActionResult> Albums(int id)
+        {
+            var album = await this._context.Album
+                .Include(album => album.Artist)
+                .Include(album => album.AlbumSongs)
+                .ThenInclude(albumsong => albumsong.Song)
+                .SingleOrDefaultAsync(album => album.Id == id);
+
+            if (album == null)
+                return NotFound();
+
+            return View(album);
+        }
     }
 }
