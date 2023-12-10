@@ -25,5 +25,13 @@ namespace Musify.MVC.Models
         public virtual ICollection<AlbumSong> AlbumSongs { get; set; }
         public virtual ICollection<PlaylistSong> PlaylistSongs { get; set; }
 
+        public string FormattedDuration
+        {
+            get
+            {
+                TimeSpan time = TimeSpan.FromSeconds(this.Duration);
+                return $"{time.ToString(@"mm\:ss")}";
+            }
+        }
     }
 }
