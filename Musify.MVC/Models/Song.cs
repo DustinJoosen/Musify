@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Musify.MVC.Models
 {
@@ -20,5 +21,9 @@ namespace Musify.MVC.Models
 
         [Required]
         public DateTime ReleaseDate { get; set; } = DateTime.Now;
+
+        public virtual ICollection<AlbumSong> AlbumSongs { get; set; }
+        public virtual ICollection<PlaylistSong> PlaylistSongs { get; set; }
+
     }
 }
