@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Musify.MVC.Models
 {
@@ -20,5 +21,7 @@ namespace Musify.MVC.Models
 
         [Required]
         public string Genre { get; set; }
+
+        public virtual ICollection<AlbumSong> AlbumSongs { get; set; }
     }
 }

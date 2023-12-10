@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Musify.MVC.Models
 {
@@ -20,5 +21,8 @@ namespace Musify.MVC.Models
 
         [Display (Name = "Is public")]
         public bool IsPublic { get; set; } = false;
+
+        public virtual ICollection<PlaylistSong> PlaylistSongs { get; set; }
+
     }
 }

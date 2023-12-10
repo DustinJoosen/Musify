@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Musify.MVC.Models
 {
@@ -7,7 +8,7 @@ namespace Musify.MVC.Models
         [Key]
         public int Id { get; set; }
 
-        [Required, StringLength(16)]
+        [Required, StringLength(32)]
         public string Username { get; set; }
 
         [Required, StringLength(128)]
@@ -18,5 +19,7 @@ namespace Musify.MVC.Models
 
         [Required]
         public string Password { get; set; }
+
+        public ICollection<Playlist> Playlists { get; set; }
     }
 }

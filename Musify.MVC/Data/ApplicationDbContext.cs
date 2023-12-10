@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Bogus;
+using Microsoft.EntityFrameworkCore;
 using Musify.MVC.Models;
 
 namespace Musify.MVC.Data
@@ -39,6 +40,17 @@ namespace Musify.MVC.Data
                     plso.PlaylistId,
                     plso.SongId
                 });
+
+            // Seeding.
+            new GeneralDataSeeder(modelBuilder)
+                .SeedUsers()
+                .SeedArtists()
+                .SeedAlbums()
+                .SeedSongs()
+                .SeedAlbumSongs()
+                .SeedPlaylists()
+                .SeedPlaylistSongs();
+
         }
     }
 }
