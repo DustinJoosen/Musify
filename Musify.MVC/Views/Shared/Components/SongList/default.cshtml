@@ -4,8 +4,9 @@
     @foreach (Song song in Model)
     {
         <div class="row col-12">
+            <button class="songlikebtn"><i class="fa-solid fa-heart"></i></button>
             <button class="songplaybtn"><i class="fa-solid fa-play"></i></button>
-            <span class="col-8">@song.Title</span>
+            <span class="col-7">@song.Title</span>
             <span class="col-2">@song.FormattedDuration</span>
         </div>
     }

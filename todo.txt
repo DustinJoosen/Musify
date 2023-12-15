@@ -1,5 +1,0 @@
-maybe need to be fixed? (ask)
--search based on other fields
--select songs to delete from album on album deletion
--double check if english is okay
--need to make documentation????
