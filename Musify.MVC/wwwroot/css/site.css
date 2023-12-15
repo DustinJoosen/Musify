@@ -130,14 +130,19 @@ footer {
     display: flex;
     align-items: center;
 }
-.songlist div button {
+
+.songplaybtn {
+    padding-left: 8px !important;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    color: #5390d6;
     width: 30px;
     height: 30px;
     border-radius: 50%;
     display: flex;
     margin-left: 10px;
     padding: 5px;
-    padding-left:8px;
     justify-content: center;
     align-items: center;
     border: 2px solid #5390d6;
@@ -145,12 +150,21 @@ footer {
     outline: 2px solid white;
 }
 
-.songlist div i {
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    color: #5390d6;
+.songlikebtn {
+    color: tomato !important;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    margin-left: 10px;
+    padding: 5px;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #5390d6;
+    background-color: white;
+    outline: 2px solid white;
 }
+
 
 .songlist div:nth-child(even) {
     background-color: rgb(103, 164, 234)
@@ -165,5 +179,22 @@ footer {
     width: auto;
 }
 
-#artist-detail-page {
+
+.explore-table {
+    border: 1px solid white;
+    height: 60vh !important;
+    overflow-y: scroll !important;
+    width: 1000px;
+}
+.explore-table table td{
+    padding: 5px;
+}
+
+.explore-table a {
+    color: black;
+}
+
+.explore-table-albums-cover {
+    width: 80px;
+    margin-right: -20px;
 }
