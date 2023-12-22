@@ -1,4 +1,4 @@
-﻿@model List<Playlist>
+﻿@model List<DisplayedPlaylistDto>
 
 <h3>Playlist</h3>
 
@@ -14,17 +14,17 @@
                     <th width="60">Add</th>
                 </tr>
             </thead>
-            @foreach (Playlist playlist in Model)
+            @foreach (var playlist in Model)
             {
                 <tr class="min-width">
                     <td style="display: flex">
-                        <button class="songlikebtn"><i class="fa-solid fa-heart"></i></button>
+                        <button class="playlistlikebtn @(playlist.Liked ? "liked" : "")" playlistid="@playlist.Id"><i class="fa-solid fa-heart"></i></button>
                         <button class="songplaybtn"><i class="fa-solid fa-play"></i></button>
                     </td>
                     <td>
                         <a asp-controller="Details" asp-action="Playlists" asp-route-id="@playlist.Id">@playlist.Title</a>
                     </td>
-                    <td>&#64;@playlist.User.Username</td>
+                    <td>&#64;@playlist.Username</td>
                     <td>
                         <button class="btn btn-light">Add</button>
                     </td>

@@ -2,8 +2,17 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Musify.MVC.Data;
 using AspNetCoreHero.ToastNotification;
+using Musify.MVC.Services;
+using Musify.MVC.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Custom Services
+builder.Services.AddScoped<ILikeService<Song>, SongLikeService>();
+builder.Services.AddScoped<ILikeService<Album>, AlbumLikeService>();
+builder.Services.AddScoped<ILikeService<Artist>, ArtistLikeService>();
+builder.Services.AddScoped<ILikeService<Playlist>, PlaylistLikeService>();
+
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
@@ -45,8 +54,13 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "api",
+    pattern: "api/{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

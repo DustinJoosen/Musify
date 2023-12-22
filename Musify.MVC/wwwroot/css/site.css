@@ -150,8 +150,11 @@ footer {
     outline: 2px solid white;
 }
 
+.playlistlikebtn,
+.artistlikebtn,
+.albumlikebtn,
 .songlikebtn {
-    color: tomato !important;
+    color: #5390d6 !important;
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -165,6 +168,14 @@ footer {
     outline: 2px solid white;
 }
 
+.playlistlikebtn.liked,
+.artistlikebtn.liked,
+.albumlikebtn.liked,
+.songlikebtn.liked 
+{
+    background-color: tomato;
+    color: white !important;
+}
 
 .songlist div:nth-child(even) {
     background-color: rgb(103, 164, 234)
@@ -197,4 +208,23 @@ footer {
 .explore-table-albums-cover {
     width: 80px;
     margin-right: -20px;
+}
+
+
+.big-like-btn {
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+}
+.big-like-btn i {
+    font-size: 40px;
+}
+
+.artist-big-hearth,
+.album-big-hearth 
+{
+    position: absolute;
+    float: right;
+    right: 80px;
+    top: 80px;
 }

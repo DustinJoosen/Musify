@@ -13,6 +13,10 @@ namespace Musify.MVC.Data
         public DbSet<Artist> Artists { get; set; }
         public DbSet<AlbumSong> AlbumSongs { get; set; }
         public DbSet<PlaylistSong> PlaylistSongs { get; set; }
+        public DbSet<UserAlbumLike> UserAlbumLikes { get; set; }
+        public DbSet<UserSongLike> UserSongLikes { get; set; }
+        public DbSet<UserArtistLike> UserArtistLikes { get; set; }
+        public DbSet<UserPlaylistLike> UserPlaylistLikes { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -39,6 +43,34 @@ namespace Musify.MVC.Data
                 {
                     plso.PlaylistId,
                     plso.SongId
+                });
+
+            modelBuilder.Entity<UserAlbumLike>()
+                .HasKey(useralbumlike => new
+                {
+                    useralbumlike.AlbumId,
+                    useralbumlike.UserId
+                });
+
+            modelBuilder.Entity<UserSongLike>()
+                .HasKey(usersonglike => new
+                {
+                    usersonglike.SongId,
+                    usersonglike.UserId
+                });
+
+            modelBuilder.Entity<UserArtistLike>()
+                .HasKey(userartistlike => new
+                {
+                    userartistlike.ArtistId,
+                    userartistlike.UserId
+                });
+
+            modelBuilder.Entity<UserPlaylistLike>()
+                .HasKey(userplaylistlike => new
+                {
+                    userplaylistlike.PlaylistId,
+                    userplaylistlike.UserId
                 });
 
             // Seeding.
