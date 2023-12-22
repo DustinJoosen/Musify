@@ -150,6 +150,7 @@ footer {
     outline: 2px solid white;
 }
 
+.artistlikebtn,
 .albumlikebtn,
 .songlikebtn 
 {
@@ -167,6 +168,7 @@ footer {
     outline: 2px solid white;
 }
 
+.artistlikebtn.liked,
 .albumlikebtn.liked,
 .songlikebtn.liked 
 {
@@ -217,7 +219,9 @@ footer {
     font-size: 40px;
 }
 
-.album-big-hearth {
+.artist-big-hearth,
+.album-big-hearth 
+{
     position: absolute;
     float: right;
     right: 80px;

@@ -1,4 +1,4 @@
-﻿@model List<Artist>
+﻿@model List<DisplayedArtistDto>
 
 <h3>Artist</h3>
 
@@ -14,11 +14,11 @@
                     <th width="60">Add</th>
                 </tr>
             </thead>
-            @foreach (Artist artist in Model)
+            @foreach (var artist in Model)
             {
                 <tr class="min-width">
                     <td style="display: flex">
-                        <button class="songlikebtn"><i class="fa-solid fa-heart"></i></button>
+                        <button class="artistlikebtn @(artist.Liked ? "liked" : "")" artistid="@artist.Id"><i class="fa-solid fa-heart"></i></button>
                         <button class="songplaybtn"><i class="fa-solid fa-play"></i></button>
                     </td>
                     <td>

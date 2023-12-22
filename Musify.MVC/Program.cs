@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Custom Services
 builder.Services.AddScoped<ILikeService<Song>, SongLikeService>();
 builder.Services.AddScoped<ILikeService<Album>, AlbumLikeService>();
+builder.Services.AddScoped<ILikeService<Artist>, ArtistLikeService>();
 
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>

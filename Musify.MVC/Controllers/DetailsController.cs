@@ -12,11 +12,14 @@ namespace Musify.MVC.Controllers
     {
         private ApplicationDbContext _context;
         private ILikeService<Album> _albumLikeService;
+        private ILikeService<Artist> _artistLikeService;
 
-        public DetailsController(ApplicationDbContext context, ILikeService<Album> albumLikeService)
+        public DetailsController(ApplicationDbContext context, ILikeService<Album> albumLikeService,
+            ILikeService<Artist> artistLikeService)
         {
             this._context = context;
             this._albumLikeService = albumLikeService;
+            this._artistLikeService = artistLikeService;
         }
 
         public async Task<IActionResult> Artists(int id)
@@ -28,6 +31,9 @@ namespace Musify.MVC.Controllers
 
             if (artist == null)
                 return NotFound();
+
+            int userId = int.Parse(User.Identity.Name);
+            ViewData["Liked"] = this._artistLikeService.IsLiked(userId, id);
 
             return View(artist);
         }

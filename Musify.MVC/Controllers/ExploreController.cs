@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Musify.MVC.Dtos;
 
 namespace Musify.MVC.Controllers
 {
+    [Authorize]
     public class ExploreController : Controller
     {
         [HttpGet]

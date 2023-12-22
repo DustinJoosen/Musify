@@ -13,4 +13,9 @@
         let albumid = parseInt($(this).attr("albumid"));
         $.post("/api/Likes/ToggleUserLikeAlbum/" + albumid);
     })
+    $(".artistlikebtn").on("click", function () {
+        $(this).toggleClass("liked");
+        let artistid = parseInt($(this).attr("artistid"));
+        $.post("/api/Likes/ToggleUserLikeArtist/" + artistid);
+    })
 })

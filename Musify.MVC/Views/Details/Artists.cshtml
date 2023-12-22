@@ -23,4 +23,8 @@
             <img class="artist-detail-image" src="/uploads//artists/@Model.ArtistImage" width="500" />
         </div>
     </div>
+    <div class="artist-big-hearth">
+        <span class="big-like-btn artistlikebtn @(ViewBag.Liked ? "liked" : "")" artistid="@Model.Id"><i class="fa-solid fa-heart"></i></span>
+    </div>
+
 </div>

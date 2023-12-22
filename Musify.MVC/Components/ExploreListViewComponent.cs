@@ -11,23 +11,26 @@ namespace Musify.MVC.Components
     [Authorize]
     public class ExploreListViewComponent : ViewComponent
     {
-        private int _userId;
+        private User _user;
         
         private ApplicationDbContext _context;
         private ILikeService<Song> _songLikeService;
         private ILikeService<Album> _albumLikeService;
+        private ILikeService<Artist> _artistLikeService;
 
         public ExploreListViewComponent(ApplicationDbContext context, ILikeService<Song> songLikeService,
-            ILikeService<Album> albumLikeService)
+            ILikeService<Album> albumLikeService, ILikeService<Artist> artistLikeService)
         {
             this._context = context;
             this._songLikeService = songLikeService;
             this._albumLikeService = albumLikeService;
+            this._artistLikeService = artistLikeService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(SearchType searchType, string searchText=null)
         {
-            this._userId = int.Parse(User.Identity.Name);
+            var _userId = int.Parse(User.Identity.Name);
+            this._user = await this._context.Users.FindAsync(_userId);
 
             switch (searchType)
             {
@@ -35,7 +38,7 @@ namespace Musify.MVC.Components
                     var albums = await this.GetAlbums(searchText);
                     return View("albumExplore", albums);
                 case SearchType.Artists:
-                    List<Artist> artists = await this.GetArtists(searchText);
+                    var artists = await this.GetArtists(searchText);
                     return View("artistExplore", artists);
                 case SearchType.Playlists:
                     List<Playlist> playlists = await this.GetPlaylists(searchText);
@@ -57,7 +60,7 @@ namespace Musify.MVC.Components
                     SongTitle = song.Title,
                     Artist = song.Artist.Name,
                     SongDuration = song.FormattedDuration,
-                    Liked = this._songLikeService.IsLiked(this._userId, song.Id)
+                    Liked = this._songLikeService.IsLiked(this._user.Id, song.Id)
                 })
                 .ToListAsync();
         }
@@ -74,15 +77,22 @@ namespace Musify.MVC.Components
                     CoverImage = album.CoverImage,
                     ArtistName = album.Artist.Name,
                     Genre = album.Genre,
-                    Liked = this._albumLikeService.IsLiked(this._userId, album.Id)
+                    Liked = this._albumLikeService.IsLiked(this._user.Id, album.Id)
                 })
                 .ToListAsync();
         }
 
-        private async Task<List<Artist>> GetArtists(string searchText = "")
+        private async Task<List<DisplayedArtistDto>> GetArtists(string searchText = "")
         {
             return await this._context.Artists
                 .Where(artist => string.IsNullOrEmpty(searchText) || artist.Name.Contains(searchText))
+                .Select(artist => new DisplayedArtistDto()
+                {
+                    Id = artist.Id,
+                    Name = artist.Name,
+                    Genre = artist.Genre,
+                    Liked = this._artistLikeService.IsLiked(this._user.Id, artist.Id)
+                })
                 .ToListAsync();
         }
 
@@ -92,6 +102,8 @@ namespace Musify.MVC.Components
                 .Where(playlist => playlist.IsPublic || playlist.UserId == int.Parse(User.Identity.Name))
                 .Where(playlist => string.IsNullOrWhiteSpace(searchText) || playlist.Title.Contains(searchText))
                 .Include(playlist => playlist.User)
+                .OrderByDescending(playlist => playlist.User.Name == this._user.Name)
+                .ThenBy(playlist => playlist.Title)
                 .ToListAsync();
         }
     }
