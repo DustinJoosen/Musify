@@ -14,11 +14,14 @@ namespace Musify.MVC.Controllers.Api
     {
         private ApplicationDbContext _context;
         private ILikeService<Song> _songLikeService;
+        private ILikeService<Album> _albumLikeService;
 
-        public LikesController(ApplicationDbContext context, ILikeService<Song> songLikeService)
+        public LikesController(ApplicationDbContext context, ILikeService<Song> songLikeService,
+            ILikeService<Album> albumLikeService)
         {
             this._context = context;
             this._songLikeService = songLikeService;
+            this._albumLikeService = albumLikeService;
         }
 
 
@@ -29,6 +32,17 @@ namespace Musify.MVC.Controllers.Api
             int userId = int.Parse(User.Identity.Name);
 
             await this._songLikeService.Toggle(userId, id);
+            return Ok();
+        }
+
+
+        // POST api/Likes/ToggleUserLikeAlbum
+        [HttpPost("ToggleUserLikeAlbum/{id}")]
+        public async Task<StatusCodeResult> ToggleUserLikeAlbum(int id)
+        {
+            int userId = int.Parse(User.Identity.Name);
+
+            await this._albumLikeService.Toggle(userId, id);
             return Ok();
         }
     }

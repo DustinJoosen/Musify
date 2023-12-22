@@ -8,4 +8,9 @@
         let songid = parseInt($(this).attr("songid"));
         $.post("/api/Likes/ToggleUserLikeSong/" + songid);
     })
+    $(".albumlikebtn").on("click", function () {
+        $(this).toggleClass("liked");
+        let albumid = parseInt($(this).attr("albumid"));
+        $.post("/api/Likes/ToggleUserLikeAlbum/" + albumid);
+    })
 })

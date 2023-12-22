@@ -8,8 +8,8 @@ using Musify.MVC.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Custom Services
-
 builder.Services.AddScoped<ILikeService<Song>, SongLikeService>();
+builder.Services.AddScoped<ILikeService<Album>, AlbumLikeService>();
 
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>

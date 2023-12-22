@@ -5,7 +5,9 @@
 }
 
 <div id="album-detail-page">
-    <h1 class="my-4">@Model.Title</h1>
+    <h1 class="my-4">
+        @Model.Title
+    </h1>
     <div class="row col-12">
         <dl class="col-6">
             <dt class="col-sm-2">
@@ -28,5 +30,8 @@
         <div class="col-4">
             <img class="artist-detail-image" src="/uploads//albums/@Model.CoverImage" width="500" />
         </div>
+    </div>
+    <div class="album-big-hearth">
+        <span class="big-like-btn albumlikebtn @(ViewBag.Liked ? "liked" : "")" albumid="@Model.Id"><i class="fa-solid fa-heart"></i></span>
     </div>
 </div>

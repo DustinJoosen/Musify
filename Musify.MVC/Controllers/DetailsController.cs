@@ -1,15 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Musify.MVC.Data;
+using Musify.MVC.Models;
+using Musify.MVC.Services;
 
 namespace Musify.MVC.Controllers
 {
+    [Authorize]
     public class DetailsController : Controller
     {
         private ApplicationDbContext _context;
-        public DetailsController(ApplicationDbContext context)
+        private ILikeService<Album> _albumLikeService;
+
+        public DetailsController(ApplicationDbContext context, ILikeService<Album> albumLikeService)
         {
             this._context = context;
+            this._albumLikeService = albumLikeService;
         }
 
         public async Task<IActionResult> Artists(int id)
@@ -36,6 +43,9 @@ namespace Musify.MVC.Controllers
 
             if (album == null)
                 return NotFound();
+
+            int userId = int.Parse(User.Identity.Name);
+            ViewData["Liked"] = this._albumLikeService.IsLiked(userId, id);
 
             return View(album);
         }

@@ -150,7 +150,9 @@ footer {
     outline: 2px solid white;
 }
 
-.songlikebtn {
+.albumlikebtn,
+.songlikebtn 
+{
     color: #5390d6 !important;
     width: 30px;
     height: 30px;
@@ -165,7 +167,9 @@ footer {
     outline: 2px solid white;
 }
 
-.songlikebtn.liked {
+.albumlikebtn.liked,
+.songlikebtn.liked 
+{
     background-color: tomato;
     color: white !important;
 }
@@ -204,3 +208,18 @@ footer {
 }
 
 
+.big-like-btn {
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+}
+.big-like-btn i {
+    font-size: 40px;
+}
+
+.album-big-hearth {
+    position: absolute;
+    float: right;
+    right: 80px;
+    top: 80px;
+}

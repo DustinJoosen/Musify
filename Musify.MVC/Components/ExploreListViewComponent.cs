@@ -15,11 +15,14 @@ namespace Musify.MVC.Components
         
         private ApplicationDbContext _context;
         private ILikeService<Song> _songLikeService;
+        private ILikeService<Album> _albumLikeService;
 
-        public ExploreListViewComponent(ApplicationDbContext context, ILikeService<Song> songLikeService)
+        public ExploreListViewComponent(ApplicationDbContext context, ILikeService<Song> songLikeService,
+            ILikeService<Album> albumLikeService)
         {
             this._context = context;
             this._songLikeService = songLikeService;
+            this._albumLikeService = albumLikeService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(SearchType searchType, string searchText=null)
@@ -29,7 +32,7 @@ namespace Musify.MVC.Components
             switch (searchType)
             {
                 case SearchType.Albums:
-                    List<Album> albums = await this.GetAlbums(searchText);
+                    var albums = await this.GetAlbums(searchText);
                     return View("albumExplore", albums);
                 case SearchType.Artists:
                     List<Artist> artists = await this.GetArtists(searchText);
@@ -59,11 +62,20 @@ namespace Musify.MVC.Components
                 .ToListAsync();
         }
 
-        private async Task<List<Album>> GetAlbums(string searchText="")
+        private async Task<List<DisplayedAlbumDto>> GetAlbums(string searchText="")
         {
             return await this._context.Album
                 .Where(album => string.IsNullOrWhiteSpace(searchText) || album.Title.Contains(searchText))
                 .Include(album => album.Artist)
+                .Select(album => new DisplayedAlbumDto()
+                {
+                    Id = album.Id,
+                    Title = album.Title,
+                    CoverImage = album.CoverImage,
+                    ArtistName = album.Artist.Name,
+                    Genre = album.Genre,
+                    Liked = this._albumLikeService.IsLiked(this._userId, album.Id)
+                })
                 .ToListAsync();
         }
 

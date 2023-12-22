@@ -36,13 +36,7 @@ namespace Musify.MVC.Services
             var like = await this._context.UserSongLikes
                 .FirstOrDefaultAsync(usl => usl.UserId == userId && usl.SongId == songId);
 
-            if (like == null)
-                return false;
-
-            this._context.Remove(like);
-
-            var result = await this._context.SaveChangesAsync();
-            return result >= 1;
+            return await this.Disconnect(like);
         }
 
         public override bool IsLiked(int userId, int songId) =>
