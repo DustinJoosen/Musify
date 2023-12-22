@@ -1,21 +1,31 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Musify.MVC.Data;
 using Musify.MVC.Dtos;
 using Musify.MVC.Models;
+using Musify.MVC.Services;
 
 namespace Musify.MVC.Components
 {
+    [Authorize]
     public class ExploreListViewComponent : ViewComponent
     {
+        private int _userId;
+        
         private ApplicationDbContext _context;
-        public ExploreListViewComponent(ApplicationDbContext context)
+        private ILikeService<Song> _songLikeService;
+
+        public ExploreListViewComponent(ApplicationDbContext context, ILikeService<Song> songLikeService)
         {
             this._context = context;
+            this._songLikeService = songLikeService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(SearchType searchType, string searchText=null)
         {
+            this._userId = int.Parse(User.Identity.Name);
+
             switch (searchType)
             {
                 case SearchType.Albums:
@@ -28,16 +38,24 @@ namespace Musify.MVC.Components
                     List<Playlist> playlists = await this.GetPlaylists(searchText);
                     return View("playlistExplore", playlists);
                 default:
-                    List<Song> songs = await this.GetSongs(searchText);
+                    var songs = await this.GetSongs(searchText);
                     return View("songExplore", songs);
             }
         }
 
-        private async Task<List<Song>> GetSongs(string searchText="")
+        private async Task<List<DisplayedSongDto>> GetSongs(string searchText="")
         {
             return await this._context.Songs
                 .Where(song => string.IsNullOrWhiteSpace(searchText) || song.Title.Contains(searchText))
                 .Include(song => song.Artist)
+                .Select(song => new DisplayedSongDto()
+                {
+                    Id = song.Id,
+                    SongTitle = song.Title,
+                    Artist = song.Artist.Name,
+                    SongDuration = song.FormattedDuration,
+                    Liked = this._songLikeService.IsLiked(this._userId, song.Id)
+                })
                 .ToListAsync();
         }
 

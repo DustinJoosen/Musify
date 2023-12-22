@@ -25,6 +25,8 @@ namespace Musify.MVC.Models
         public virtual ICollection<AlbumSong> AlbumSongs { get; set; }
         public virtual ICollection<PlaylistSong> PlaylistSongs { get; set; }
 
+        public virtual ICollection<UserSongLike> UserSongLikes { get; set; }
+
         public string FormattedDuration
         {
             get

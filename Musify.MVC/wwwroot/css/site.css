@@ -151,7 +151,7 @@ footer {
 }
 
 .songlikebtn {
-    color: tomato !important;
+    color: #5390d6 !important;
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -165,6 +165,10 @@ footer {
     outline: 2px solid white;
 }
 
+.songlikebtn.liked {
+    background-color: tomato;
+    color: white !important;
+}
 
 .songlist div:nth-child(even) {
     background-color: rgb(103, 164, 234)
@@ -198,3 +202,5 @@ footer {
     width: 80px;
     margin-right: -20px;
 }
+
+

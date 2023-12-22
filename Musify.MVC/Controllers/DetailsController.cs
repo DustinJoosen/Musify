@@ -16,6 +16,7 @@ namespace Musify.MVC.Controllers
         {
             var artist = await this._context.Artists
                 .Include(artist => artist.Songs)
+                    .ThenInclude(song => song.UserSongLikes)
                 .SingleOrDefaultAsync(artist => artist.Id == id);
 
             if (artist == null)
@@ -29,7 +30,8 @@ namespace Musify.MVC.Controllers
             var album = await this._context.Album
                 .Include(album => album.Artist)
                 .Include(album => album.AlbumSongs)
-                .ThenInclude(albumsong => albumsong.Song)
+                    .ThenInclude(albumsong => albumsong.Song)
+                        .ThenInclude(song => song.UserSongLikes)
                 .SingleOrDefaultAsync(album => album.Id == id);
 
             if (album == null)
