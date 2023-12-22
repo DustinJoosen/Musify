@@ -12,18 +12,18 @@ namespace Musify.MVC.Controllers.Api
     [Authorize]
     public class LikesController : ControllerBase
     {
-        private ApplicationDbContext _context;
         private ILikeService<Song> _songLikeService;
         private ILikeService<Album> _albumLikeService;
         private ILikeService<Artist> _artistLikeService;
+        private ILikeService<Playlist> _playlistLikeService;
 
-        public LikesController(ApplicationDbContext context, ILikeService<Song> songLikeService,
-            ILikeService<Album> albumLikeService, ILikeService<Artist> artistLikeService)
+        public LikesController(ILikeService<Song> songLikeService, ILikeService<Album> albumLikeService, 
+            ILikeService<Artist> artistLikeService, ILikeService<Playlist> playlistLikeService)
         {
-            this._context = context;
             this._songLikeService = songLikeService;
             this._albumLikeService = albumLikeService;
             this._artistLikeService = artistLikeService;
+            this._playlistLikeService = playlistLikeService;
         }
 
 
@@ -36,7 +36,6 @@ namespace Musify.MVC.Controllers.Api
             await this._songLikeService.Toggle(userId, id);
             return Ok();
         }
-
 
         // POST api/Likes/ToggleUserLikeAlbum
         [HttpPost("ToggleUserLikeAlbum/{id}")]
@@ -55,6 +54,16 @@ namespace Musify.MVC.Controllers.Api
             int userId = int.Parse(User.Identity.Name);
 
             await this._artistLikeService.Toggle(userId, id);
+            return Ok();
+        }
+
+        // POST api/Likes/ToggleUserLikePlaylist
+        [HttpPost("ToggleUserLikePlaylist/{id}")]
+        public async Task<StatusCodeResult> ToggleUserLikePlaylist(int id)
+        {
+            int userId = int.Parse(User.Identity.Name);
+
+            await this._playlistLikeService.Toggle(userId, id);
             return Ok();
         }
     }

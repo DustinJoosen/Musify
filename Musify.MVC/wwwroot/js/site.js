@@ -18,4 +18,9 @@
         let artistid = parseInt($(this).attr("artistid"));
         $.post("/api/Likes/ToggleUserLikeArtist/" + artistid);
     })
+    $(".playlistlikebtn").on("click", function () {
+        $(this).toggleClass("liked");
+        let playlistid = parseInt($(this).attr("playlistid"));
+        $.post("/api/Likes/ToggleUserLikePlaylist/" + playlistid);
+    })
 })

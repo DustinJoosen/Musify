@@ -17,14 +17,16 @@ namespace Musify.MVC.Components
         private ILikeService<Song> _songLikeService;
         private ILikeService<Album> _albumLikeService;
         private ILikeService<Artist> _artistLikeService;
+        private ILikeService<Playlist> _playlistLikeService;
 
         public ExploreListViewComponent(ApplicationDbContext context, ILikeService<Song> songLikeService,
-            ILikeService<Album> albumLikeService, ILikeService<Artist> artistLikeService)
+            ILikeService<Album> albumLikeService, ILikeService<Artist> artistLikeService, ILikeService<Playlist> playlistLikeService)
         {
             this._context = context;
             this._songLikeService = songLikeService;
             this._albumLikeService = albumLikeService;
             this._artistLikeService = artistLikeService;
+            this._playlistLikeService = playlistLikeService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(SearchType searchType, string searchText=null)
@@ -41,7 +43,7 @@ namespace Musify.MVC.Components
                     var artists = await this.GetArtists(searchText);
                     return View("artistExplore", artists);
                 case SearchType.Playlists:
-                    List<Playlist> playlists = await this.GetPlaylists(searchText);
+                    var playlists = await this.GetPlaylists(searchText);
                     return View("playlistExplore", playlists);
                 default:
                     var songs = await this.GetSongs(searchText);
@@ -96,13 +98,20 @@ namespace Musify.MVC.Components
                 .ToListAsync();
         }
 
-        private async Task<List<Playlist>> GetPlaylists(string searchText = "")
+        private async Task<List<DisplayedPlaylistDto>> GetPlaylists(string searchText = "")
         {
             return await this._context.Playlists
                 .Where(playlist => playlist.IsPublic || playlist.UserId == int.Parse(User.Identity.Name))
                 .Where(playlist => string.IsNullOrWhiteSpace(searchText) || playlist.Title.Contains(searchText))
                 .Include(playlist => playlist.User)
-                .OrderByDescending(playlist => playlist.User.Name == this._user.Name)
+                .Select(playlist => new DisplayedPlaylistDto
+                {
+                    Id = playlist.Id,
+                    Title = playlist.Title,
+                    Username = playlist.User.Name,
+                    Liked = this._playlistLikeService.IsLiked(this._user.Id, playlist.Id)
+                })
+                .OrderByDescending(playlist => playlist.Username == this._user.Name)
                 .ThenBy(playlist => playlist.Title)
                 .ToListAsync();
         }

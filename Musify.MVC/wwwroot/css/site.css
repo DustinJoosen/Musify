@@ -150,10 +150,10 @@ footer {
     outline: 2px solid white;
 }
 
+.playlistlikebtn,
 .artistlikebtn,
 .albumlikebtn,
-.songlikebtn 
-{
+.songlikebtn {
     color: #5390d6 !important;
     width: 30px;
     height: 30px;
@@ -168,6 +168,7 @@ footer {
     outline: 2px solid white;
 }
 
+.playlistlikebtn.liked,
 .artistlikebtn.liked,
 .albumlikebtn.liked,
 .songlikebtn.liked 
