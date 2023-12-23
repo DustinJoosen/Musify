@@ -35,5 +35,10 @@ namespace Musify.MVC.Models
                 return $"{time.ToString(@"mm\:ss")}";
             }
         }
+
+        public override string ToString()
+        {
+            return this.Title;
+        }
     }
 }
