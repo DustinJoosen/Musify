@@ -4,6 +4,7 @@ using Musify.MVC.Data;
 using AspNetCoreHero.ToastNotification;
 using Musify.MVC.Services;
 using Musify.MVC.Models;
+using Musify.MVC.Services.SongSuggest;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,7 @@ builder.Services.AddScoped<ILikeService<Album>, AlbumLikeService>();
 builder.Services.AddScoped<ILikeService<Artist>, ArtistLikeService>();
 builder.Services.AddScoped<ILikeService<Playlist>, PlaylistLikeService>();
 
+builder.Services.AddScoped<ISongSuggestService, SongSuggestService>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
