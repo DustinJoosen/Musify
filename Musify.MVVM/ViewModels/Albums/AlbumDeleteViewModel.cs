@@ -16,7 +16,7 @@ namespace Musify.MVVM.ViewModels.Songs
     {
         // Fields.
         private readonly Guid _albumId;
-        public string ImageSource => $"../../../Lib/Uploads/{Album.CoverImage}";
+        public string ImageSource => ImageHandler.GetFullFilePath(Album.CoverImage);
         public string Headline => $"Delete album [{this.Album?.Title}]";
 
         // Commands.
@@ -104,10 +104,7 @@ namespace Musify.MVVM.ViewModels.Songs
             succeeded = succeeded && JsonHandler.SaveAll<AlbumSong>(filteredAlbumSongs);
 
             // Remove the image (if any)
-            if (this.Album.CoverImage != "notfound.png")
-            {
-                File.Delete($"../../../Lib/Uploads/{this.Album.CoverImage}");
-            }
+            ImageHandler.AttemptToDeleteImage(this.Album.CoverImage);
 
             // Let user know, and if succeeded send them back.
             if (!succeeded)

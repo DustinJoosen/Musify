@@ -55,7 +55,7 @@ namespace Musify.MVVM.ViewModels.Albums
             this._originalCoverImagePath = album.CoverImage;
             this.ReleaseYear = album.ReleaseYear;
 
-            this.ImgCoverPreview = $"../../Lib/Uploads/{this.CoverImage}";
+            this.ImgCoverPreview = ImageHandler.GetFullFilePath(CoverImage);
         }
 
         public async void SelectImage(object parameter)
@@ -83,15 +83,11 @@ namespace Musify.MVVM.ViewModels.Albums
             {
                 try
                 {
-                    if (this._originalCoverImagePath != "notfound.png")
-                    {
-                        // Delete original
-                        File.Delete($"../../../Lib/Uploads/{this._originalCoverImagePath}");
-                    }
+                    ImageHandler.AttemptToDeleteImage(this._originalCoverImagePath);
 
                     // Copies the file down to the local place.
                     this.CoverImage = Guid.NewGuid().ToString().Replace("-", "") + ".png";
-                    File.Copy(this.ImgCoverPreview, $"../../../Lib/Uploads/{this.CoverImage}");
+                    ImageHandler.CopyImageToLocalStorage(this.ImgCoverPreview, this.CoverImage);
                 } 
                 catch (Exception ex)
                 {
@@ -101,19 +97,19 @@ namespace Musify.MVVM.ViewModels.Albums
                 }
             }
 
-            Boolean Success = JsonHandler.Update<Album>(_id, new Album()
+            bool success = JsonHandler.Update<Album>(_id, new Album()
             {
                 Id = this._id,
                 Title = this.Title,
                 CoverImage = this.CoverImage,
                 ReleaseYear = this.ReleaseYear,
             }); 
-            if(Success)
+
+            if(success)
             {
                 MessageBox.Show("Succesfully updated the album");
                 this._goBack?.Invoke(obj);
             } 
-            
             else
             {
                 MessageBox.Show("Update was not succesful, please try again");

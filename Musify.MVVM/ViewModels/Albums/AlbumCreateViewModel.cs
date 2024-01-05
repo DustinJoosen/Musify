@@ -59,7 +59,7 @@ namespace Musify.MVVM.ViewModels
                 this.CoverImage = Guid.NewGuid().ToString().Replace("-", "") + ".png";
 
                 // Copies the file down to the local placing.
-                File.Copy(this.ImgCoverPreview, $"../../../Lib/Uploads/{this.CoverImage}");
+                ImageHandler.CopyImageToLocalStorage(this.ImgCoverPreview, this.CoverImage);
             }
 
             // Add the album.

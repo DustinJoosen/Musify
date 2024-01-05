@@ -15,7 +15,6 @@
   <ItemGroup>
     <Resource Include="Lib\icon.png" />
     <Resource Include="Lib\logo.png" />
-    <Resource Include="Lib\Uploads\*" />
   </ItemGroup>
 
 </Project>

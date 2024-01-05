@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -170,7 +172,7 @@ namespace Musify.MVVM.ViewModels.Albums
                 {
                     Width = 40,
                     Height = 40,
-                    Source = this.LoadImage(album.CoverImage)
+                    Source = ImageHandler.GetBitmapImage(album.CoverImage)
                 },
                 Title = album.Title,
                 ReleaseYear = album.ReleaseYear,
@@ -232,16 +234,6 @@ namespace Musify.MVVM.ViewModels.Albums
                     albums = albums.OrderBy(album => album.ReleaseYear).ToList();
                     break;
             }
-        }
-
-        public BitmapImage LoadImage(string fileName)
-        {
-            BitmapImage bitmap = new();
-            bitmap.BeginInit();
-            bitmap.UriSource = new Uri($"../../Lib/Uploads/{fileName}", UriKind.RelativeOrAbsolute);
-            bitmap.EndInit();
-
-            return bitmap;
         }
     }
 

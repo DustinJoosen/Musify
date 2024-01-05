@@ -44,7 +44,7 @@ namespace Musify.MVVM.ViewModels
 
         // Express-properties
         public string DetailPageUnderline => $"{this.Artist} | {this.ReleaseYear}";
-        public string FullImagePath => $"../../../Lib/Uploads/{this.CoverImage}";
+        public string FullImagePath => ImageHandler.GetFullFilePath(CoverImage);
 
         public AlbumDetailViewModel(Guid id, Action<object> goBack)
         {
