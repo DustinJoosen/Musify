@@ -1,0 +1,18 @@
+﻿@model User
+
+@{
+    ViewData["Title"] = "Personal library";
+}
+
+<h3 class="text-center" id="personal-lib-header"><span>@Model.Username's</span> personal library</h3>
+
+<div class="row library-blocks mt-5">
+    <a class="library-block-big" id="library-block-mix" asp-action="Mix"><i class="fa-solid fa-shuffle"></i>&nbsp;Mixlist</a>
+    <a class="library-block-big" id="library-block-mpl" asp-action="MyPlaylists"><i class="fa-solid fa-list"></i>&nbsp;My playlists</a>
+</div>
+<div class="row library-blocks mt-4">
+    <a class="library-block-small" asp-action="LikedAlbums"><i class="fa-solid fa-record-vinyl"></i>&nbsp;Liked albums</a>
+    <a class="library-block-small" asp-action="LikedArtists"><i class="fa-solid fa-guitar"></i>&nbsp;Liked artists</a>
+    <a class="library-block-small" asp-action="LikedPlaylists"><i class="fa-solid fa-play"></i>&nbsp;Liked playlists</a>
+    <a class="library-block-small" asp-action="LikedSongs"><i class="fa-solid fa-music"></i>&nbsp;Liked songs</a>
+</div>

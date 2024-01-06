@@ -1,0 +1,38 @@
+﻿@model List<Song>
+
+@{
+    ViewData["Title"] = "Mix";
+}
+
+
+<h3 class="thin-page-header">
+    Mixlist | 
+    <button class="refreshmixlistbtn btn btn-primary">Refresh mix list</button>
+</h3>
+<div class="loading-mix" style="display: none"></div>
+<div class="reload-message">
+    <p>Mix has been regenerated.<br/>Refresh this page to update.</p>
+    <a class="btn btn-outline-dark" asp-action="Mix">Refresh the page</a>
+</div>
+@if (!Model.Any())
+{
+    <script defer>
+        setTimeout(function () {
+            document.querySelector(".refreshmixlistbtn").click();
+        }, 200);
+    </script>
+}
+
+@if (Model.Any()) 
+{
+    <div style="height: 500px">
+        @await Component.InvokeAsync("SongList", new { songs = Model })
+    </div>
+}
+else
+{
+    <p>At least <strong>1</strong> Artist is required to be <a href="@Url.Action("Index", "Explore", new { SearchText = "", SearchType = "Artists" })">liked</a></p>
+}
+
+
+<a asp-action="Index" class="btn btn-info mt-3">Go back to library</a>

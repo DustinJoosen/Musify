@@ -21,5 +21,9 @@ namespace Musify.MVC.Models
         public string Password { get; set; }
 
         public ICollection<Playlist> Playlists { get; set; }
+        public ICollection<UserSongLike> UserSongLikes { get; set; }
+        public ICollection<UserAlbumLike> UserAlbumLikes { get; set; }
+        public ICollection<UserArtistLike> UserArtistLikes { get; set; }
+        public ICollection<UserPlaylistLike> UserPlaylistLikes { get; set; }
     }
 }

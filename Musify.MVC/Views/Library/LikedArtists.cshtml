@@ -1,0 +1,10 @@
+﻿@model List<Artist>
+
+@{
+    ViewData["Title"] = "Liked artists";
+}
+
+<h3 class="thin-page-header">All liked Artists</h3>
+<a asp-action="Index" class="btn btn-info mt-3">Go back to library</a>
+
+@await Component.InvokeAsync("ArtistGrid", new { artists = Model })
