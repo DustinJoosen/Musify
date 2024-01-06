@@ -386,7 +386,7 @@ namespace Musify.MVC.Migrations
 
                     b.HasIndex("SongId");
 
-                    b.ToTable("AlbumSongs");
+                    b.ToTable("AlbumSongs", (string)null);
 
                     b.HasData(
                         new
@@ -912,7 +912,7 @@ namespace Musify.MVC.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Artists");
+                    b.ToTable("Artists", (string)null);
 
                     b.HasData(
                         new
@@ -1082,7 +1082,7 @@ namespace Musify.MVC.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Playlists");
+                    b.ToTable("Playlists", (string)null);
 
                     b.HasData(
                         new
@@ -1299,7 +1299,7 @@ namespace Musify.MVC.Migrations
 
                     b.HasIndex("SongId");
 
-                    b.ToTable("PlaylistSongs");
+                    b.ToTable("PlaylistSongs", (string)null);
 
                     b.HasData(
                         new
@@ -2079,7 +2079,7 @@ namespace Musify.MVC.Migrations
 
                     b.HasIndex("ArtistId");
 
-                    b.ToTable("Songs");
+                    b.ToTable("Songs", (string)null);
 
                     b.HasData(
                         new
@@ -2914,7 +2914,7 @@ namespace Musify.MVC.Migrations
                     b.HasIndex("Username")
                         .IsUnique();
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
 
                     b.HasData(
                         new
@@ -3731,7 +3731,7 @@ namespace Musify.MVC.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserAlbumLikes");
+                    b.ToTable("UserAlbumLikes", (string)null);
                 });
 
             modelBuilder.Entity("Musify.MVC.Models.UserArtistLike", b =>
@@ -3746,7 +3746,7 @@ namespace Musify.MVC.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserArtistLikes");
+                    b.ToTable("UserArtistLikes", (string)null);
                 });
 
             modelBuilder.Entity("Musify.MVC.Models.UserPlaylistLike", b =>
@@ -3761,7 +3761,7 @@ namespace Musify.MVC.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserPlaylistLikes");
+                    b.ToTable("UserPlaylistLikes", (string)null);
                 });
 
             modelBuilder.Entity("Musify.MVC.Models.UserSongLike", b =>
@@ -3776,7 +3776,7 @@ namespace Musify.MVC.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserSongLikes");
+                    b.ToTable("UserSongLikes", (string)null);
                 });
 
             modelBuilder.Entity("Musify.MVC.Models.Album", b =>
