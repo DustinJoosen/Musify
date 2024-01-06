@@ -22,10 +22,10 @@
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Artist.Name)
             </dd>
-            <div class="mt-5">
+            <div class="mt-5" style="height: 225px">
                 @await Component.InvokeAsync("SongList", new { songs = Model.AlbumSongs.Select(albumsong => albumsong.Song).ToList() })
             </div>
-            <button class="btn btn-light mt-3">Back</button>
+            <a class="btn btn-light mt-3" asp-action="Index" asp-controller="Explore">Back to the explore page</a>
         </dl>
         <div class="col-4">
             <img class="artist-detail-image" src="/uploads//albums/@Model.CoverImage" width="500" />

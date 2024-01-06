@@ -1,5 +1,8 @@
-﻿namespace Musify.MVC.Dtos
+﻿using System.Diagnostics;
+
+namespace Musify.MVC.Dtos
 {
+    [DebuggerDisplay("{Id}: {Title} (@{Username})")]
     public class DisplayedPlaylistDto
     {
         public int Id { get; set; }

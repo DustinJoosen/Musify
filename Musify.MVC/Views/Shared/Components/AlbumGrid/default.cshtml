@@ -1,0 +1,28 @@
+﻿@model List<DisplayedAlbumDto>
+
+<div class="my-4 row">
+    @if (Model.Any())
+    {
+        foreach (var album in Model)
+        {
+            <div class="card col-2 m-2">
+                <img class="card-img-top" src="~/uploads/albums/@album.CoverImage" />
+                <div class="card-body">
+                    <h5 class="card-title">@album.Title</h5>
+                    <p class="card-text">
+                        @album.ArtistName
+                    </p>
+                    <div class="row">
+                        <button class="albumlikebtn @(album.Liked ? "liked" : "")" albumid="@album.Id"><i class="fa-solid fa-heart"></i></button>
+                        <button class="songplaybtn"><i class="fa-solid fa-play"></i></button>
+                    </div>
+                    <a class="card-link" asp-controller="Details" asp-action="Albums" asp-route-id="@album.Id">Album Details</a>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>No albums were found.</p>
+    }
+</div>

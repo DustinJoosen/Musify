@@ -1,0 +1,15 @@
+﻿@model List<Song>
+
+@{
+    ViewData["Title"] = "Liked songs";
+}
+
+
+<h3>All liked songs</h3>
+
+<div style="height: 500px">
+    @await Component.InvokeAsync("SongList", new { songs = Model })
+    <sup>@Model.Count() songs</sup>
+</div>
+
+<a asp-action="Index" class="btn btn-info mt-3">Go back to library</a>
