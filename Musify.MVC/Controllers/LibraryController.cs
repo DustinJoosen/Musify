@@ -86,12 +86,12 @@ namespace Musify.MVC.Controllers
             int userId = int.Parse(User.Identity.Name);
             var user = await this._context.Users
                 .Include(user => user.UserAlbumLikes)
-                .ThenInclude(ual => ual.Album)
-                .ThenInclude(album => album.Artist)
+                    .ThenInclude(ual => ual.Album)
+                    .ThenInclude(album => album.Artist)
                 .Include(user => user.UserAlbumLikes)
-                .ThenInclude(ual => ual.Album)
-                .ThenInclude(album => album.AlbumSongs)
-                .ThenInclude(albumSongs => albumSongs.Song)
+                    .ThenInclude(ual => ual.Album)
+                    .ThenInclude(album => album.AlbumSongs)
+                    .ThenInclude(albumSongs => albumSongs.Song)
                 .FirstOrDefaultAsync(user => user.Id == userId);
 
             var albums = user.UserAlbumLikes

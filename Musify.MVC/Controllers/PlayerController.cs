@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Musify.MVC.Data;
 using Musify.MVC.Dtos;
 using Musify.MVC.Models;
-using Musify.MVC.Models.ViewModels;
+using Musify.MVC.ViewModels;
 
 namespace Musify.MVC.Controllers
 {
@@ -94,9 +94,9 @@ namespace Musify.MVC.Controllers
                     {
                         PlaylistId = 0,
                         PlaylistName = "Random",
-                        songs = new List<SongViewModel>
+                        songs = new List<ViewModels.SongViewModel>
                     {
-                        new SongViewModel
+                        new ViewModels.SongViewModel
                         {
                              SongId = song.Id,
                    ArtistId = song.ArtistId,

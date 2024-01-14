@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Musify.MVC.Dtos;
 using Musify.MVC.Models;
+using Musify.MVC.ViewModels;
 using Musify.MVC.Services;
 using System.ComponentModel;
 
@@ -19,12 +20,12 @@ namespace Musify.MVC.Components
         {
             int userId = int.Parse(User?.Identity?.Name ?? "0");
 
-            List<DisplayedSongDto> processed = songs
-                .Select(song => new DisplayedSongDto()
+            List<SongViewModel> processed = songs
+                .Select(song => new SongViewModel()
                 {
                     Id = song.Id,
-                    SongTitle = song.Title,
-                    SongDuration = song.FormattedDuration,
+                    Title = song.Title,
+                    Duration = song.Duration,
                     Liked = this._service.IsLiked(userId, song.Id)
                 }).ToList();
 

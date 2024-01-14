@@ -10,6 +10,7 @@ using Musify.MVC.Data;
 using Musify.MVC.Dtos;
 using Musify.MVC.Models;
 using Musify.MVC.Services;
+using Musify.MVC.ViewModels;
 
 namespace Musify.MVC.Controllers
 {
@@ -36,7 +37,7 @@ namespace Musify.MVC.Controllers
                 var applicationDbContext = (await _context.Playlists.Include(p => p.User)
                     .Include(p => p.PlaylistSongs)
                     .ThenInclude(songs => songs.Song)
-                    .ToListAsync()).Select(p => (new DisplayedPlaylistDto()
+                    .ToListAsync()).Select(p => (new PlaylistViewModel()
                     {
                         Id = p.Id,
                         Songs = p.PlaylistSongs.Select(p => p.Song),

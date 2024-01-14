@@ -5,6 +5,7 @@ using Musify.MVC.Data;
 using Musify.MVC.Dtos;
 using Musify.MVC.Models;
 using Musify.MVC.Services;
+using Musify.MVC.ViewModels;
 
 namespace Musify.MVC.Components
 {
@@ -51,47 +52,47 @@ namespace Musify.MVC.Components
             }
         }
 
-        private async Task<List<DisplayedSongDto>> GetSongs(string searchText="")
+        private async Task<List<SongViewModel>> GetSongs(string searchText="")
         {
             return await this._context.Songs
                 .Where(song => string.IsNullOrWhiteSpace(searchText) || song.Title.Contains(searchText))
                 .Include(song => song.Artist)
-                .Select(song => new DisplayedSongDto()
+                .Select(song => new SongViewModel()
                 {
                     Id = song.Id,
-                    SongTitle = song.Title,
-                    Artist = song.Artist.Name,
-                    SongDuration = song.FormattedDuration,
+                    Title = song.Title,
+                    ArtistName = song.Artist.Name,
+                    Duration = song.Duration,
                     Liked = this._songLikeService.IsLiked(this._user.Id, song.Id)
                 })
                 .ToListAsync();
         }
 
-        private async Task<List<DisplayedAlbumDto>> GetAlbums(string searchText="")
+        private async Task<List<AlbumViewModel>> GetAlbums(string searchText="")
         {
             return await this._context.Album
                 .Where(album => string.IsNullOrWhiteSpace(searchText) || album.Title.Contains(searchText))
                 .Include(album => album.Artist)
                 .Include(album => album.AlbumSongs)
-                .ThenInclude(albumSong => albumSong.Song)
-                .Select(album => new DisplayedAlbumDto()
+                    .ThenInclude(als => als.Song)
+                .Select(album => new AlbumViewModel()
                 {
                     Id = album.Id,
                     Title = album.Title,
                     CoverImage = album.CoverImage,
                     ArtistName = album.Artist.Name,
                     Genre = album.Genre,
-                    Liked = this._albumLikeService.IsLiked(this._user.Id, album.Id),
-                    Songs = album.AlbumSongs.Select(albumSong => albumSong.Song)
+                    Songs = album.AlbumSongs.Select(album => album.Song),
+                    Liked = this._albumLikeService.IsLiked(this._user.Id, album.Id)
                 })
                 .ToListAsync();
         }
 
-        private async Task<List<DisplayedArtistDto>> GetArtists(string searchText = "")
+        private async Task<List<ArtistViewModel>> GetArtists(string searchText = "")
         {
             return await this._context.Artists
                 .Where(artist => string.IsNullOrEmpty(searchText) || artist.Name.Contains(searchText))
-                .Select(artist => new DisplayedArtistDto()
+                .Select(artist => new ArtistViewModel()
                 {
                     Id = artist.Id,
                     Name = artist.Name,
@@ -101,21 +102,21 @@ namespace Musify.MVC.Components
                 .ToListAsync();
         }
 
-        private async Task<List<DisplayedPlaylistDto>> GetPlaylists(string searchText = "")
+        private async Task<List<PlaylistViewModel>> GetPlaylists(string searchText = "")
         {
             return await this._context.Playlists
                 .Where(playlist => playlist.IsPublic || playlist.UserId == int.Parse(User.Identity.Name))
                 .Where(playlist => string.IsNullOrWhiteSpace(searchText) || playlist.Title.Contains(searchText))
                 .Include(playlist => playlist.User)
                 .Include(playlist => playlist.PlaylistSongs)
-                .ThenInclude(ps => ps.Song)
-                .Select(playlist => new DisplayedPlaylistDto
+                    .ThenInclude(pls => pls.Song)
+                .Select(playlist => new PlaylistViewModel
                 {
                     Id = playlist.Id,
                     Title = playlist.Title,
                     Username = playlist.User.Name,
-                    Liked = this._playlistLikeService.IsLiked(this._user.Id, playlist.Id),
-                    Songs = playlist.PlaylistSongs.Select(s => s.Song)
+                    Songs = playlist.PlaylistSongs.Select(playlist => playlist.Song),
+                    Liked = this._playlistLikeService.IsLiked(this._user.Id, playlist.Id)
                 })
                 .OrderByDescending(playlist => playlist.Username == this._user.Name)
                 .ThenBy(playlist => playlist.Title)

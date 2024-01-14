@@ -1,13 +1,13 @@
-﻿@model List<DisplayedSongDto>
+﻿@model List<SongViewModel>
 
 <div class="songlist" style="">
     @foreach (var song in Model)
     {
         <div class="row col-12">
             <button class="songlikebtn @(song.Liked ? "liked" : "")" songid="@song.Id"><i class="fa-solid fa-heart"></i></button>
-            <button class="songplaybtn" songname="@song.SongTitle"><i class="fa-solid fa-play"></i></button>
-            <span class="col-7">@song.SongTitle</span>
-            <span class="col-2">@song.SongDuration</span>
+            <button class="songplaybtn" songname="@song.Title"><i class="fa-solid fa-play"></i></button>
+            <span class="col-7">@song.Title</span>
+            <span class="col-2">@song.FormattedDuration</span>
         </div>
     }
 </div>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Musify.MVC.Dtos;
 using Musify.MVC.Models;
+using Musify.MVC.ViewModels;
 
 namespace Musify.MVC.Components
 {
@@ -9,7 +10,7 @@ namespace Musify.MVC.Components
         public async Task<IViewComponentResult> InvokeAsync(ICollection<Artist> artists)
         {
             return View(artists
-                .Select(artist => new DisplayedArtistDto()
+                .Select(artist => new ArtistViewModel()
                 {
                     Id = artist.Id,
                     Name = artist.Name,
