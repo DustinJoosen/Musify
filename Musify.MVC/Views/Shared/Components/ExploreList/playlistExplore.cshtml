@@ -19,14 +19,14 @@
                 <tr class="min-width">
                     <td style="display: flex">
                         <button class="playlistlikebtn @(playlist.Liked ? "liked" : "")" playlistid="@playlist.Id"><i class="fa-solid fa-heart"></i></button>
-                        <button class="songplaybtn"><i class="fa-solid fa-play"></i></button>
+                        <button class="songplaybtn" songname="@string.Join(',', playlist.Songs.Select(s => s.Title))"><i class="fa-solid fa-play"></i></button>
                     </td>
                     <td>
-                        <a asp-controller="Details" asp-action="Playlists" asp-route-id="@playlist.Id">@playlist.Title</a>
+                        <a asp-controller="Playlist" asp-action="Details" asp-route-id="@playlist.Id">@playlist.Title</a>
                     </td>
                     <td>&#64;@playlist.Username</td>
                     <td>
-                        <button class="btn btn-light">Add</button>
+                        <button class="btn btn-light addQueue" songname="@string.Join(',', playlist.Songs.Select(s => s.Title))">Add</button>
                     </td>
                 </tr>
             }

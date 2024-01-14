@@ -88,6 +88,10 @@ namespace Musify.MVC.Controllers
                 .Include(user => user.UserAlbumLikes)
                 .ThenInclude(ual => ual.Album)
                 .ThenInclude(album => album.Artist)
+                .Include(user => user.UserAlbumLikes)
+                .ThenInclude(ual => ual.Album)
+                .ThenInclude(album => album.AlbumSongs)
+                .ThenInclude(albumSongs => albumSongs.Song)
                 .FirstOrDefaultAsync(user => user.Id == userId);
 
             var albums = user.UserAlbumLikes

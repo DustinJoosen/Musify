@@ -72,6 +72,8 @@ namespace Musify.MVC.Components
             return await this._context.Album
                 .Where(album => string.IsNullOrWhiteSpace(searchText) || album.Title.Contains(searchText))
                 .Include(album => album.Artist)
+                .Include(album => album.AlbumSongs)
+                .ThenInclude(albumSong => albumSong.Song)
                 .Select(album => new DisplayedAlbumDto()
                 {
                     Id = album.Id,
@@ -79,7 +81,8 @@ namespace Musify.MVC.Components
                     CoverImage = album.CoverImage,
                     ArtistName = album.Artist.Name,
                     Genre = album.Genre,
-                    Liked = this._albumLikeService.IsLiked(this._user.Id, album.Id)
+                    Liked = this._albumLikeService.IsLiked(this._user.Id, album.Id),
+                    Songs = album.AlbumSongs.Select(albumSong => albumSong.Song)
                 })
                 .ToListAsync();
         }
@@ -104,12 +107,15 @@ namespace Musify.MVC.Components
                 .Where(playlist => playlist.IsPublic || playlist.UserId == int.Parse(User.Identity.Name))
                 .Where(playlist => string.IsNullOrWhiteSpace(searchText) || playlist.Title.Contains(searchText))
                 .Include(playlist => playlist.User)
+                .Include(playlist => playlist.PlaylistSongs)
+                .ThenInclude(ps => ps.Song)
                 .Select(playlist => new DisplayedPlaylistDto
                 {
                     Id = playlist.Id,
                     Title = playlist.Title,
                     Username = playlist.User.Name,
-                    Liked = this._playlistLikeService.IsLiked(this._user.Id, playlist.Id)
+                    Liked = this._playlistLikeService.IsLiked(this._user.Id, playlist.Id),
+                    Songs = playlist.PlaylistSongs.Select(s => s.Song)
                 })
                 .OrderByDescending(playlist => playlist.Username == this._user.Name)
                 .ThenBy(playlist => playlist.Title)

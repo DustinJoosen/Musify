@@ -28,6 +28,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Library" asp-action="Index">Library</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Playlist" asp-action="Index">Playlist</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Player" asp-action="Index">Music Player</a>
+                        </li>
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item navbar-most-right">
@@ -48,7 +54,13 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <figure>
+        <button onclick="skipQueue()" class="btn btn-outline-primary" style="position: absolute; right: 7.5rem; top: 0; font-size: 0.8rem;">Skip</button>
+        <div id="nowPlaying">Now playing: </div>
+		<audio id="audioPlayer" controls>
+		</audio>
+    </figure>
+    <div class="container" style="margin-bottom: 5rem">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

@@ -5,7 +5,7 @@
     {
         <div class="row col-12">
             <button class="songlikebtn @(song.Liked ? "liked" : "")" songid="@song.Id"><i class="fa-solid fa-heart"></i></button>
-            <button class="songplaybtn"><i class="fa-solid fa-play"></i></button>
+            <button class="songplaybtn" songname="@song.SongTitle"><i class="fa-solid fa-play"></i></button>
             <span class="col-7">@song.SongTitle</span>
             <span class="col-2">@song.SongDuration</span>
         </div>

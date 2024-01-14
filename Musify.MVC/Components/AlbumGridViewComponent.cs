@@ -16,7 +16,8 @@ namespace Musify.MVC.Components
                     CoverImage = album.CoverImage,
                     ArtistName = album.Artist.Name,
                     Genre = album.Genre,
-                    Liked = true
+                    Liked = true,
+                    Songs = album.AlbumSongs.Select(albumSong => albumSong.Song)
                 }).ToList());
         }
 

@@ -21,7 +21,7 @@
                 <tr class="min-width">
                     <td style="display: flex">
                         <button class="albumlikebtn @(album.Liked ? "liked" : "")" albumid="@album.Id"><i class="fa-solid fa-heart"></i></button>
-                        <button class="songplaybtn"><i class="fa-solid fa-play"></i></button>
+                        <button class="songplaybtn" songname="@string.Join(',', album.Songs.Select(s => s.Title))"><i class="fa-solid fa-play"></i></button>
                     </td>
                     <td>
                         <img class="explore-table-albums-cover" src="~/uploads/albums/@album.CoverImage" />
@@ -32,7 +32,7 @@
                     <td>@album.ArtistName</td>
                     <td>@album.Genre</td>
                     <td>
-                        <button class="btn btn-light">Add</button>
+                        <button class="btn btn-light addQueue" songname="@string.Join(',', album.Songs.Select(s => s.Title))">Add</button>
                     </td>
                 </tr>
             }

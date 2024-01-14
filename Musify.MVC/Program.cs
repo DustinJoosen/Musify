@@ -21,6 +21,7 @@ builder.Services.AddScoped<IMixGenerationService, MixGenerationService>();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DbConn"));
+
 });
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
