@@ -2,7 +2,22 @@
     ViewData["Title"] = "Home Page";
 }
 
+
 <div class="text-center">
-    <h1 class="display-4">Welcome @ViewData["username"]</h1>
-    <img src="~/logo.png" width="200" />
+    <h1 class="display-4">
+        Welcome @ViewData["username"] at <img src="~/logo.png" width="200" />!
+    </h1>
+    <p style="margin-top: -50px">Listen to your favourite music, find new artists, make an awesome playlist. Everything is possible!</p>
+
+    <div>
+        <a class="btn btn-light" asp-controller="Playlist" asp-action="Create" >Create your first playlist</a>
+        <a class="btn btn-light" asp-controller="Explore" asp-action="Index" >Search for your favourite songs</a>
+        <a class="btn btn-light" asp-controller="Library" asp-action="Mix" >Generate a mix with recommended songs</a>
+    </div>
+</div>
+
+<div class="discs">
+    @for (int i = 0; i < 40; i++) {
+        <img src="~/disc.png" width="220" style="left: @(-200 + (i * 35))px" />
+    }
 </div>

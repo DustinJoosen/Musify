@@ -366,3 +366,10 @@ audio::-webkit-media-controls-pause-button::before {
     font-size: 20px;
     color: #fff;
 }
+
+
+.discs img {
+    position: absolute;
+    bottom: 100px;
+}
+
