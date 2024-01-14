@@ -1,0 +1,28 @@
+﻿<script src="https://code.jquery.com/jquery-3.6.4.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+<script>
+	function showItems() {
+		let content = ""
+		getQueue().forEach(i => {
+			content += "<div>"
+			content += `<span><h5>${i}</h5><span>`
+			content += `<span><button class="btn btn-danger" onclick="removeFromQueue('${i}');location.reload();">Remove</button><span>`
+			content += `<span><button class="btn btn-warning" onclick="position('${i}', -1);showItems();">Up</button><span>`
+			content += `<span><button class="btn btn-warning" onclick="position('${i}', 1);showItems();">Down</button><span>`
+			content += "</div>"
+		})
+		$("#container")[0].innerHTML = content;
+	}
+	$(document).ready(() => {
+		setTimeout(() => {
+			showItems();	
+		}, 1000)
+	});
+</script>
+
+<h2>Queue</h2>
+<button class="btn btn-primary" onclick="clearQueue();location.reload();">Clear All</button>
+<button class="btn btn-primary" onclick="playQueue()">Play All</button>
+<div class="col-md-3" id="container">
+
+</div>

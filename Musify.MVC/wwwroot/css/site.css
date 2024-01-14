@@ -318,3 +318,50 @@ footer {
         transform: rotate(360deg);
     }
 }
+
+
+/* Style the audio player container */
+figure {
+    padding-right: 0;
+    padding-left: 0;
+    margin-bottom: 0;
+    bottom: 0;
+    z-index: 1;
+    position: fixed;
+    width: 100vw;
+    padding: 20px;
+    height: 4.5rem;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#nowPlaying {
+    position: absolute;
+    top: 0;
+    left: 2.4rem;
+}
+/* Style the audio player controls */
+figure audio {
+    width: 100%;
+    position: relative;
+    top: 0rem;
+}
+audio::-webkit-media-controls-enclosure
+{
+    background-color: transparent;
+}
+
+
+/* Style play icon */
+audio::-webkit-media-controls-play-button::before {
+    content: '\25B6'; /* Unicode play symbol */
+    font-size: 20px;
+    color: #fff;
+}
+
+/* Style pause icon */
+audio::-webkit-media-controls-pause-button::before {
+    content: '\II'; /* Unicode pause symbol */
+    font-size: 20px;
+    color: #fff;
+}

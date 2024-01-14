@@ -1,4 +1,6 @@
-﻿namespace Musify.MVC.Dtos
+﻿using Musify.MVC.Models;
+
+namespace Musify.MVC.Dtos
 {
     public class DisplayedAlbumDto
     {
@@ -8,5 +10,6 @@
         public string ArtistName { get; set; }
         public string Genre { get; set; }
         public bool Liked { get; set; }
+        public IEnumerable<Song> Songs { get; internal set; }
     }
 }

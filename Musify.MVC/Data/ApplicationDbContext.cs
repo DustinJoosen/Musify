@@ -17,6 +17,8 @@ namespace Musify.MVC.Data
         public DbSet<UserSongLike> UserSongLikes { get; set; }
         public DbSet<UserArtistLike> UserArtistLikes { get; set; }
         public DbSet<UserPlaylistLike> UserPlaylistLikes { get; set; }
+        public DbSet<PlaylistQueue> PlaylistQueue { get; set; }
+
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -82,7 +84,6 @@ namespace Musify.MVC.Data
                 .SeedAlbumSongs()
                 .SeedPlaylists()
                 .SeedPlaylistSongs();
-
         }
     }
 }

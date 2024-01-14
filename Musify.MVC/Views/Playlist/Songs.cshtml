@@ -1,0 +1,57 @@
+﻿@model (Musify.MVC.Models.Playlist playlist, List<Musify.MVC.Models.Song> songs)
+@{
+	ViewData["Title"] = "Songs";
+}
+
+<h1>Songs</h1>
+
+<h4>Playlist @Model.playlist.Title</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <table>
+            <thead>
+                <tr>
+                    <th>Song Title</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody>
+				@foreach(var song in Model.playlist.PlaylistSongs)
+				{
+                    <form asp-action="Songs" method="post">
+                        <input name="id" type="hidden" value="@song.SongId">
+						<tr>
+							<td>@song.Song.Title</td>
+							<td><button type="submit" class="btn-danger btn">Remove</button></td>
+						</tr>
+                    </form>
+				}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <h5>Add New Song</h5>
+    <div class="col-md-4">
+        <form asp-action="AddSongs" method="post">
+            <select class="form-select" name="id">
+                @foreach(var song in Model.songs)
+                {
+                    <option value="@song.Id">@song.Title</option>
+                }
+            </select>
+            <input type="hidden" value="@Model.playlist.Id" name="playlistId" />
+            <button type="submit" class="btn-primary btn">Add</button>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
