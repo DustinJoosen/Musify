@@ -125,7 +125,6 @@ namespace Musify.MVC.Controllers
                 return NotFound();
             }
 
-
                 try
                 {
                     _context.Update(playlist);
