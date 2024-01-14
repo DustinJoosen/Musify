@@ -11,7 +11,6 @@
                     <th width="80">Actions</th>
                     <th>Title</th>
                     <th width="200">Genre</th>
-                    <th width="60">Add</th>
                 </tr>
             </thead>
             @foreach (var artist in Model)
@@ -25,9 +24,6 @@
                         <a asp-controller="Details" asp-action="Artists" asp-route-id="@artist.Id">@artist.Name</a>
                     </td>
                     <td>@artist.Genre</td>
-                    <td>
-                        <button class="btn btn-light">Add</button>
-                    </td>
                 </tr>
             }
         </table>

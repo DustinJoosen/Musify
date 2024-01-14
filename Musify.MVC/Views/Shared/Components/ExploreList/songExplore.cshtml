@@ -12,7 +12,6 @@
                     <th>Title</th>
                     <th width="200">Artist</th>
                     <th width="100">Duration</th>
-                    <th width="60">Add</th>
                 </tr>
             </thead>
             @foreach (var song in Model)
@@ -23,13 +22,10 @@
 						<button class="songplaybtn" songname="@song.SongTitle"><i class="fa-solid fa-play"></i></button>
                     </td>
                     <td>
-                        <a asp-controller="Details" asp-action="Albums" asp-route-id="@song.Id" >@song.SongTitle</a>
+                        <a asp-controller="Details" asp-action="Songs" asp-route-id="@song.Id" >@song.SongTitle</a>
                     </td>
                     <td>@song.Artist</td>
                     <td>@song.SongDuration</td>
-                    <td>
-                        <button class="btn btn-light addQueue" songname="@song.SongTitle">Add</button>
-                    </td>
                 </tr>
             }
         </table>
