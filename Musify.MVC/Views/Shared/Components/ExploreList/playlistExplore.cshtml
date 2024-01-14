@@ -1,4 +1,4 @@
-﻿@model List<DisplayedPlaylistDto>
+﻿@model List<PlaylistViewModel>
 
 <h3>Playlist</h3>
 
@@ -11,7 +11,6 @@
                     <th width="80">Actions</th>
                     <th>Title</th>
                     <th width="200">Created by</th>
-                    <th width="60">Add</th>
                 </tr>
             </thead>
             @foreach (var playlist in Model)
@@ -25,9 +24,6 @@
                         <a asp-controller="Playlist" asp-action="Details" asp-route-id="@playlist.Id">@playlist.Title</a>
                     </td>
                     <td>&#64;@playlist.Username</td>
-                    <td>
-                        <button class="btn btn-light addQueue" songname="@string.Join(',', playlist.Songs.Select(s => s.Title))">Add</button>
-                    </td>
                 </tr>
             }
         </table>

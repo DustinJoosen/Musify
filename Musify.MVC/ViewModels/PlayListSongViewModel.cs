@@ -1,4 +1,4 @@
-﻿namespace Musify.MVC.Models.ViewModels
+﻿namespace Musify.MVC.ViewModels
 {
     public class PlayListSongViewModel
     {

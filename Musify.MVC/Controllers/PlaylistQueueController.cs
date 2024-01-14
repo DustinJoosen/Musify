@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Musify.MVC.Data;
-using Musify.MVC.Models.ViewModels;
+using Musify.MVC.ViewModels;
 using Musify.MVC.Models;
 
 namespace Musify.MVC.Controllers

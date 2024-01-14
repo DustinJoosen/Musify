@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Build.Framework;
@@ -10,6 +11,7 @@ using Musify.MVC.Data;
 using Musify.MVC.Dtos;
 using Musify.MVC.Models;
 using Musify.MVC.Services;
+using Musify.MVC.ViewModels;
 
 namespace Musify.MVC.Controllers
 {
@@ -17,12 +19,16 @@ namespace Musify.MVC.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly ILikeService<Playlist> _playlistLikeService;
+        private readonly INotyfService _notyf;
         private User _user;
         
-        public PlaylistController(ApplicationDbContext context, ILikeService<Playlist> playlistLikeService)
+        public PlaylistController(ApplicationDbContext context, 
+            ILikeService<Playlist> playlistLikeService, INotyfService notyf)
         {
             _context = context;
             _playlistLikeService = playlistLikeService;
+
+            this._notyf = notyf;
         }
 
         // GET: Playlist
@@ -31,24 +37,23 @@ namespace Musify.MVC.Controllers
             var _userId = int.Parse(User.Identity.Name);
             var user = await _context.Users.FindAsync(_userId);
 
-            if(user != null)
-            {
-                var applicationDbContext = (await _context.Playlists.Include(p => p.User)
-                    .Include(p => p.PlaylistSongs)
-                    .ThenInclude(songs => songs.Song)
-                    .ToListAsync()).Select(p => (new DisplayedPlaylistDto()
-                    {
-                        Id = p.Id,
-                        Songs = p.PlaylistSongs.Select(p => p.Song),
-                        Title = p.Title,
-                        Username = p.User.Name,
-                        Liked = _playlistLikeService.IsLiked(_userId, p.Id),
-                    }, p.PlaylistSongs.Sum(songs => songs.Song.Duration)))
-                    .ToList();
+            if (user == null)
+                return NotFound();
 
-                return View(applicationDbContext);
-            }
-            return null;
+            var playlists = (await _context.Playlists.Include(p => p.User)
+                .Include(p => p.PlaylistSongs)
+                .ThenInclude(songs => songs.Song)
+                .ToListAsync()).Select(p => (new PlaylistViewModel()
+                {
+                    Id = p.Id,
+                    Songs = p.PlaylistSongs.Select(p => p.Song),
+                    Title = p.Title,
+                    Username = p.User.Name,
+                    Liked = _playlistLikeService.IsLiked(_userId, p.Id),
+                }, p.PlaylistSongs.Sum(songs => songs.Song.Duration)))
+                .ToList();
+
+            return View(playlists);
         }
 
         // GET: Playlist/Details/5
@@ -75,10 +80,12 @@ namespace Musify.MVC.Controllers
         {
             return Ok(User.Identity.Name);
         }
+
         // GET: Playlist/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Name");
+            ViewData["UserName"] = (await _context.Users.FindAsync(int.Parse(User.Identity.Name))).Username;
             return View();
         }
 
@@ -89,11 +96,13 @@ namespace Musify.MVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,UserId,Timestamp,IsPublic")] Playlist playlist)
         {
+            playlist.UserId = int.Parse(User.Identity.Name);
 
-                _context.Add(playlist);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+            _context.Add(playlist);
+            await _context.SaveChangesAsync();
 
+            _notyf.Success("Successfuly created playlist");
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Playlist/Edit/5
@@ -110,6 +119,8 @@ namespace Musify.MVC.Controllers
                 return NotFound();
             }
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Name", playlist.UserId);
+            ViewData["UserName"] = (await _context.Users.FindAsync(int.Parse(User.Identity.Name))).Username;
+
             return View(playlist);
         }
 
@@ -120,15 +131,18 @@ namespace Musify.MVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,UserId,Timestamp,IsPublic")] Playlist playlist)
         {
+            playlist.UserId = int.Parse(User.Identity.Name);
+
             if (id != playlist.Id)
             {
                 return NotFound();
             }
 
-
                 try
                 {
                     _context.Update(playlist);
+
+                    _notyf.Success("Successfuly updated playlist");
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -142,6 +156,8 @@ namespace Musify.MVC.Controllers
                         throw;
                     }
                 }
+            
+                ViewData["UserName"] = (await _context.Users.FindAsync(int.Parse(User.Identity.Name))).Username;
                 return RedirectToAction(nameof(Index));
         }
 
@@ -180,6 +196,8 @@ namespace Musify.MVC.Controllers
             }
             
             await _context.SaveChangesAsync();
+            
+            _notyf.Success("Successfuly deleted playlist");
             return RedirectToAction(nameof(Index));
         }
 
@@ -212,8 +230,11 @@ namespace Musify.MVC.Controllers
             }
             _context.PlaylistSongs.Remove(song);
             await _context.SaveChangesAsync();
+
+            _notyf.Success("Successfuly removed song from playlist");
             return RedirectToAction(nameof(Songs));
         }
+
         [HttpPost, ActionName("AddSongs"), ValidateAntiForgeryToken]
         public async Task<IActionResult> AddSong(int playlistId, int id)
         {
@@ -233,6 +254,8 @@ namespace Musify.MVC.Controllers
                 _context.PlaylistSongs.Add(playListSong);
                 await _context.SaveChangesAsync();
             }
+
+            _notyf.Success("Successfuly added song to playlist");
             return RedirectToAction(nameof(Songs), new {id = playlistId});
         }
         private bool PlaylistExists(int id)

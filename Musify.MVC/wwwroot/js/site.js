@@ -1,11 +1,12 @@
-﻿$(document).ready(() => {
+﻿const ambientMusicSrc = "https://dustinjoosen.github.io/WebArchive/ambient.mp3";
+
+$(document).ready(() => {
     $.post("/api/playlist/UserID").done((data) => {
         globalThis.userid = data;
         let currentSong = localStorage.getItem(data + "currentSong")
         if (currentSong != null) {
             currentSong = JSON.parse(currentSong);
-            const src = "https://henryruss2.github.io/rickroll.mp3";
-            playAudio(src, currentSong.song, currentSong.time, true)
+            playAudio(ambientMusicSrc, currentSong.song, currentSong.time, true)
             
         }
         setInterval(() => {
@@ -72,8 +73,7 @@ function playQueue() {
     const queue = getQueue();
     if (queue.length != 0) {
         const song = queue.shift();
-        const src = "https://henryruss2.github.io/rickroll.mp3";
-        playAudio(src, song);
+        playAudio(ambientMusicSrc, song);
         removeFromQueue(song);
     }
 }
