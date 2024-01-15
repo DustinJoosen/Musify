@@ -1,4 +1,4 @@
-﻿@model List<DisplayedSongDto>
+﻿@model List<SongViewModel>
 
 <h3>Songs</h3>
 
@@ -19,13 +19,13 @@
                 <tr class="min-width">
                     <td style="display: flex">
                         <button class="songlikebtn @(song.Liked ? "liked" : "")" songid="@song.Id"><i class="fa-solid fa-heart"></i></button>
-						<button class="songplaybtn" songname="@song.SongTitle"><i class="fa-solid fa-play"></i></button>
+						<button class="songplaybtn" songname="@song.Title"><i class="fa-solid fa-play"></i></button>
                     </td>
                     <td>
-                        <a asp-controller="Details" asp-action="Albums" asp-route-id="@song.Id" >@song.SongTitle</a>
+                        <a asp-controller="Details" asp-action="Songs" asp-route-id="@song.Id" >@song.Title</a>
                     </td>
-                    <td>@song.Artist</td>
-                    <td>@song.SongDuration</td>
+                    <td>@song.ArtistName</td>
+                    <td>@song.FormattedDuration</td>
                 </tr>
             }
         </table>

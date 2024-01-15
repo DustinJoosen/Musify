@@ -1,6 +1,6 @@
-﻿namespace Musify.MVC.Dtos
+﻿namespace Musify.MVC.ViewModels
 {
-    public class DisplayedArtistDto
+    public class ArtistViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

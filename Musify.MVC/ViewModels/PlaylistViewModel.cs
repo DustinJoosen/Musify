@@ -2,10 +2,10 @@
 
 using System.Diagnostics;
 
-namespace Musify.MVC.Dtos
+namespace Musify.MVC.ViewModels
 {
     [DebuggerDisplay("{Id}: {Title} (@{Username})")]
-    public class DisplayedPlaylistDto
+    public class PlaylistViewModel
     {
         public int Id { get; set; }
         public string Title { get; set; }

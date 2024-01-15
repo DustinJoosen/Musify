@@ -1,8 +1,8 @@
 ﻿using Musify.MVC.Models;
 
-namespace Musify.MVC.Dtos
+namespace Musify.MVC.ViewModels
 {
-    public class DisplayedAlbumDto
+    public class AlbumViewModel
     {
         public int Id { get; set; }
         public string Title { get; set; }
