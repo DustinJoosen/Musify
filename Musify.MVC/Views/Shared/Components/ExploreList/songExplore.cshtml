@@ -12,7 +12,6 @@
                     <th>Title</th>
                     <th width="200">Artist</th>
                     <th width="100">Duration</th>
-                    <th width="60">Add</th>
                 </tr>
             </thead>
             @foreach (var song in Model)
@@ -27,9 +26,6 @@
                     </td>
                     <td>@song.Artist</td>
                     <td>@song.SongDuration</td>
-                    <td>
-                        <button class="btn btn-light addQueue" songname="@song.SongTitle">Add</button>
-                    </td>
                 </tr>
             }
         </table>

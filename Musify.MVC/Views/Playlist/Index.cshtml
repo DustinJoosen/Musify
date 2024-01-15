@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<(DisplayedPlaylistDto playlist, int duration)>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Playlists";
 }
 
-<h1>Index</h1>
+<h1>Playlists</h1>
 
 <p>
     <a asp-action="Create" style="color: wheat;">Add</a>
@@ -53,7 +53,7 @@
             <td >
                     <a asp-action="Edit" asp-route-id="@item.Id" style="color: wheat;">Edit</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id" style="color: wheat;">Delete</a> |
-                    <a asp-action="Songs" asp-route-id="@item.Id" style="color: wheat;">Add Songs</a>
+                    <a asp-action="Songs" asp-route-id="@item.Id" style="color: wheat;">Manage Playlist</a>
             </td>
         </tr>
 }

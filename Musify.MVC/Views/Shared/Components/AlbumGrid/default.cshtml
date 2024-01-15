@@ -14,7 +14,7 @@
                     </p>
                     <div class="row">
                         <button class="albumlikebtn @(album.Liked ? "liked" : "")" albumid="@album.Id"><i class="fa-solid fa-heart"></i></button>
-                        <button class="songplaybtn" songid="@string.Join(',', album.Songs.Select(s => s.Title))"><i class="fa-solid fa-play"></i></button>
+                        <button class="songplaybtn" songname="@string.Join(',', album.Songs.Select(s => s.Title))"><i class="fa-solid fa-play"></i></button>
                     </div>
                     <a class="card-link" asp-controller="Details" asp-action="Albums" asp-route-id="@album.Id">Album Details</a>
                 </div>

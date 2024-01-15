@@ -13,7 +13,6 @@
                     <th>Title</th>
                     <th width="200">Artist</th>
                     <th width="200">Genre</th>
-                    <th width="60">Add</th>
                 </tr>
             </thead>
             @foreach (var album in Model)
@@ -31,9 +30,6 @@
                     </td>
                     <td>@album.ArtistName</td>
                     <td>@album.Genre</td>
-                    <td>
-                        <button class="btn btn-light addQueue" songname="@string.Join(',', album.Songs.Select(s => s.Title))">Add</button>
-                    </td>
                 </tr>
             }
         </table>
