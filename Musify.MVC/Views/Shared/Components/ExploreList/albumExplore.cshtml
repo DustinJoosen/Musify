@@ -20,7 +20,6 @@
                 <tr class="min-width">
                     <td style="display: flex">
                         <button class="albumlikebtn @(album.Liked ? "liked" : "")" albumid="@album.Id"><i class="fa-solid fa-heart"></i></button>
-                        <button class="songplaybtn" songname="@string.Join(',', album.Songs.Select(s => s.Title))"><i class="fa-solid fa-play"></i></button>
                     </td>
                     <td>
                         <img class="explore-table-albums-cover" src="~/uploads/albums/@album.CoverImage" />

@@ -26,7 +26,7 @@
                         <button class="songplaybtn"><i class="fa-solid fa-play"></i></button>
                     </td>
                     <td>
-                        <a asp-controller="Details" asp-action="Playlists" asp-route-id="@playlist.Id">@playlist.Title</a>
+                        <a asp-controller="Playlist" asp-action="Details" asp-route-id="@playlist.Id">@playlist.Title</a>
                     </td>
                     <td>&#64;@playlist.User.Name</td>
                 </tr>
