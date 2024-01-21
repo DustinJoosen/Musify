@@ -8,7 +8,7 @@ namespace Musify.API.Models
         [Key]
         public int Id { get; set; }
 
-        [Required, StringLength(32)]
+        [Required, StringLength(64)]
         public string Username { get; set; }
 
         [Required, StringLength(128)]

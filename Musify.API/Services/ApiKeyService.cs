@@ -18,8 +18,7 @@ namespace Musify.API.Services
             this.IsApiKeyValid(apikey.Key);
 
         public bool IsApiKeyValid(string key) =>
-            this._context.ApiKeys.Any(ak => ak.Key == key) && !this.IsApiKeyExpired(key);
-
+            this._context.ApiKeys.Any(ak => ak.Key == key);
         public bool IsApiKeyExpired(string key)
         {
             var apiKey = this._context.ApiKeys.Find(key);
@@ -57,7 +56,7 @@ namespace Musify.API.Services
 
         public ApiKeyPermissions GetPermissions(string key)
         {
-            if (!this.IsApiKeyValid(key))
+            if (!this.IsApiKeyValid(key) && !this.IsApiKeyExpired(key))
                 return ApiKeyPermissions.None;
 
             var apikey = this._context.ApiKeys.FirstOrDefault(apikey => apikey.Key == key);

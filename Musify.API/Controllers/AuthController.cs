@@ -46,10 +46,10 @@ namespace Musify.API.Controllers
             return Ok(await this._authService.AreCredentialsValid(credentials));
         }
 
-        [HttpGet("GetUser")]
+        [HttpGet("GetUser/{id}")]
         public async Task<IActionResult> GetUser(int id)
         {
-            var user = await this._authService.GetUser(id);
+            var user = await this._authService.FindUser(id);
             if (user == null)
                 return NotFound();
 

@@ -30,7 +30,7 @@ namespace Musify.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ArtistId")
+                    b.Property<int?>("ArtistId")
                         .HasColumnType("int");
 
                     b.Property<string>("CoverImage")
@@ -50,6 +50,21 @@ namespace Musify.API.Migrations
                     b.HasIndex("ArtistId");
 
                     b.ToTable("Albums");
+                });
+
+            modelBuilder.Entity("Musify.API.Models.AlbumSong", b =>
+                {
+                    b.Property<int>("AlbumId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SongId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AlbumId", "SongId");
+
+                    b.HasIndex("SongId");
+
+                    b.ToTable("AlbumSongs");
                 });
 
             modelBuilder.Entity("Musify.API.Models.ApiKey", b =>
@@ -80,7 +95,7 @@ namespace Musify.API.Migrations
                         new
                         {
                             Key = "c9e6b2a15e2d4f8a9b1c76b8a3d5f2e07f1a8d6e9b3c4a2f8e",
-                            CreatedAt = new DateTime(2024, 1, 19, 15, 0, 11, 622, DateTimeKind.Utc).AddTicks(4637),
+                            CreatedAt = new DateTime(2024, 1, 20, 14, 20, 39, 390, DateTimeKind.Utc).AddTicks(2091),
                             Permissions = 2
                         });
                 });
@@ -124,7 +139,7 @@ namespace Musify.API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -137,6 +152,21 @@ namespace Musify.API.Migrations
                     b.ToTable("Playlists");
                 });
 
+            modelBuilder.Entity("Musify.API.Models.PlaylistSong", b =>
+                {
+                    b.Property<int>("PlaylistId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SongId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PlaylistId", "SongId");
+
+                    b.HasIndex("SongId");
+
+                    b.ToTable("PlaylistSongs");
+                });
+
             modelBuilder.Entity("Musify.API.Models.Song", b =>
                 {
                     b.Property<int>("Id")
@@ -145,7 +175,7 @@ namespace Musify.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ArtistId")
+                    b.Property<int?>("ArtistId")
                         .HasColumnType("int");
 
                     b.Property<int>("Duration")
@@ -184,8 +214,8 @@ namespace Musify.API.Migrations
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)");
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.HasKey("Id");
 
@@ -199,11 +229,28 @@ namespace Musify.API.Migrations
                 {
                     b.HasOne("Musify.API.Models.Artist", "Artist")
                         .WithMany()
-                        .HasForeignKey("ArtistId")
+                        .HasForeignKey("ArtistId");
+
+                    b.Navigation("Artist");
+                });
+
+            modelBuilder.Entity("Musify.API.Models.AlbumSong", b =>
+                {
+                    b.HasOne("Musify.API.Models.Album", "Album")
+                        .WithMany("AlbumSongs")
+                        .HasForeignKey("AlbumId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Artist");
+                    b.HasOne("Musify.API.Models.Song", "Song")
+                        .WithMany()
+                        .HasForeignKey("SongId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Album");
+
+                    b.Navigation("Song");
                 });
 
             modelBuilder.Entity("Musify.API.Models.ApiKey", b =>
@@ -219,22 +266,47 @@ namespace Musify.API.Migrations
                 {
                     b.HasOne("Musify.API.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Musify.API.Models.PlaylistSong", b =>
+                {
+                    b.HasOne("Musify.API.Models.Playlist", "Playlist")
+                        .WithMany("PlaylistSongs")
+                        .HasForeignKey("PlaylistId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.HasOne("Musify.API.Models.Song", "Song")
+                        .WithMany()
+                        .HasForeignKey("SongId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Playlist");
+
+                    b.Navigation("Song");
                 });
 
             modelBuilder.Entity("Musify.API.Models.Song", b =>
                 {
                     b.HasOne("Musify.API.Models.Artist", "Artist")
                         .WithMany()
-                        .HasForeignKey("ArtistId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ArtistId");
 
                     b.Navigation("Artist");
+                });
+
+            modelBuilder.Entity("Musify.API.Models.Album", b =>
+                {
+                    b.Navigation("AlbumSongs");
+                });
+
+            modelBuilder.Entity("Musify.API.Models.Playlist", b =>
+                {
+                    b.Navigation("PlaylistSongs");
                 });
 #pragma warning restore 612, 618
         }

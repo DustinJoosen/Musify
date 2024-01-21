@@ -14,11 +14,21 @@ namespace Musify.API.Services
 
         public override async Task<SongDto> GetById(int id)
         {
-            var model = await this._entity
+            var song = await this._entity
                 .Include(song => song.Artist)
                 .FirstOrDefaultAsync(song => song.Id == id);
 
-            return this._mapper.Map<SongDto>(model);
+            return this._mapper.Map<SongDto>(song);
         }
+
+        public override async Task<List<SongDto>> GetAll()
+        {
+            var songs = await this._entity
+                .Include(song => song.Artist)
+                .ToListAsync();
+
+            return this._mapper.Map<List<SongDto>>(songs);
+        }
+
     }
 }

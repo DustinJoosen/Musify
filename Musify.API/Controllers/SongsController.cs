@@ -12,19 +12,27 @@ using Musify.Infra.Dtos;
 namespace Musify.API.Controllers
 {
     [Route("api/[controller]")]
-    [ApiKeyAuthorized]
     [ApiController]
     public class SongsController : ControllerBase
     {
         private ISongService _service;
+        private IArtistService _artistService;
 
-        public SongsController(ISongService service)
+        public SongsController(ISongService service, IArtistService artistService)
         {
             this._service = service;
+            this._artistService = artistService;
         }
 
+        [HttpGet]
+        [ApiKeyAuthorized(Permission = ApiKeyPermissions.Read)]
+        public async Task<IActionResult> GetAll()
+        {
+            var songs = await this._service.GetAll();
+            return Ok(songs);
+        }
 
-        [HttpGet("GetById")]
+        [HttpGet("{id}")]
         [ApiKeyAuthorized(Permission = ApiKeyPermissions.Read)]
         public async Task<IActionResult> GetById(int id)
         {
@@ -35,19 +43,15 @@ namespace Musify.API.Controllers
             return Ok(song);
         }
 
-        [HttpGet("GetAll")]
-        [ApiKeyAuthorized(Permission = ApiKeyPermissions.Read)]
-        public async Task<IActionResult> GetAll()
-        {
-            var songs = await this._service.GetAll();
-            return Ok(songs);
-        }
-
         [HttpPost("Create")]
         [ApiKeyAuthorized(Permission = ApiKeyPermissions.Write)]
         public async Task<IActionResult> Create(SongDto song)
         {
             if (!ModelState.IsValid)
+                return UnprocessableEntity();
+
+            // Ensure ArtistId remains valid
+            if (!this._artistService.Exists(song.ArtistId) && song.ArtistId != 0)
                 return UnprocessableEntity();
 
             var succeeded = await this._service.Create(song);
@@ -58,11 +62,15 @@ namespace Musify.API.Controllers
             return Ok(created);
         }
 
-        [HttpPut("Update")]
+        [HttpPut("{id}/Update")]
         [ApiKeyAuthorized(Permission = ApiKeyPermissions.Write)]
         public async Task<IActionResult> Update(int id, SongDto song)
         {
             if (id != song.Id)
+                return UnprocessableEntity();
+
+            // Ensure ArtistId remains valid
+            if (!this._artistService.Exists(song.ArtistId) && song.ArtistId != 0)
                 return UnprocessableEntity();
 
             var succeeded = await this._service.Update(song);
@@ -73,7 +81,7 @@ namespace Musify.API.Controllers
             return Ok(updated);
         }
 
-        [HttpDelete("Delete")]
+        [HttpDelete("{id}/Delete")]
         [ApiKeyAuthorized(Permission = ApiKeyPermissions.Write)]
         public async Task<IActionResult> Delete(int id)
         {
@@ -94,7 +102,7 @@ namespace Musify.API.Controllers
         public async Task<IActionResult> Count() =>
             Ok(this._service.Count());
 
-        [HttpGet("Exists")]
+        [HttpGet("{id}/Exists")]
         [ApiKeyAuthorized(Permission = ApiKeyPermissions.Read)]
         public async Task<IActionResult> Exists(int id) =>
             this._service.Exists(id) ? Ok(true) : NotFound(false);

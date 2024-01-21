@@ -13,13 +13,29 @@ namespace Musify.API.Data
         public DbSet<Artist> Artists { get; set; }
         public DbSet<Album> Albums { get; set; }
         public DbSet<Song> Songs { get; set; }
+        public DbSet<AlbumSong> AlbumSongs { get; set; }
         public DbSet<Playlist> Playlists { get; set; }
+        public DbSet<PlaylistSong> PlaylistSongs { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<ApiKey> ApiKeys { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<AlbumSong>()
+                .HasKey(albumsong => new
+                {
+                    albumsong.AlbumId,
+                    albumsong.SongId
+                });
+
+            modelBuilder.Entity<PlaylistSong>()
+                .HasKey(playlistsong => new
+                {
+                    playlistsong.PlaylistId,
+                    playlistsong.SongId
+                });
 
             modelBuilder.Entity<User>()
                 .HasIndex(user => user.Username)

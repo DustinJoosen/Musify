@@ -19,12 +19,16 @@ namespace Musify.API.Middleware
 
             // If API key isn't valid.
             if (string.IsNullOrEmpty(apiKey) || !service.IsApiKeyValid(apiKey))
-                context.Result = new UnauthorizedResult();
+                context.Result = new UnauthorizedObjectResult("Your API key is invalid");
+
+            // If API key is expired.
+            if (service.IsApiKeyExpired(apiKey))
+                context.Result = new UnauthorizedObjectResult("Your API key has expired");
 
             // If permissions don't check out.
             ApiKeyPermissions apiKeyPermissions = service.GetPermissions(apiKey);
             if ((int)apiKeyPermissions < (int)Permission)
-                context.Result = new UnauthorizedResult();
+                context.Result = new UnauthorizedObjectResult("Your API key has insufficient permissions");
         }
     }
 }

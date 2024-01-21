@@ -6,12 +6,16 @@ namespace Musify.API.Models
 {
     public class Song : IIdentifiable
     {
+        public Song()
+        {
+            this.ReleaseDate = DateTime.Now;
+        }
+
         [Key]
         public int Id { get; set; }
 
-        [Required]
-        public int ArtistId { get; set; }
-        public Artist Artist { get; set; }
+        public int? ArtistId { get; set; }
+        public Artist? Artist { get; set; }
 
         [Required]
         public string Title { get; set; }
@@ -20,7 +24,6 @@ namespace Musify.API.Models
         public int Duration { get; set; }
 
         [Required]
-        public DateTime ReleaseDate { get; set; } = DateTime.Now;
-
+        public DateTime ReleaseDate { get; set; }
     }
 }

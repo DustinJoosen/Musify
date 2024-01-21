@@ -23,8 +23,15 @@ namespace Musify.API.Controllers
             this._service = service;
         }
 
+        [HttpGet]
+        [ApiKeyAuthorized(Permission = ApiKeyPermissions.Read)]
+        public async Task<IActionResult> GetAll()
+        {
+            var artists = await this._service.GetAll();
+            return Ok(artists);
+        }
 
-        [HttpGet("GetById")]
+        [HttpGet("{id}")]
         [ApiKeyAuthorized(Permission = ApiKeyPermissions.Read)]
         public async Task<IActionResult> GetById(int id)
         {
@@ -33,14 +40,6 @@ namespace Musify.API.Controllers
                 return NotFound();
 
             return Ok(artist);
-        }
-
-        [HttpGet("GetAll")]
-        [ApiKeyAuthorized(Permission = ApiKeyPermissions.Read)]
-        public async Task<IActionResult> GetAll()
-        {
-            var artists = await this._service.GetAll();
-            return Ok(artists);
         }
 
         [HttpPost("Create")]
@@ -58,7 +57,7 @@ namespace Musify.API.Controllers
             return Ok(created);
         }
 
-        [HttpPut("Update")]
+        [HttpPut("{id}/Update")]
         [ApiKeyAuthorized(Permission = ApiKeyPermissions.Write)]
         public async Task<IActionResult> Update(int id, ArtistDto artist)
         {
@@ -73,7 +72,7 @@ namespace Musify.API.Controllers
             return Ok(updated);
         }
 
-        [HttpDelete("Delete")]
+        [HttpDelete("{id}/Delete")]
         [ApiKeyAuthorized(Permission = ApiKeyPermissions.Write)]
         public async Task<IActionResult> Delete(int id)
         {
@@ -94,7 +93,7 @@ namespace Musify.API.Controllers
         public async Task<IActionResult> Count() =>
             Ok(this._service.Count());
 
-        [HttpGet("Exists")]
+        [HttpGet("{id}/Exists")]
         [ApiKeyAuthorized(Permission = ApiKeyPermissions.Read)]
         public async Task<IActionResult> Exists(int id) =>
             this._service.Exists(id) ? Ok(true) : NotFound(false);

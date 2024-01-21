@@ -19,11 +19,14 @@ namespace Musify.API.Services
         {
             this._apiKeyService = apiKeyService;
             this._context = context;
-            this._mapper = mapper;
+             this._mapper = mapper;
         }
 
         public bool IsUsernameInUse(string username) =>
             this._context.Users.Any(user => user.Username == username);
+
+        public bool UserExists(int userId) =>
+            this._context.Users.Any(user => user.Id == userId);
 
         public async Task<bool> AreCredentialsValid(CredentialsDto credentials)
         {
@@ -34,8 +37,20 @@ namespace Musify.API.Services
             return BCrypt.Net.BCrypt.Verify(credentials.Password, user.Password);
         }
 
-        public async Task<UserDto> GetUser(int id) =>
+        public async Task<UserDto> FindUser(int id) =>
             this._mapper.Map<UserDto>(await this._context.Users.FindAsync(id));
+
+        public async Task<UserDto> FindUser(string apiKey)
+        {
+            if (!this._apiKeyService.IsApiKeyValid(apiKey) && !this._apiKeyService.IsApiKeyExpired(apiKey))
+                return null;
+
+            var key = await this._context.ApiKeys.FindAsync(apiKey);
+            if (key.UserId == null)
+                return null;
+
+            return await this.FindUser((int)key.UserId);
+        }
 
         public async Task<UserDto> RegisterUser(RegisterDto registration)
         {

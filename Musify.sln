@@ -10,6 +10,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Musify.MVVM", "Musify.MVVM\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Musify.MVC", "Musify.MVC\Musify.MVC.csproj", "{1C6D9917-B9AD-428E-A40A-F795BAD94434}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Musify.API", "Musify.API\Musify.API.csproj", "{8D264291-B574-4D81-B984-238F6ED510D7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Musify.Infra", "Musify.Infra\Musify.Infra.csproj", "{D890157C-3912-4661-B708-0AE9A6BBA864}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +28,14 @@ Global
 		{1C6D9917-B9AD-428E-A40A-F795BAD94434}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C6D9917-B9AD-428E-A40A-F795BAD94434}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C6D9917-B9AD-428E-A40A-F795BAD94434}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D264291-B574-4D81-B984-238F6ED510D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D264291-B574-4D81-B984-238F6ED510D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D264291-B574-4D81-B984-238F6ED510D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D264291-B574-4D81-B984-238F6ED510D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D890157C-3912-4661-B708-0AE9A6BBA864}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D890157C-3912-4661-B708-0AE9A6BBA864}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D890157C-3912-4661-B708-0AE9A6BBA864}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D890157C-3912-4661-B708-0AE9A6BBA864}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

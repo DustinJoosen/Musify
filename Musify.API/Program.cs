@@ -4,7 +4,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Musify.API.Data;
 using Musify.API.Middleware;
+using Musify.API.Models;
 using Musify.API.Services;
+using Musify.API.Services.Link;
+using Musify.Infra.Dtos;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +25,9 @@ builder.Services.AddScoped<IPlaylistService, PlaylistService>();
 
 builder.Services.AddScoped<IApiKeyService, ApiKeyService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+
+builder.Services.AddScoped<ILinkingService<AlbumDto, SongDto>, AlbumSongLinkingService>();
+builder.Services.AddScoped<ILinkingService<PlaylistDto, SongDto>, PlaylistSongLinkingService>();
 
 builder.Services.AddAutoMapper(typeof(Program));
 
