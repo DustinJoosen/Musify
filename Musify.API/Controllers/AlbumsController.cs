@@ -29,7 +29,6 @@ namespace Musify.API.Controllers
             this._linkingService = linkingService;
         }
 
-
         [HttpGet]
         [ApiKeyAuthorized(Permission = ApiKeyPermissions.Read)]
         public async Task<IActionResult> GetAll()

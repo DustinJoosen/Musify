@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Musify.API.Models
+namespace Musify.Infra.Dtos
 {
     public class UserDto
     {

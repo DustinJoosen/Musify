@@ -47,6 +47,9 @@ namespace Musify.API
 
             CreateMap<PlaylistDto, Playlist>()
                 .ForMember(dest => dest.User, opt => opt.Ignore());
+
+            CreateMap<Like, LikeDto>();
+            CreateMap<LikeDto, Like>();
         }
     }
 }

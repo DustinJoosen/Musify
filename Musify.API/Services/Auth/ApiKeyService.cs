@@ -19,6 +19,7 @@ namespace Musify.API.Services
 
         public bool IsApiKeyValid(string key) =>
             this._context.ApiKeys.Any(ak => ak.Key == key);
+
         public bool IsApiKeyExpired(string key)
         {
             var apiKey = this._context.ApiKeys.Find(key);

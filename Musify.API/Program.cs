@@ -6,7 +6,10 @@ using Musify.API.Data;
 using Musify.API.Middleware;
 using Musify.API.Models;
 using Musify.API.Services;
+using Musify.API.Services.Images;
+using Musify.API.Services.Likes;
 using Musify.API.Services.Link;
+using Musify.API.Services.Logger;
 using Musify.Infra.Dtos;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +21,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DbConn"));
 });
 
+// Service registration
 builder.Services.AddScoped<IArtistService, ArtistService>();
 builder.Services.AddScoped<IAlbumService, AlbumService>();
 builder.Services.AddScoped<ISongService, SongService>();
@@ -28,6 +32,10 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddScoped<ILinkingService<AlbumDto, SongDto>, AlbumSongLinkingService>();
 builder.Services.AddScoped<ILinkingService<PlaylistDto, SongDto>, PlaylistSongLinkingService>();
+
+builder.Services.AddScoped<IImageService, ImageService>();
+builder.Services.AddScoped<ILikesService, LikesService>();
+builder.Services.AddScoped<ILoggingService, LoggingService>();
 
 builder.Services.AddAutoMapper(typeof(Program));
 
@@ -73,6 +81,14 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseStaticFiles();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseDirectoryBrowser();
+}
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

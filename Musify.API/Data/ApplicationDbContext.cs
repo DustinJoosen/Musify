@@ -18,6 +18,7 @@ namespace Musify.API.Data
         public DbSet<PlaylistSong> PlaylistSongs { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<ApiKey> ApiKeys { get; set; }
+        public DbSet<Like> Likes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

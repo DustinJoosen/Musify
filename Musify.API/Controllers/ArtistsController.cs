@@ -12,7 +12,6 @@ using Musify.Infra.Dtos;
 namespace Musify.API.Controllers
 {
     [Route("api/[controller]")]
-    [ApiKeyAuthorized]
     [ApiController]
     public class ArtistsController : ControllerBase
     {
