@@ -20,11 +20,30 @@ namespace Musify.API.Services.Link
             this._songService = songService;
         }
 
-        public async Task Link(PlaylistDto playlist, SongDto song) =>
+        /// <summary>
+        /// Links playlist and song
+        /// </summary>
+        /// <param name="playlist">Playlist to be linked</param>
+        /// <param name="song">Song to be linked</param>
+        /// <returns>Boolean determining success</returns>
+        public async Task<bool> Link(PlaylistDto playlist, SongDto song) =>
             await this.Link(playlist.Id, song.Id);
-        public async Task Unlink(PlaylistDto playlist, SongDto song) =>
+
+        /// <summary>
+        /// Unlinks playlist and song
+        /// </summary>
+        /// <param name="playlist">Entity 1 to be unlinked</param>
+        /// <param name="song">Entity 2 to be unlinked</param>
+        /// <returns>Boolean determining success</returns>
+        public async Task<bool> Unlink(PlaylistDto playlist, SongDto song) =>
             await this.Unlink(playlist.Id, song.Id);
 
+        /// <summary>
+        /// Links playlist and song
+        /// </summary>
+        /// <param name="playlistId">ID of playlist to be linked</param>
+        /// <param name="songId">ID of song to be linked</param>
+        /// <returns>Boolean determining success</returns>
         public async Task<bool> Link(int playlistId, int songId)
         {
             // Check if the playlist and song actually exist.
@@ -45,6 +64,12 @@ namespace Musify.API.Services.Link
             return changes == 1;
         }
 
+        /// <summary>
+        /// Unlinks playlist and song
+        /// </summary>
+        /// <param name="playlistId">ID of Playlist to be unlinked</param>
+        /// <param name="songId">ID of Song to be unlinked</param>
+        /// <returns>Boolean determining success</returns>
         public async Task<bool> Unlink(int playlistId, int songId)
         {
             // Check if the playlist and song actually exist.

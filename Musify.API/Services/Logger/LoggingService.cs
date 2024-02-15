@@ -8,6 +8,10 @@
             this._path = config["LogFile"] ?? throw new FileNotFoundException("Could not find logfile");
         }
 
+        /// <summary>
+        /// Log specified information
+        /// </summary>
+        /// <param name="information">information to be logged</param>
         public void Log(string information)
         {
             try

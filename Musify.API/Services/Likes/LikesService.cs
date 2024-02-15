@@ -16,6 +16,11 @@ namespace Musify.API.Services.Likes
             this._mapper = mapper;
         }
 
+        /// <summary>
+        /// Check wether a Like object exists.
+        /// </summary>
+        /// <param name="like">Like object to be checked</param>
+        /// <returns>Boolean determining wether the like object exists</returns>
         public async Task<bool> IsLiked(LikeDto like)
         {
             return await this._context.Likes.AnyAsync(l =>
@@ -24,6 +29,11 @@ namespace Musify.API.Services.Likes
                 l.EntityType == like.EntityType);
         }
 
+        /// <summary>
+        /// Creates a like object
+        /// </summary>
+        /// <param name="like">Like object to be created</param>
+        /// <returns>Boolean determining success</returns>
         public async Task<bool> Like(LikeDto like)
         {
             if (await this.IsLiked(like))
@@ -40,6 +50,11 @@ namespace Musify.API.Services.Likes
             return rows == 1;
         }
 
+        /// <summary>
+        /// Removes a like object
+        /// </summary>
+        /// <param name="likeDto">Like object to be removed</param>
+        /// <returns>Boolean determining success</returns>
         public async Task<bool> Dislike(LikeDto likeDto)
         {
             if (!await this.IsLiked(likeDto))
@@ -57,6 +72,11 @@ namespace Musify.API.Services.Likes
             return rows == 1;
         }
 
+        /// <summary>
+        /// Returns all likes of given user
+        /// </summary>
+        /// <param name="userId">Id of user to check.</param>
+        /// <returns>List of <typeparamref name="LikeDto"/>'s</returns>
         public async Task<List<LikeDto>> FindLikes(int userId)
         {
             var likes = await this._context.Likes
@@ -66,9 +86,15 @@ namespace Musify.API.Services.Likes
             if (likes == null || !likes.Any())
                 return [];
 
-            return this._mapper.Map<List<LikeDto>>(likes); ;
+            return this._mapper.Map<List<LikeDto>>(likes);
         }
 
+        /// <summary>
+        /// Returns all likes of given user on a specific entity
+        /// </summary>
+        /// <param name="userId">Id of user to check.</param>
+        /// <param name="entityType">Type to be searched.</param>
+        /// <returns>List of <typeparamref name="LikeDto"/>'s</returns>
         public async Task<List<LikeDto>> FindLikes(int userId, string entityType)
         {
             var likes = await this._context.Likes
@@ -78,6 +104,5 @@ namespace Musify.API.Services.Likes
 
             return this._mapper.Map<List<LikeDto>>(likes);
         }
-
     }
 }

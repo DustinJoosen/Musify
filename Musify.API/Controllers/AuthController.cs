@@ -20,6 +20,13 @@ namespace Musify.API.Controllers
             this._authService = authService;
         }
 
+        [HttpGet("/test")]
+        public async Task<IActionResult> Test()
+        {
+            var result = this._keyService.ApiKeyExists("5e91c64151fe4b05b94f4d6976199cad9d53c91f57cf4113b3");
+            return Ok(result);
+        }
+
         [HttpGet("UsernameUnique")]
         public bool UsernameUnique(string username) =>
             !this._authService.IsUsernameInUse(username);
@@ -64,6 +71,19 @@ namespace Musify.API.Controllers
                 return UnprocessableEntity();
 
             var key = await this._keyService.Generate(userId, expirationDate, ApiKeyPermissions.Read);
+            return Ok(key);
+        }
+
+        [HttpPost("GetApiKeyFromUser")]
+        public async Task<IActionResult> GetApiKeyFromUser(CredentialsDto credentials)
+        {
+            if (!await this._authService.AreCredentialsValid(credentials))
+                return Unauthorized();
+
+            var key = await this._keyService.GetApiKeyFromUser(credentials);
+            if (key == null)
+                return BadRequest();
+
             return Ok(key);
         }
     }
