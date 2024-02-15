@@ -31,7 +31,7 @@ namespace Musify.API.Services.Images
         /// </summary>
         /// <param name="filePath">Filepath of the file to delete</param>
         /// <returns>A boolean determining success</returns>
-        public Task<bool> TryDelete(string filePath);
+        public bool TryDelete(string filePath);
 
         /// <summary>
         /// Checks wether a file already exists

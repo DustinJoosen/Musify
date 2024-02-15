@@ -61,7 +61,7 @@ namespace Musify.API.Services.Images
         /// </summary>
         /// <param name="filePath">Filepath of the file to delete</param>
         /// <returns>A boolean determining success</returns>
-        public async Task<bool> TryDelete(string filePath)
+        public bool TryDelete(string filePath)
         {
             try
             {
@@ -84,10 +84,8 @@ namespace Musify.API.Services.Images
         {
             try
             {
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await image.CopyToAsync(stream);
-                }
+                using var stream = new FileStream(filePath, FileMode.Create);
+                await image.CopyToAsync(stream);
                 return true;
             }
             catch

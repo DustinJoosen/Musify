@@ -46,7 +46,7 @@ namespace Musify.API.Controllers
                 return NotFound("Could not find file");
 
             // Delete the file.
-            bool succeeded = await this._imageService.TryDelete(filePath);
+            bool succeeded = this._imageService.TryDelete(filePath);
 
             return Ok(new ImageResponseDto
             {

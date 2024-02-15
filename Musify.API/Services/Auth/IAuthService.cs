@@ -11,7 +11,7 @@ namespace Musify.API.Services
         /// </summary>
         /// <param name="registration">Registration data</param>
         /// <returns>Created <typeparam name="UserDto" /></returns>
-        public Task<UserDto> RegisterUser(RegisterDto registration);
+        public Task<UserDto?> RegisterUser(RegisterDto registration);
 
         /// <summary>
         /// Checks wether given credentials are valid.
@@ -25,14 +25,14 @@ namespace Musify.API.Services
         /// </summary>
         /// <param name="id">Id to match user with</param>
         /// <returns>Found <typeparam name="UserDto" /></returns>
-        public Task<UserDto> FindUser(int id);
+        public Task<UserDto?> FindUser(int id);
 
         /// <summary>
         /// Finds user based on ApiKey
         /// </summary>
         /// <param name="apiKey">ApiKey to match user with</param>
         /// <returns>Found  <typeparamref name="UserDto" /></returns>
-        public Task<UserDto> FindUser(string apiKey);
+        public Task<UserDto?> FindUser(string apiKey);
 
         /// <summary>
         /// Checks wether a username is in use.

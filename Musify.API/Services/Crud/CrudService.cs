@@ -81,6 +81,8 @@ namespace Musify.API.Services
         public virtual async Task<bool> Delete(int id)
         {
             var model = await this._entity.FindAsync(id);
+            if (model == null)
+                return false;
 
             this._entity.Remove(model);
             int changed = await this._context.SaveChangesAsync();

@@ -58,7 +58,7 @@ namespace Musify.API.Services
         /// </summary>
         /// <param name="id">Id to match user with</param>
         /// <returns>Found <typeparam name="UserDto" /></returns>
-        public async Task<UserDto> FindUser(int id) =>
+        public async Task<UserDto?> FindUser(int id) =>
             this._mapper.Map<UserDto>(await this._context.Users.FindAsync(id));
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace Musify.API.Services
         /// </summary>
         /// <param name="apiKey">ApiKey to match user with</param>
         /// <returns>Found <typeparam name="UserDto" /></returns>
-        public async Task<UserDto> FindUser(string apiKey)
+        public async Task<UserDto?> FindUser(string apiKey)
         {
             if (!this._apiKeyService.ApiKeyExists(apiKey) || this._apiKeyService.IsApiKeyExpired(apiKey))
                 return null;
@@ -83,7 +83,7 @@ namespace Musify.API.Services
         /// </summary>
         /// <param name="registration">Registration data</param>
         /// <returns>Created <typeparam name="UserDto" /></returns>
-        public async Task<UserDto> RegisterUser(RegisterDto registration)
+        public async Task<UserDto?> RegisterUser(RegisterDto registration)
         {
             if (this.IsUsernameInUse(registration.Username))
                 return null;

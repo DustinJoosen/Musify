@@ -1,10 +1,13 @@
 ﻿using Musify.API.Data;
 using Musify.API.Models;
+using Musify.API.Services.Linking;
 using Musify.Infra.Dtos;
 
 namespace Musify.API.Services.Link
 {
-    public class AlbumSongLinkingService : ILinkingService<AlbumDto, SongDto>
+    public class AlbumSongLinkingService : 
+        BaseLinkingService<AlbumDto, SongDto>, 
+        ILinkingService<AlbumDto, SongDto>
     {
         private ApplicationDbContext _context;
 
@@ -19,30 +22,12 @@ namespace Musify.API.Services.Link
         }
 
         /// <summary>
-        /// Links album to a song
-        /// </summary>
-        /// <param name="album">Album to be linked</param>
-        /// <param name="song">Song to be linked</param>
-        /// <returns>Boolean determining success</returns>
-        public async Task<bool> Link(AlbumDto album, SongDto song) =>
-            await this.Link(album.Id, song.Id);
-
-        /// <summary>
-        /// Unlinks album and song
-        /// </summary>
-        /// <param name="album">Album to be unlinked</param>
-        /// <param name="song">Song to be unlinked</param>
-        /// <returns>Boolean determining success</returns>
-        public async Task<bool> Unlink(AlbumDto album, SongDto song) =>
-            await this.Unlink(album.Id, song.Id);
-
-        /// <summary>
         /// Links album and song
         /// </summary>
         /// <param name="albumId">ID of Album to be linked</param>
         /// <param name="songId">ID of Song to be linked</param>
         /// <returns>Boolean determining success</returns>
-        public async Task<bool> Link(int albumId, int songId)
+        public override async Task<bool> Link(int albumId, int songId)
         {
             // Check if the album and song actually exist.
             if (!this._albumService.Exists(albumId) || !this._songService.Exists(songId))
@@ -68,7 +53,7 @@ namespace Musify.API.Services.Link
         /// <param name="albumId">ID of Album to be unlinked</param>
         /// <param name="songId">ID of Song to be unlinked</param>
         /// <returns>Boolean determining success</returns>
-        public async Task<bool> Unlink(int albumId, int songId)
+        public override async Task<bool> Unlink(int albumId, int songId)
         {
             // Check if the album and song actually exist.
             if (!this._albumService.Exists(albumId) || !this._songService.Exists(songId))
